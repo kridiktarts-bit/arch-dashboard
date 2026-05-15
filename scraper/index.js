@@ -33,25 +33,21 @@ async function run() {
             existingTitles.add(doc.data().title.trim());
         });
 
-        // 3. Scrape Bustler RSS Feed
-        console.log("📡 Scraping Bustler Competitions RSS feed...");
-        const response = await fetch('https://bustler.net/competitions/rss');
-        let xmlText = await response.text();
-        // Fix invalid XML characters (Bustler sometimes has unescaped ampersands)
-        xmlText = xmlText.replace(/&(?!amp;|lt;|gt;|quot;|apos;|#x[0-9a-fA-F]+;|#[0-9]+;)/g, '&amp;');
-        
-        const feed = await parser.parseString(xmlText);
+        // 3. Scrape Dezeen Competitions RSS Feed
+        console.log("📡 Scraping Dezeen Competitions RSS feed...");
+        const feed = await parser.parseURL('https://www.dezeen.com/competitions/feed/');
         
         let newItemsAdded = 0;
 
         for (const item of feed.items) {
             const title = item.title.trim();
             
+            // Only add if it doesn't already exist
             if (!existingTitles.has(title)) {
                 const newOpp = {
                     title: title,
                     type: "Competition",
-                    org: "Bustler Discovery",
+                    org: "Dezeen Competitions",
                     deadline: "Check Link",
                     notes: `Auto-Scraped via GitHub Actions.\n\nLink: ${item.link}\n\nDetails: ${item.contentSnippet ? item.contentSnippet.substring(0, 150) + '...' : 'Visit link for details.'}`,
                     status: "optional"
