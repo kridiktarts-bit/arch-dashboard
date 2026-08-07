@@ -269,21 +269,21 @@ class App {
                     <div class="onboarding-form">
                         <div>
                             <label class="input-label">First Name</label>
-                            <input type="text" id="ob-first-name" class="text-input" placeholder="e.g. Mariam" value="${wizardState.firstName}">
+                            <input type="text" id="ob-first-name" class="text-input" placeholder="Enter first name" value="${wizardState.firstName}">
                         </div>
                         <div style="display: flex; gap: 16px;">
                             <div style="flex: 1;">
                                 <label class="input-label">Age</label>
-                                <input type="number" id="ob-age" class="text-input" placeholder="e.g. 17" value="${wizardState.age}">
+                                <input type="number" id="ob-age" class="text-input" placeholder="Enter age" value="${wizardState.age}">
                             </div>
                             <div style="flex: 2;">
                                 <label class="input-label">Country</label>
-                                <input type="text" id="ob-country" class="text-input" placeholder="e.g. USA" value="${wizardState.country}">
+                                <input type="text" id="ob-country" class="text-input" placeholder="Enter country" value="${wizardState.country}">
                             </div>
                         </div>
                         <div>
                             <label class="input-label">State / Province (Optional)</label>
-                            <input type="text" id="ob-state" class="text-input" placeholder="e.g. New York" value="${wizardState.state}">
+                            <input type="text" id="ob-state" class="text-input" placeholder="Enter state/province" value="${wizardState.state}">
                         </div>
                         <div>
                             <label class="input-label">Current Status</label>
