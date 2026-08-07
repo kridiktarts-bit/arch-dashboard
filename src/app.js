@@ -1154,6 +1154,7 @@ class App {
 
         rebuildSteps();
 
+        const renderStep = () => {
             container.innerHTML = steps[wizardState.step]();
             attachListeners();
         };
