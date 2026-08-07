@@ -167,6 +167,11 @@ export default {
                                     <div class="progress-bar-fill" style="width: ${percent}%;"></div>
                                 </div>
                                 
+                                <div style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; margin-top: 10px; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 10px;">
+                                    <div><span style="color: var(--text-muted);">⏱️ Est. Duration:</span> <strong style="color: white;">${skill.estimatedHours || '40 Hours'}</strong></div>
+                                    <div><span style="color: var(--text-muted);">🏆 Milestone:</span> <strong style="color: var(--secondary);">${skill.relatedMilestone || 'Coursework Completion'}</strong></div>
+                                </div>
+                                
                                 <div class="skill-details-section">
                                     <strong>Recommended Resources:</strong>
                                     <ul class="skill-details-list">

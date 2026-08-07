@@ -34,7 +34,7 @@ class App {
             'portfolio': { title: 'Portfolio & Deliverables', subtitle: 'Curate your creative work.', component: Projects },
             'opportunities': { title: 'Opportunities Board', subtitle: 'Personalized contests, grants, and internships.', component: Opportunities },
             'achievements': { title: 'Achievements & Badges', subtitle: 'Earn rewards for unlocking career milestones.', component: Milestones },
-            'reset': { title: 'Focus Mode / Studio Reset', subtitle: 'Recover energy and lock in.', component: Reset },
+            'reset': { title: 'Focus & Wellness', subtitle: 'Calm break modes, work timers, and background audio to maintain consistency.', component: Reset },
             'resources': { title: 'Learning Resources', subtitle: 'Curated study guides and reference tools.', component: Resources },
             'inspiration': { title: 'Inspiration Vault', subtitle: 'Randomize concepts and save creative ideas.', component: Inspiration },
             'settings': { title: 'Settings', subtitle: 'Manage your profile and career settings.', component: Settings }
@@ -78,24 +78,14 @@ class App {
         
         if (career === 'comic_creator') {
             if (logoIcon) logoIcon.innerText = '🎨';
-            if (logoText) logoText.innerText = 'ComicTrack';
         } else if (career === 'doctor') {
             if (logoIcon) logoIcon.innerText = '🩺';
-            if (logoText) logoText.innerText = 'Medical OS';
         } else if (career === 'architecture') {
             if (logoIcon) logoIcon.innerText = '🏛️';
-            if (logoText) logoText.innerText = 'ArchTrack';
         } else {
-            const careerNames = {
-                software_engineer: 'DevTrack',
-                game_developer: 'GameOS',
-                animator: 'AnimTrack',
-                film_director: 'FilmOS',
-                lawyer: 'LawTrack'
-            };
             if (logoIcon) logoIcon.innerText = '🚀';
-            if (logoText) logoText.innerText = careerNames[career] || 'CareerTrack';
         }
+        if (logoText) logoText.innerText = 'GoalTrack';
 
         const navContainer = document.getElementById('dynamic-nav-sections');
         
@@ -112,8 +102,7 @@ class App {
                     { "id": "donows", "name": "MCAT Practice", "icon": "⚡" },
                     { "id": "portfolio", "name": "Applications", "icon": "🏗️" },
                     { "id": "schedule", "name": "Study Calendar", "icon": "📅" },
-                    { "id": "resources", "name": "Resources", "icon": "📚" },
-                    { "id": "settings", "name": "Settings", "icon": "⚙️" }
+                    { "id": "resources", "name": "Resources", "icon": "📚" }
                 ];
             } else if (isMed) {
                 linksList = [
@@ -122,8 +111,7 @@ class App {
                     { "id": "donows", "name": "Board Prep", "icon": "⚡" },
                     { "id": "portfolio", "name": "Rotations log", "icon": "📝" },
                     { "id": "schedule", "name": "Shift Calendar", "icon": "📅" },
-                    { "id": "resources", "name": "Resources", "icon": "📚" },
-                    { "id": "settings", "name": "Settings", "icon": "⚙️" }
+                    { "id": "resources", "name": "Resources", "icon": "📚" }
                 ];
             } else {
                 linksList = [
@@ -132,21 +120,23 @@ class App {
                     { "id": "donows", "name": "Clinical Cases", "icon": "⚡" },
                     { "id": "portfolio", "name": "Board Cert", "icon": "🎓" },
                     { "id": "schedule", "name": "Rounds Calendar", "icon": "📅" },
-                    { "id": "resources", "name": "CME Credits", "icon": "📚" },
-                    { "id": "settings", "name": "Settings", "icon": "⚙️" }
+                    { "id": "resources", "name": "CME Credits", "icon": "📚" }
                 ];
             }
         } else if (careerOnboardingConfig && careerOnboardingConfig.sidebarTemplates && careerOnboardingConfig.sidebarTemplates[navKey]) {
-            linksList = careerOnboardingConfig.sidebarTemplates[navKey];
+            linksList = careerOnboardingConfig.sidebarTemplates[navKey].filter(link => link.id !== 'settings' && link.id !== 'reset');
         } else {
             // fallback
             linksList = [
                 { "id": "dashboard", "name": "Overview", "icon": "📊" },
                 { "id": "donows", "name": "Practice Tracker", "icon": "⚡" },
-                { "id": "schedule", "name": "Calendar", "icon": "📅" },
-                { "id": "settings", "name": "Settings", "icon": "⚙️" }
+                { "id": "schedule", "name": "Calendar", "icon": "📅" }
             ];
         }
+
+        // Universally append Focus & Wellness and Settings at the bottom
+        linksList.push({ "id": "reset", "name": "Focus & Wellness", "icon": "🧘" });
+        linksList.push({ "id": "settings", "name": "Settings", "icon": "⚙️" });
 
         let navHtml = `
             <div class="nav-section">

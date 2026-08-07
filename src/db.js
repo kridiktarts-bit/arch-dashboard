@@ -428,124 +428,319 @@ export async function buildDoctorWorkspace(onboarding) {
     
     // 1. Build Roadmap & Learning Path
     let stages = [];
+    const prereqs = onboarding.doc_prereqs || [];
+    const medProgress = onboarding.doc_med_progress || [];
+    const boardCompleted = onboarding.doc_board_completed || false;
+
     if (goal === 'specific_goal') {
         stages = [
             {
                 id: 'stage-1',
                 name: `Specific Goal: ${specific}`,
+                description: `Targeted review, practice, and mock schedules for your milestone: ${specific}.`,
+                timeframe: 'Target Deadline Focus',
                 skills: [
                     { 
                         name: `${specific} Content Review`, 
                         progress: 0, 
-                        lessons: 10,
-                        resources: ["First Aid Review Guide", "Board-Style Review Video Series"],
-                        exercises: ["Chapter summary cards review", "High-yield topic quizzes"]
+                        lessons: 5,
+                        estimatedHours: "40 Hours",
+                        relatedMilestone: `Register for ${specific}`,
+                        resources: ["First Aid Official Guide", "High-Yield Study Video Series"],
+                        exercises: ["Chapter summary review sheets", "Core concepts pop quiz sets"]
                     },
                     { 
                         name: `${specific} Practice Questions`, 
                         progress: 0, 
-                        lessons: 15,
-                        resources: ["USMLE/MCAT QBank Account", "Detailed Question Explanation Logs"],
-                        exercises: ["Timed 40-question practice blocks", "Review incorrect question logic logs"]
+                        lessons: 5,
+                        estimatedHours: "80 Hours",
+                        relatedMilestone: `Complete initial mock for ${specific}`,
+                        resources: ["USMLE/MCAT QBank Account", "Wrong explanations diary log"],
+                        exercises: ["Daily timed 40-question practice block", "Incorrect answers reasoning audit"]
                     },
                     { 
                         name: `${specific} Mock Examinations`, 
                         progress: 0, 
                         lessons: 5,
-                        resources: ["Official Practice Exam Mocks", "Simulated testing environment guidance"],
-                        exercises: ["Full-length simulated mock exam", "Performance dashboard diagnosis review"]
+                        estimatedHours: "30 Hours",
+                        relatedMilestone: `Pass ${specific} certification`,
+                        resources: ["AAMC/NBME Official Practice Exams", "Testing center simulator guide"],
+                        exercises: ["Full-length timed simulated mock exam", "Performance diagnostics gap review"]
                     }
                 ]
             }
         ];
     } else {
         // Full Journey
-        const isCollegePassed = stage.includes("Medical School") || stage.includes("Resident") || stage.includes("Physician") || stage === 'College Graduate';
-        const isMedSchoolPassed = stage.includes("Resident") || stage.includes("Physician");
-        
-        stages.push({
-            id: 'stage-1',
-            name: 'Pre-medical Prep (Undergrad)',
-            skills: [
-                { 
-                    name: 'Biology & Chemistry Prereqs', 
-                    progress: isCollegePassed ? 5 : 0, 
-                    lessons: 5,
-                    resources: ["Campbell Biology 12th Ed", "Khan Academy General Chemistry Lectures"],
-                    exercises: ["Genetics pedigree charts worksheet", "Chemical equation balancing worksheets"]
-                },
-                { 
-                    name: 'Organic Chem & Physics', 
-                    progress: isCollegePassed ? 5 : 0, 
-                    lessons: 5,
-                    resources: ["Organic Chemistry Second Language Book", "OpenStax Physics Lectures"],
-                    exercises: ["Mechanism synthesis reaction pathways", "Force vector equilibrium exercises"]
-                },
-                { 
-                    name: 'MCAT Preparation Review', 
-                    progress: isCollegePassed ? 5 : 0, 
-                    lessons: 5,
-                    resources: ["Official AAMC MCAT Prep Bundle", "Kaplan MCAT Review Coursebooks"],
-                    exercises: ["3 Full-length mock exam simulations", "CARs comprehension exercises daily"]
-                }
-            ]
-        });
-        
-        stages.push({
-            id: 'stage-2',
-            name: `Medical School Curriculum`,
-            skills: [
-                { 
-                    name: 'Pre-clinical Anatomy & Pathology', 
-                    progress: isMedSchoolPassed ? 5 : 0, 
-                    lessons: 5,
-                    resources: ["Netter's Atlas of Human Anatomy", "Pathoma Fundamentals of Pathology"],
-                    exercises: ["Anatomy cadaver quiz cards", "System-based pathology cards deck"]
-                },
-                { 
-                    name: 'USMLE Licensing Preparation', 
-                    progress: isMedSchoolPassed ? 5 : 0, 
-                    lessons: 5,
-                    resources: ["First Aid for USMLE Step 1", "UWorld USMLE QBank Access"],
-                    exercises: ["Daily 40-question randomized test block", "Incorrect answers breakdown review"]
-                },
-                { 
-                    name: 'Specialty Rotations Block', 
-                    progress: isMedSchoolPassed ? 5 : 0, 
-                    lessons: 5,
-                    resources: ["Case Files Internal Medicine Clinical Book", "OnlineMedEd Clinical Videos Collection"],
-                    exercises: ["Complete patient clinical presentation review", "Suturing & surgical knot-tying drills"]
-                }
-            ]
-        });
-        
-        stages.push({
-            id: 'stage-3',
-            name: `Residency & Board Certification (${specialty})`,
-            skills: [
-                { 
-                    name: 'Clinical Ward Rounds', 
-                    progress: stage === 'Practicing Physician' ? 5 : 0, 
-                    lessons: 5,
-                    resources: ["Harrison's Internal Medicine Guide", "UpToDate Clinical Decision Engine"],
-                    exercises: ["Ventilator management simulations", "Rounds patient logs write-up review"]
-                },
-                { 
-                    name: 'Board Certification Exam Prep', 
-                    progress: (stage === 'Practicing Physician' || onboarding.doc_board_completed) ? 5 : 0, 
-                    lessons: 5,
-                    resources: ["MKSAP Specialty Board Questions", "NEJM Knowledge+ review dashboard"],
-                    exercises: ["100 board-style question study set", "Mock board oral examination rehearsal"]
-                },
-                { 
-                    name: 'Continuing Medical Education', 
-                    progress: stage === 'Practicing Physician' ? 5 : 0, 
-                    lessons: 5,
-                    resources: ["JAMA clinical updates lectures", "Mayo Clinic CME certification workshops"],
-                    exercises: ["Systematic literature case audit updates", "Clinical guidelines conference logs review"]
-                }
-            ]
-        });
+        stages = [
+            {
+                id: 'stage-1',
+                name: 'Premed Stage (Undergrad)',
+                description: 'Complete basic pre-professional coursework and MCAT registration requirements.',
+                timeframe: 'Undergraduate Years',
+                skills: [
+                    { 
+                        name: 'Biology', 
+                        progress: prereqs.includes('Biology') ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "60 Hours",
+                        relatedMilestone: "Complete undergrad science courses",
+                        resources: ["Campbell Biology 12th Ed", "Khan Academy Biology Series"],
+                        exercises: ["Genetics pedigree charts worksheet", "Cellular respiration metabolic pathways"]
+                    },
+                    { 
+                        name: 'General Chemistry', 
+                        progress: prereqs.includes('Chemistry') ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "50 Hours",
+                        relatedMilestone: "Complete undergrad science courses",
+                        resources: ["Khan Academy General Chemistry Lectures", "OpenStax Chemistry"],
+                        exercises: ["Stoichiometry balancing reaction worksheets", "Gas laws calculation sets"]
+                    },
+                    { 
+                        name: 'Organic Chemistry', 
+                        progress: prereqs.includes('Organic Chemistry') ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "75 Hours",
+                        relatedMilestone: "Complete undergrad science courses",
+                        resources: ["Organic Chemistry Second Language Book", "Wade Organic Chemistry"],
+                        exercises: ["Nucleophilic substitution mechanism maps", "Synthesis reaction pathways design"]
+                    },
+                    { 
+                        name: 'Physics', 
+                        progress: prereqs.includes('Physics') ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "40 Hours",
+                        relatedMilestone: "Complete undergrad science courses",
+                        resources: ["OpenStax Physics Volume 1", "Physics Classroom Tutorials"],
+                        exercises: ["Newtonian kinematics vector forces sets", "Circuit analysis calculations"]
+                    },
+                    { 
+                        name: 'Biochemistry', 
+                        progress: prereqs.includes('Biochemistry') ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "55 Hours",
+                        relatedMilestone: "Complete undergrad science courses",
+                        resources: ["Lippincott Illustrated Reviews: Biochemistry", "Biochemistry (Voet)"],
+                        exercises: ["Krebs cycle metabolic intermediates quiz", "Enzyme kinetics calculation sets"]
+                    },
+                    { 
+                        name: 'Psychology', 
+                        progress: prereqs.includes('Psychology') ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "30 Hours",
+                        relatedMilestone: "Complete undergrad science courses",
+                        resources: ["CrashCourse Psychology Lectures Series", "Introductory Psychology (Myers)"],
+                        exercises: ["Neurotransmitter pathways matching sheets", "Cognitive development case studies"]
+                    },
+                    { 
+                        name: 'Statistics', 
+                        progress: prereqs.includes('Statistics') ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "30 Hours",
+                        relatedMilestone: "Complete undergrad science courses",
+                        resources: ["Introductory Statistics OpenStax", "Khan Academy Stats"],
+                        exercises: ["Hypothesis test calculations", "Confidence intervals dataset practice"]
+                    },
+                    { 
+                        name: 'Medical Terminology', 
+                        progress: 0, 
+                        lessons: 5,
+                        estimatedHours: "25 Hours",
+                        relatedMilestone: "Complete undergrad science courses",
+                        resources: ["Medical Terminology: A Short Course", "Anki medical prefixes decks"],
+                        exercises: ["Medical anatomical suffix roots quiz", "Case chart translation exercises"]
+                    },
+                    { 
+                        name: 'Scientific Writing', 
+                        progress: 0, 
+                        lessons: 5,
+                        estimatedHours: "30 Hours",
+                        relatedMilestone: "Gain med school admission letter",
+                        resources: ["Writing in the Sciences (Stanford)", "AMA Manual of Style"],
+                        exercises: ["Abstract summary writing practice", "Medical literature critique review"]
+                    }
+                ]
+            },
+            {
+                id: 'stage-2',
+                name: 'Medical School (Basic & Clinical Sciences)',
+                description: 'Pre-clinical anatomy lectures, path/pharm, USMLE exams, and hospital clinical blocks.',
+                timeframe: 'Medical School Years',
+                skills: [
+                    { 
+                        name: 'Gross Anatomy', 
+                        progress: medProgress.includes("Medical School Year 1 classes") ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "120 Hours",
+                        relatedMilestone: "Pass USMLE Step 1",
+                        resources: ["Netter's Atlas of Human Anatomy", "Moore's Clinically Oriented Anatomy"],
+                        exercises: ["Anatomy cadaver quiz decks", "Organ system anatomical relations quiz"]
+                    },
+                    { 
+                        name: 'Physiology', 
+                        progress: medProgress.includes("Medical School Year 1 classes") ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "90 Hours",
+                        relatedMilestone: "Pass USMLE Step 1",
+                        resources: ["Guyton and Hall Textbook of Medical Physiology", "Costanzo Physiology"],
+                        exercises: ["Cardiovascular hemodynamics loops practice", "Renal filtration calculation drills"]
+                    },
+                    { 
+                        name: 'Histology', 
+                        progress: medProgress.includes("Medical School Year 1 classes") ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "40 Hours",
+                        relatedMilestone: "Pass USMLE Step 1",
+                        resources: ["Wheater's Functional Histology Atlas", "Junqueira's Basic Histology"],
+                        exercises: ["Tissue slice identification tests", "Epithelial types slide quiz"]
+                    },
+                    { 
+                        name: 'Embryology', 
+                        progress: medProgress.includes("Medical School Year 1 classes") ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "30 Hours",
+                        relatedMilestone: "Pass USMLE Step 1",
+                        resources: ["Langman's Medical Embryology", "BRS Embryology"],
+                        exercises: ["Heart tube looping milestones diagram", "Congenital defects mapping case files"]
+                    },
+                    { 
+                        name: 'Pathology', 
+                        progress: medProgress.includes("Medical School Year 2 classes") ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "100 Hours",
+                        relatedMilestone: "Pass USMLE Step 1",
+                        resources: ["Pathoma Fundamentals of Pathology", "Robbins Basic Pathology"],
+                        exercises: ["Inflammation tissue biopsy slide quiz", "Anki pathology flashcard deck"]
+                    },
+                    { 
+                        name: 'Pharmacology', 
+                        progress: medProgress.includes("Medical School Year 2 classes") ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "80 Hours",
+                        relatedMilestone: "Pass USMLE Step 1",
+                        resources: ["SketchyPharmacology Mnemonic Videos", "Katzung Basic & Clinical Pharmacology"],
+                        exercises: ["Drug class receptor target flashcards", "Autonomic system drug maps"]
+                    },
+                    { 
+                        name: 'Microbiology', 
+                        progress: medProgress.includes("Medical School Year 2 classes") ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "60 Hours",
+                        relatedMilestone: "Pass USMLE Step 1",
+                        resources: ["Clinical Microbiology Made Ridiculously Simple", "SketchyMicro"],
+                        exercises: ["Gram stain classification quiz", "Antibiotic choice flowchart exercises"]
+                    },
+                    { 
+                        name: 'Immunology', 
+                        progress: medProgress.includes("Medical School Year 2 classes") ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "40 Hours",
+                        relatedMilestone: "Pass USMLE Step 1",
+                        resources: ["How the Immune System Works", "Abbas Cellular Immunology"],
+                        exercises: ["Hypersensitivity reaction case reviews", "Cytokine pathway matching map"]
+                    },
+                    { 
+                        name: 'Clinical Skills', 
+                        progress: medProgress.includes("Completed Clinical Rotations") ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "150 Hours",
+                        relatedMilestone: "Complete core clinical rotations",
+                        resources: ["Bates' Guide to Physical Examination", "Standardized Patient Manual"],
+                        exercises: ["Patient diagnostic interview practice", "Clinical physical exam checklist"]
+                    },
+                    { 
+                        name: 'Patient Communication', 
+                        progress: medProgress.includes("Completed Clinical Rotations") ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "30 Hours",
+                        relatedMilestone: "Complete core clinical rotations",
+                        resources: ["Crucial Conversations in Healthcare", "Patient-Centered Interviewing"],
+                        exercises: ["Bad news delivery simulation roleplay", "Empathy statement scripting review"]
+                    },
+                    { 
+                        name: 'Medical Ethics', 
+                        progress: medProgress.includes("Completed Clinical Rotations") ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "30 Hours",
+                        relatedMilestone: "Complete core clinical rotations",
+                        resources: ["Resolving Ethical Dilemmas (Lo)", "Jonsen's Four Topics Method"],
+                        exercises: ["Informed consent case study review", "Surrogate decision ethics audits"]
+                    }
+                ]
+            },
+            {
+                id: 'stage-3',
+                name: 'Residency (Specialty & Board Prep)',
+                description: `Supervised clinical practice in ${specialty} and preparation for licensing examinations.`,
+                timeframe: 'Residency Years',
+                skills: [
+                    { 
+                        name: 'Specialty Training', 
+                        progress: stage === 'Practicing Physician' ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "200 Hours",
+                        relatedMilestone: `Complete Residency in ${specialty}`,
+                        resources: ["Specialty Board Review Manuals", "Institutional Resident Handbook"],
+                        exercises: ["Ward patient management shift log", "Attending clinical mock rounds"]
+                    },
+                    { 
+                        name: 'Clinical Procedures', 
+                        progress: stage === 'Practicing Physician' ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "100 Hours",
+                        relatedMilestone: `Complete Residency in ${specialty}`,
+                        resources: ["Atlas of Clinical Procedures", "Simulation Center Guidelines"],
+                        exercises: ["Intubation simulation procedures", "Surgical suture knot drills"]
+                    },
+                    { 
+                        name: 'Patient Management', 
+                        progress: stage === 'Practicing Physician' ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "150 Hours",
+                        relatedMilestone: `Complete Residency in ${specialty}`,
+                        resources: ["Harrison's Internal Medicine Guide", "UpToDate Clinical Decision Engine"],
+                        exercises: ["Complex outpatient treatment plans", "Critical care ward reviews"]
+                    },
+                    { 
+                        name: 'Board Exam Preparation', 
+                        progress: (stage === 'Practicing Physician' || boardCompleted) ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "180 Hours",
+                        relatedMilestone: "Obtain medical license & board certification",
+                        resources: ["MKSAP Specialty Board Questions", "Specialty Association board review books"],
+                        exercises: ["100 board-style question blocks timed", "Mock board oral examination practice"]
+                    },
+                    { 
+                        name: 'Evidence-Based Medicine', 
+                        progress: stage === 'Practicing Physician' ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "40 Hours",
+                        relatedMilestone: "Obtain medical license & board certification",
+                        resources: ["Users' Guides to the Medical Literature", "Cochrane Systematic Review database"],
+                        exercises: ["Clinical journal article critique writeup", "Therapeutic choice audit papers"]
+                    },
+                    { 
+                        name: 'Leadership', 
+                        progress: stage === 'Practicing Physician' ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "30 Hours",
+                        relatedMilestone: "Obtain medical license & board certification",
+                        resources: ["AAMC Healthcare Leadership webinars", "Physician Leadership Journal"],
+                        exercises: ["Quality improvement project design", "Clinical team meeting leadership audit"]
+                    },
+                    { 
+                        name: 'Healthcare Systems', 
+                        progress: stage === 'Practicing Physician' ? 5 : 0, 
+                        lessons: 5,
+                        estimatedHours: "40 Hours",
+                        relatedMilestone: "Obtain medical license & board certification",
+                        resources: ["Understanding Value-Based Healthcare", "Health Policy and Management"],
+                        exercises: ["Billing code audit case review", "Medicare/Medicaid policy compliance test"]
+                    }
+                ]
+            }
+        ];
     }
     
     const docRoadmap = {
