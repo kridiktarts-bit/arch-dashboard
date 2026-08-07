@@ -1,9 +1,29 @@
 [
   {
-    "title": "AIA New York Design Awards",
-    "location": "New York City, NY",
-    "type": "competition",
-    "date": "Winter Cycle",
-    "link": "https://aiany.org"
+    "id": "arch-opp-1",
+    "title": "Walter A. Hunt, Jr. Scholarship",
+    "type": "Scholarship",
+    "org": "AIA New York",
+    "deadline": "May 1",
+    "notes": "Specifically for NY public high school students entering architecture school.",
+    "status": "due"
+  },
+  {
+    "id": "arch-opp-2",
+    "title": "Diversity Advancement Scholarship",
+    "type": "Scholarship",
+    "org": "Architects Foundation",
+    "deadline": "January 20",
+    "notes": "For minority high school students entering NAAB-accredited programs.",
+    "status": "mustDo"
+  },
+  {
+    "id": "arch-opp-3",
+    "title": "Project Pipeline Mentorship",
+    "type": "Mentorship",
+    "org": "NOMA",
+    "deadline": "Rolling",
+    "notes": "Great for networking with minority architects in NYC.",
+    "status": "optional"
   }
 ]

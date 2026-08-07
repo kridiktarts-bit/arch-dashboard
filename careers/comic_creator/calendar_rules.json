@@ -1,65 +1,21 @@
 {
-  "maxDailyHoursLimit": 6,
+  "maxDailyHoursLimit": 5,
   "defaultTaskBufferDays": 1,
-  "restDays": [
-    "Sunday"
-  ],
+  "restDays": ["Sunday"],
   "dependenciesList": [
-    {
-      "task": "Write story synopsis",
-      "dependsOn": "Brainstorm story concept"
-    },
-    {
-      "task": "Write chapter summaries",
-      "dependsOn": "Write story synopsis"
-    },
-    {
-      "task": "Main character personality sheet",
-      "dependsOn": "Write chapter summaries"
-    },
-    {
-      "task": "Design character reference sheets",
-      "dependsOn": "Main character personality sheet"
-    },
-    {
-      "task": "Supporting characters turnaround sketches",
-      "dependsOn": "Design character reference sheets"
-    },
-    {
-      "task": "Sketch key locations and settings",
-      "dependsOn": "Supporting characters turnaround sketches"
-    },
-    {
-      "task": "Draft dialogue script for chapters",
-      "dependsOn": "Sketch key locations and settings"
-    },
-    {
-      "task": "Layout panels and pacing thumbnails",
-      "dependsOn": "Draft dialogue script for chapters"
-    },
-    {
-      "task": "Rough penciling and background line art",
-      "dependsOn": "Layout panels and pacing thumbnails"
-    },
-    {
-      "task": "Apply flat base colors and shadow rendering",
-      "dependsOn": "Rough penciling and background line art"
-    },
-    {
-      "task": "Letter dialogue script speech bubbles",
-      "dependsOn": "Apply flat base colors and shadow rendering"
-    },
-    {
-      "task": "Review overall pacing and visual corrections",
-      "dependsOn": "Letter dialogue script speech bubbles"
-    },
-    {
-      "task": "Format panels for online upload (Webtoon/Tapas)",
-      "dependsOn": "Review overall pacing and visual corrections"
-    },
-    {
-      "task": "Create social media promo teasers",
-      "dependsOn": "Format panels for online upload (Webtoon/Tapas)"
-    }
+    { "task": "Write story synopsis", "dependsOn": "Brainstorm story concept" },
+    { "task": "Write chapter summaries", "dependsOn": "Write story synopsis" },
+    { "task": "Main character personality sheet", "dependsOn": "Write story synopsis" },
+    { "task": "Design character reference sheets", "dependsOn": "Main character personality sheet" },
+    { "task": "Supporting characters turnaround sketches", "dependsOn": "Design character reference sheets" },
+    { "task": "Sketch key locations and settings", "dependsOn": "Design character reference sheets" },
+    { "task": "Draft dialogue script for chapters", "dependsOn": "Write chapter summaries" },
+    { "task": "Layout panels and pacing thumbnails", "dependsOn": "Draft dialogue script for chapters" },
+    { "task": "Rough penciling and background line art", "dependsOn": "Layout panels and pacing thumbnails" },
+    { "task": "Apply flat base colors and shadow rendering", "dependsOn": "Rough penciling and background line art" },
+    { "task": "Letter dialogue script speech bubbles", "dependsOn": "Rough penciling and background line art" },
+    { "task": "Review overall pacing and visual corrections", "dependsOn": "Letter dialogue script speech bubbles" },
+    { "task": "Format panels for online upload (Webtoon/Tapas)", "dependsOn": "Review overall pacing and visual corrections" },
+    { "task": "Create social media promo teasers", "dependsOn": "Format panels for online upload (Webtoon/Tapas)" }
   ]
 }

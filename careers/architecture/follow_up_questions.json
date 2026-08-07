@@ -1,55 +1,33 @@
 {
   "skipBasicsOptions": [
-    "Building Codes",
-    "Construction Documents",
-    "Revit Grids",
-    "Conceptual Massing",
-    "Presentation Sheets"
+    "Become licensed",
+    "Find my first job",
+    "Build my portfolio",
+    "Learn Revit",
+    "Learn AutoCAD",
+    "Learn Rhino",
+    "Pass the ARE",
+    "Start my own firm",
+    "Other"
   ],
   "discoveryQuestions": [
     {
       "id": "project_type",
-      "question": "What is your current training stage?",
+      "question": "What project are you scheduling?",
       "type": "select",
-      "options": [
-        "High School",
-        "College Architecture Student",
-        "Graduated B.Arch/M.Arch",
-        "Working Intern",
-        "Licensed Architect"
-      ]
+      "options": ["Residential House Design", "Commercial Plaza Redesign", "Specialized Software Course", "Academic Portfolio Compilation"]
     },
     {
-      "id": "wants_license",
-      "question": "Are you planning to get licensed?",
-      "type": "select",
-      "options": [
-        "Yes, working toward ARE",
-        "Yes, in the future",
-        "No, other career path"
-      ]
+      "id": "scale_levels",
+      "question": "How many sheets/drawings do you need to produce?",
+      "type": "number",
+      "placeholder": "e.g. 5"
     },
     {
-      "id": "chapters_count",
-      "question": "How many ARE exams have you passed?",
+      "id": "software_used",
+      "question": "Which software will you focus on?",
       "type": "select",
-      "options": [
-        "0 exams passed",
-        "1 - 3 exams passed",
-        "4 - 5 exams passed",
-        "Completed ARE"
-      ]
-    },
-    {
-      "id": "pages_per_chapter",
-      "question": "How many AXP hours have you logged?",
-      "type": "select",
-      "options": [
-        "Not started",
-        "Under 1000 hours",
-        "1000 - 3000 hours",
-        "Completed AXP"
-      ]
+      "options": ["Revit", "AutoCAD", "Rhino 3D", "SketchUp + Photoshop"]
     }
   ]
 }

@@ -1,25 +1,21 @@
 {
   "skipBasicsOptions": [
-    "Story Outlines",
-    "Character Designs",
-    "Thumbnails",
-    "Penciling",
-    "Coloring",
-    "Lettering"
+    "Organizing my workflow",
+    "Building a production schedule",
+    "Meeting a deadline",
+    "Publishing",
+    "Marketing",
+    "Monetization",
+    "Growing my audience",
+    "Staying consistent",
+    "Something else"
   ],
   "discoveryQuestions": [
     {
       "id": "project_type",
       "question": "What project are you scheduling?",
       "type": "select",
-      "options": [
-        "Comic Series",
-        "One-Shot",
-        "Manga",
-        "Webtoon",
-        "Graphic Novel",
-        "Other"
-      ]
+      "options": ["Comic Series", "One-Shot", "Manga", "Webtoon", "Graphic Novel", "Other"]
     },
     {
       "id": "chapters_count",
@@ -32,17 +28,6 @@
       "question": "How many pages per chapter?",
       "type": "number",
       "placeholder": "e.g. 5"
-    },
-    {
-      "id": "publishing_plan",
-      "question": "Where do you plan to publish?",
-      "type": "select",
-      "options": [
-        "Webtoon/Tapas",
-        "Social Media (Instagram/Twitter)",
-        "Self-Publish (PDF/Gumroad)",
-        "Print/Physical Copies"
-      ]
     }
   ]
 }

@@ -1,24 +1,8 @@
-{
-  "milestones": [
-    {
-      "id": "milestone-0",
-      "title": "Complete Site & Concept Phase",
-      "requiresTasksCount": 2
-    },
-    {
-      "id": "milestone-1",
-      "title": "Complete Massing Phase",
-      "requiresTasksCount": 2
-    },
-    {
-      "id": "milestone-2",
-      "title": "Complete Schematic Design",
-      "requiresTasksCount": 2
-    },
-    {
-      "id": "milestone-3",
-      "title": "Complete Presentation Phase",
-      "requiresTasksCount": 2
-    }
-  ]
-}
+[
+  { "id": "m1", "title": "Site analysis report complete", "completed": false, "points": 100 },
+  { "id": "m2", "title": "Schematic massing form approved", "completed": false, "points": 150 },
+  { "id": "m3", "title": "Revit model foundation built", "completed": false, "points": 200 },
+  { "id": "m4", "title": "Floor plan layouts complete", "completed": false, "points": 300 },
+  { "id": "m5", "title": "3D renders finalized", "completed": false, "points": 400 },
+  { "id": "m6", "title": "Sheet presentation drawings printed", "completed": false, "points": 500 }
+]

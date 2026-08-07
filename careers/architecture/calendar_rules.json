@@ -1,37 +1,16 @@
 {
   "maxDailyHoursLimit": 6,
   "defaultTaskBufferDays": 1,
-  "restDays": [
-    "Sunday"
-  ],
+  "restDays": ["Sunday"],
   "dependenciesList": [
-    {
-      "task": "Site mapping & contextual overlays",
-      "dependsOn": "Site analysis zoning review"
-    },
-    {
-      "task": "Conceptual massing forms study",
-      "dependsOn": "Site mapping & contextual overlays"
-    },
-    {
-      "task": "Revit grids and level alignments",
-      "dependsOn": "Conceptual massing forms study"
-    },
-    {
-      "task": "Basic floor plan layouts draft",
-      "dependsOn": "Revit grids and level alignments"
-    },
-    {
-      "task": "Section wall details sketches",
-      "dependsOn": "Basic floor plan layouts draft"
-    },
-    {
-      "task": "3D renderings and material lights",
-      "dependsOn": "Section wall details sketches"
-    },
-    {
-      "task": "Presentation sheets final layout",
-      "dependsOn": "3D renderings and material lights"
-    }
+    { "task": "Create architectural site map", "dependsOn": "Analyze site zoning rules" },
+    { "task": "Sketch abstract massing forms", "dependsOn": "Create architectural site map" },
+    { "task": "Model conceptual envelope in Rhino", "dependsOn": "Sketch abstract massing forms" },
+    { "task": "Establish grid alignments in Revit", "dependsOn": "Model conceptual envelope in Rhino" },
+    { "task": "Draw basic floor plan layout", "dependsOn": "Establish grid alignments in Revit" },
+    { "task": "Set up structural wall section details", "dependsOn": "Draw basic floor plan layout" },
+    { "task": "Apply materials and lighting in rendering software", "dependsOn": "Draw basic floor plan layout" },
+    { "task": "Polish final renders in Photoshop", "dependsOn": "Apply materials and lighting in rendering software" },
+    { "task": "Assemble presentation sheets in InDesign", "dependsOn": "Polish final renders in Photoshop" }
   ]
 }

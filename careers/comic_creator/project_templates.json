@@ -1,125 +1,70 @@
 {
-  "career": "Comic Creator",
   "phases": [
     {
-      "id": "phase-1",
-      "name": "Preproduction Phase",
+      "name": "Phase 1: Story Planning",
       "tasks": [
-        {
-          "title": "Brainstorm story concept",
-          "durationHours": 4,
-          "dependencies": []
-        },
-        {
-          "title": "Write story synopsis",
-          "durationHours": 5,
-          "dependencies": [
-            "Brainstorm story concept"
-          ]
-        },
-        {
-          "title": "Write chapter summaries",
-          "durationHours": 6,
-          "dependencies": [
-            "Write story synopsis"
-          ]
-        },
-        {
-          "title": "Main character personality sheet",
-          "durationHours": 4,
-          "dependencies": [
-            "Write chapter summaries"
-          ]
-        },
-        {
-          "title": "Design character reference sheets",
-          "durationHours": 6,
-          "dependencies": [
-            "Main character personality sheet"
-          ]
-        },
-        {
-          "title": "Supporting characters turnaround sketches",
-          "durationHours": 6,
-          "dependencies": [
-            "Design character reference sheets"
-          ]
-        },
-        {
-          "title": "Sketch key locations and settings",
-          "durationHours": 6,
-          "dependencies": [
-            "Supporting characters turnaround sketches"
-          ]
-        }
+        { "title": "Brainstorm story concept", "durationHours": 1.5, "dependencyId": "" },
+        { "title": "Define genre and tone", "durationHours": 1, "dependencyId": "" },
+        { "title": "Write story synopsis", "durationHours": 2, "dependencyId": "Brainstorm story concept" },
+        { "title": "Write chapter summaries", "durationHours": 4, "dependencyId": "Write story synopsis" }
       ]
     },
     {
-      "id": "phase-2",
-      "name": "Production Phase",
+      "name": "Phase 2: Character Creation",
       "tasks": [
-        {
-          "title": "Draft dialogue script for chapters",
-          "durationHours": 8,
-          "dependencies": [
-            "Sketch key locations and settings"
-          ]
-        },
-        {
-          "title": "Layout panels and pacing thumbnails",
-          "durationHours": 8,
-          "dependencies": [
-            "Draft dialogue script for chapters"
-          ]
-        },
-        {
-          "title": "Rough penciling and background line art",
-          "durationHours": 12,
-          "dependencies": [
-            "Layout panels and pacing thumbnails"
-          ]
-        },
-        {
-          "title": "Apply flat base colors and shadow rendering",
-          "durationHours": 10,
-          "dependencies": [
-            "Rough penciling and background line art"
-          ]
-        },
-        {
-          "title": "Letter dialogue script speech bubbles",
-          "durationHours": 6,
-          "dependencies": [
-            "Apply flat base colors and shadow rendering"
-          ]
-        }
+        { "title": "Main character personality sheet", "durationHours": 2, "dependencyId": "Write story synopsis" },
+        { "title": "Design character reference sheets", "durationHours": 4, "dependencyId": "Main character personality sheet" },
+        { "title": "Supporting characters turnaround sketches", "durationHours": 3.5, "dependencyId": "Design character reference sheets" }
       ]
     },
     {
-      "id": "phase-3",
-      "name": "Publishing Phase",
+      "name": "Phase 3: World Building",
       "tasks": [
-        {
-          "title": "Review overall pacing and visual corrections",
-          "durationHours": 5,
-          "dependencies": [
-            "Letter dialogue script speech bubbles"
-          ]
-        },
-        {
-          "title": "Format panels for online upload (Webtoon/Tapas)",
-          "durationHours": 4,
-          "dependencies": [
-            "Review overall pacing and visual corrections"
-          ]
-        },
-        {
-          "title": "Create social media promo teasers",
-          "durationHours": 5,
-          "dependencies": [
-            "Format panels for online upload (Webtoon/Tapas)"
-          ]
-        }
+        { "title": "Sketch key locations and settings", "durationHours": 3, "dependencyId": "Design character reference sheets" },
+        { "title": "Establish background lore and rules", "durationHours": 2, "dependencyId": "Write story synopsis" }
+      ]
+    },
+    {
+      "name": "Phase 4: Script Writing",
+      "tasks": [
+        { "title": "Draft dialogue script for chapters", "durationHours": 8, "dependencyId": "Write chapter summaries" }
+      ]
+    },
+    {
+      "name": "Phase 5: Thumbnail Sketches",
+      "tasks": [
+        { "title": "Layout panels and pacing thumbnails", "durationHours": 6, "dependencyId": "Draft dialogue script for chapters" }
+      ]
+    },
+    {
+      "name": "Phase 6: Line Art",
+      "tasks": [
+        { "title": "Rough penciling and background line art", "durationHours": 12, "dependencyId": "Layout panels and pacing thumbnails" }
+      ]
+    },
+    {
+      "name": "Phase 7: Coloring",
+      "tasks": [
+        { "title": "Apply flat base colors and shadow rendering", "durationHours": 10, "dependencyId": "Rough penciling and background line art" }
+      ]
+    },
+    {
+      "name": "Phase 8: Lettering",
+      "tasks": [
+        { "title": "Letter dialogue script speech bubbles", "durationHours": 4, "dependencyId": "Rough penciling and background line art" }
+      ]
+    },
+    {
+      "name": "Phase 9: Editing",
+      "tasks": [
+        { "title": "Review overall pacing and visual corrections", "durationHours": 3, "dependencyId": "Letter dialogue script speech bubbles" }
+      ]
+    },
+    {
+      "name": "Phase 10: Publishing",
+      "tasks": [
+        { "title": "Format panels for online upload (Webtoon/Tapas)", "durationHours": 2.5, "dependencyId": "Review overall pacing and visual corrections" },
+        { "title": "Create social media promo teasers", "durationHours": 2, "dependencyId": "Format panels for online upload (Webtoon/Tapas)" }
       ]
     }
   ]
