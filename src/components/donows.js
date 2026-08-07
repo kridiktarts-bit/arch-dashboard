@@ -108,6 +108,11 @@ export default {
                     <h3>Focus Session</h3>
                     <p class="text-muted" style="margin-top: 8px; font-size: 14px;">Pomodoro timer for career study.</p>
                     <div class="timer-display" id="timer-display">25:00</div>
+                    <div style="margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <label style="font-size: 13px; color: var(--text-muted);">Duration:</label>
+                        <input type="number" id="timer-duration-input" value="25" min="1" max="180" style="width: 60px; padding: 6px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 6px; color: white; text-align: center; font-size: 13px;">
+                        <span style="font-size: 13px; color: var(--text-muted);">minutes</span>
+                    </div>
                     <div style="display: flex; gap: 12px; justify-content: center;">
                         <button class="btn btn-primary" id="timer-start">Start</button>
                         <button class="btn" id="timer-reset" style="background: rgba(255,255,255,0.1);">Reset</button>
@@ -277,6 +282,7 @@ export default {
         let timeLeft = 25 * 60;
         let isRunning = false;
         const display = document.getElementById('timer-display');
+        const durationInput = document.getElementById('timer-duration-input');
 
         const updateDisplay = () => {
             const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
@@ -284,14 +290,28 @@ export default {
             display.textContent = `${m}:${s}`;
         };
 
+        if (durationInput) {
+            const syncTimerDuration = () => {
+                if (!isRunning) {
+                    const mins = parseInt(durationInput.value) || 25;
+                    timeLeft = mins * 60;
+                    updateDisplay();
+                }
+            };
+            durationInput.addEventListener('change', syncTimerDuration);
+            durationInput.addEventListener('input', syncTimerDuration);
+        }
+
         document.getElementById('timer-start').addEventListener('click', (e) => {
             if (isRunning) {
                 clearInterval(timerInterval);
                 e.target.textContent = 'Resume';
                 isRunning = false;
+                if (durationInput) durationInput.disabled = false;
             } else {
                 isRunning = true;
                 e.target.textContent = 'Pause';
+                if (durationInput) durationInput.disabled = true;
                 timerInterval = setInterval(() => {
                     if (timeLeft > 0) {
                         timeLeft--;
@@ -299,10 +319,12 @@ export default {
                     } else {
                         clearInterval(timerInterval);
                         alert('Focus session complete! Rest your eyes.');
-                        timeLeft = 25 * 60;
+                        const mins = durationInput ? (parseInt(durationInput.value) || 25) : 25;
+                        timeLeft = mins * 60;
                         updateDisplay();
                         e.target.textContent = 'Start';
                         isRunning = false;
+                        if (durationInput) durationInput.disabled = false;
                     }
                 }, 1000);
             }
@@ -311,9 +333,11 @@ export default {
         document.getElementById('timer-reset').addEventListener('click', () => {
             clearInterval(timerInterval);
             isRunning = false;
-            timeLeft = 25 * 60;
+            const mins = durationInput ? (parseInt(durationInput.value) || 25) : 25;
+            timeLeft = mins * 60;
             updateDisplay();
             document.getElementById('timer-start').textContent = 'Start';
+            if (durationInput) durationInput.disabled = false;
         });
     }
 };

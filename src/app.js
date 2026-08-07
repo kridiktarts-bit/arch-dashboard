@@ -201,7 +201,7 @@ class App {
         const wizardState = {
             step: 0,
             firstName: '',
-            age: 17,
+            age: '',
             country: '',
             state: '',
             education: '', 
@@ -269,21 +269,21 @@ class App {
                     <div class="onboarding-form">
                         <div>
                             <label class="input-label">First Name</label>
-                            <input type="text" id="ob-first-name" class="text-input" placeholder="Mariam" value="${wizardState.firstName}">
+                            <input type="text" id="ob-first-name" class="text-input" placeholder="e.g. Mariam" value="${wizardState.firstName}">
                         </div>
                         <div style="display: flex; gap: 16px;">
                             <div style="flex: 1;">
                                 <label class="input-label">Age</label>
-                                <input type="number" id="ob-age" class="text-input" placeholder="17" value="${wizardState.age}">
+                                <input type="number" id="ob-age" class="text-input" placeholder="e.g. 17" value="${wizardState.age}">
                             </div>
                             <div style="flex: 2;">
                                 <label class="input-label">Country</label>
-                                <input type="text" id="ob-country" class="text-input" placeholder="USA" value="${wizardState.country}">
+                                <input type="text" id="ob-country" class="text-input" placeholder="e.g. USA" value="${wizardState.country}">
                             </div>
                         </div>
                         <div>
                             <label class="input-label">State / Province (Optional)</label>
-                            <input type="text" id="ob-state" class="text-input" placeholder="New York" value="${wizardState.state}">
+                            <input type="text" id="ob-state" class="text-input" placeholder="e.g. New York" value="${wizardState.state}">
                         </div>
                         <div>
                             <label class="input-label">Current Status</label>
@@ -303,7 +303,7 @@ class App {
 
                     <div class="onboarding-nav-btns">
                         <button class="onboarding-btn onboarding-btn-secondary" id="btn-back">Back</button>
-                        <button class="onboarding-btn onboarding-btn-primary" id="btn-next">Next</button>
+                        <button class="onboarding-btn onboarding-btn-primary" id="btn-next" ${wizardState.firstName && wizardState.age && wizardState.country && wizardState.education ? '' : 'disabled'}>Next</button>
                     </div>
                 </div>
             `,
@@ -726,14 +726,38 @@ class App {
             const nextBtn = document.getElementById('btn-next');
             const backBtn = document.getElementById('btn-back');
 
+            // Step 1 check inputs listener
+            const firstNameInput = document.getElementById('ob-first-name');
+            const ageInput = document.getElementById('ob-age');
+            const countryInput = document.getElementById('ob-country');
+            const eduSelect = document.getElementById('ob-education');
+
+            if (firstNameInput && ageInput && countryInput && eduSelect) {
+                const checkInputs = () => {
+                    const first = firstNameInput.value.trim();
+                    const age = ageInput.value.trim();
+                    const country = countryInput.value.trim();
+                    const edu = eduSelect.value;
+                    if (first && age && country && edu) {
+                        nextBtn.disabled = false;
+                    } else {
+                        nextBtn.disabled = true;
+                    }
+                };
+                firstNameInput.addEventListener('input', checkInputs);
+                ageInput.addEventListener('input', checkInputs);
+                countryInput.addEventListener('input', checkInputs);
+                eduSelect.addEventListener('change', checkInputs);
+            }
+
             if (nextBtn) {
                 nextBtn.addEventListener('click', async () => {
                     if (wizardState.step === 1) {
-                        wizardState.firstName = document.getElementById('ob-first-name').value.trim() || 'Mariam';
-                        wizardState.age = parseInt(document.getElementById('ob-age').value) || 17;
-                        wizardState.country = document.getElementById('ob-country').value.trim() || 'USA';
+                        wizardState.firstName = document.getElementById('ob-first-name').value.trim();
+                        wizardState.age = parseInt(document.getElementById('ob-age').value);
+                        wizardState.country = document.getElementById('ob-country').value.trim();
                         wizardState.state = document.getElementById('ob-state').value.trim();
-                        wizardState.education = document.getElementById('ob-education').value || 'High School Senior';
+                        wizardState.education = document.getElementById('ob-education').value;
                         wizardState.step = 2;
                     } else if (wizardState.step === 2) {
                         careerFollowUpConfig = await getCareerConfig(wizardState.career, 'follow_up_questions');
