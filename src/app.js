@@ -235,11 +235,24 @@ class App {
             unavailable_reasons: [],
             unavailable_dates_custom: '',
             
-            journeyType: 'short',
-            weeklyHours: 15
         };
 
         let careerFollowUpConfig = null;
+        let careerTemplatesConfig = null;
+
+        const getCareerUnitLabel = (c) => {
+            const units = {
+                comic_creator: 'chapters',
+                architecture: 'sheets',
+                software_engineer: 'features',
+                game_developer: 'levels',
+                animator: 'scenes',
+                film_director: 'scenes',
+                doctor: 'rotations',
+                lawyer: 'briefs'
+            };
+            return units[c] || 'tasks';
+        };
 
         const steps = [
             // Welcome Screen (Step 0)
@@ -411,10 +424,18 @@ class App {
             },
             // Step 5 (Q3, Q4, Q5) - Project Scope
             () => {
-                const isComic = wizardState.career === 'comic_creator';
-                const projTypes = isComic 
-                    ? ["Comic Series", "One-Shot", "Manga", "Webtoon", "Graphic Novel", "Other"]
-                    : ["Residential House Design", "Commercial Plaza Redesign", "Specialized Software Course", "Academic Portfolio Compilation"];
+                const qType = careerFollowUpConfig?.discoveryQuestions.find(q => q.id === 'project_type');
+                const qCount = careerFollowUpConfig?.discoveryQuestions.find(q => q.id === 'chapters_count');
+                const qPages = careerFollowUpConfig?.discoveryQuestions.find(q => q.id === 'pages_per_chapter');
+
+                const typeQuestion = qType?.question || "What project are you scheduling?";
+                const typeOptions = qType?.options || ["Standard Course", "Active Assignment", "Custom Practice"];
+                
+                const countQuestion = qCount?.question || "How many elements will your project have?";
+                const countPlaceholder = qCount?.placeholder || "e.g. 5";
+                
+                const pagesQuestion = qPages?.question || "";
+                const pagesPlaceholder = qPages?.placeholder || "e.g. 10";
 
                 return `
                     <div class="onboarding-card">
@@ -432,19 +453,19 @@ class App {
                         
                         <div class="onboarding-form">
                             <div>
-                                <label class="input-label">What project are you scheduling?</label>
+                                <label class="input-label">${typeQuestion}</label>
                                 <select id="ob-q3-type" class="text-input" style="background-color: #0d1e36;">
-                                    ${projTypes.map(t => `<option value="${t}" ${wizardState.project_type === t ? 'selected' : ''}>${t}</option>`).join('')}
+                                    ${typeOptions.map(t => `<option value="${t}" ${wizardState.project_type === t ? 'selected' : ''}>${t}</option>`).join('')}
                                 </select>
                             </div>
                             <div>
-                                <label class="input-label">${isComic ? 'How many chapters will your project have?' : 'How many sheets/drawings will you produce?'}</label>
-                                <input type="number" id="ob-q4-count" class="text-input" placeholder="e.g. 5" value="${wizardState.chapters_count || 5}">
+                                <label class="input-label">${countQuestion}</label>
+                                <input type="number" id="ob-q4-count" class="text-input" placeholder="${countPlaceholder}" value="${wizardState.chapters_count || 5}">
                             </div>
-                            ${isComic ? `
+                            ${qPages ? `
                                 <div>
-                                    <label class="input-label">How many pages per chapter?</label>
-                                    <input type="number" id="ob-q5-pages" class="text-input" placeholder="e.g. 10" value="${wizardState.pages_per_chapter || 10}">
+                                    <label class="input-label">${pagesQuestion}</label>
+                                    <input type="number" id="ob-q5-pages" class="text-input" placeholder="${pagesPlaceholder}" value="${wizardState.pages_per_chapter || 10}">
                                 </div>
                             ` : ''}
                         </div>
@@ -458,10 +479,18 @@ class App {
             },
             // Step 6 (Q6) - Finished Parts Checklist
             () => {
-                const isComic = wizardState.career === 'comic_creator';
-                const stagesList = isComic
-                    ? ["Story outline", "World building", "Character descriptions", "Character designs", "Character reference sheets", "Chapter outlines", "Chapter dialogue", "Thumbnails", "Sketches", "Line art", "Coloring", "Lettering", "Cover", "Marketing assets"]
-                    : ["Site analysis zoning", "Site mapping", "Conceptual massing forms", "Revit grids and levels", "Basic floor plan layouts", "Section wall details", "3D renderings", "Presentation sheets"];
+                const stagesList = [];
+                if (careerTemplatesConfig && careerTemplatesConfig.phases) {
+                    careerTemplatesConfig.phases.forEach(p => {
+                        p.tasks.forEach(t => {
+                            if (!stagesList.includes(t.title)) {
+                                stagesList.push(t.title);
+                            }
+                        });
+                    });
+                } else {
+                    stagesList.push("Overview Module", "Drafting Phase", "Finishing Review");
+                }
 
                 return `
                     <div class="onboarding-card">
@@ -498,10 +527,18 @@ class App {
             },
             // Step 7 (Q7) - Remaining Stages to Schedule
             () => {
-                const isComic = wizardState.career === 'comic_creator';
-                const stagesList = isComic
-                    ? ["Story outline", "World building", "Character descriptions", "Character designs", "Character reference sheets", "Chapter outlines", "Chapter dialogue", "Thumbnails", "Sketches", "Line art", "Coloring", "Lettering", "Cover", "Marketing assets"]
-                    : ["Site analysis zoning", "Site mapping", "Conceptual massing forms", "Revit grids and levels", "Basic floor plan layouts", "Section wall details", "3D renderings", "Presentation sheets"];
+                const stagesList = [];
+                if (careerTemplatesConfig && careerTemplatesConfig.phases) {
+                    careerTemplatesConfig.phases.forEach(p => {
+                        p.tasks.forEach(t => {
+                            if (!stagesList.includes(t.title)) {
+                                stagesList.push(t.title);
+                            }
+                        });
+                    });
+                } else {
+                    stagesList.push("Overview Module", "Drafting Phase", "Finishing Review");
+                }
 
                 const remainingStages = stagesList.filter(s => !wizardState.completed_stages.includes(s));
                 
@@ -572,26 +609,29 @@ class App {
                 </div>
             `,
             // Step 8 (Q8) - Chapter rate / Pacing targets
-            () => `
-                <div class="onboarding-card">
-                    <h2 class="onboarding-title" style="font-size: 28px; margin-bottom: 8px;">Step 8 — Pacing Rate</h2>
-                    <p class="onboarding-subtitle" style="margin-bottom: 24px;">How many chapters/sheets would you like to finish each week?</p>
-                    
-                    <div class="onboarding-form">
-                        <div class="choices-grid">
-                            <button class="choice-button ob-q8-btn ${wizardState.pacing_rate === '1' ? 'selected' : ''}" data-val="1">1 per week</button>
-                            <button class="choice-button ob-q8-btn ${wizardState.pacing_rate === '2' ? 'selected' : ''}" data-val="2">2 per week</button>
-                            <button class="choice-button ob-q8-btn ${wizardState.pacing_rate === '3' ? 'selected' : ''}" data-val="3">3 per week</button>
-                            <button class="choice-button ob-q8-btn ${wizardState.pacing_rate === 'custom' ? 'selected' : ''}" data-val="custom">Custom target</button>
+            () => {
+                const unit = getCareerUnitLabel(wizardState.career);
+                return `
+                    <div class="onboarding-card">
+                        <h2 class="onboarding-title" style="font-size: 28px; margin-bottom: 8px;">Step 8 — Pacing Rate</h2>
+                        <p class="onboarding-subtitle" style="margin-bottom: 24px;">How many ${unit} would you like to finish each week?</p>
+                        
+                        <div class="onboarding-form">
+                            <div class="choices-grid">
+                                <button class="choice-button ob-q8-btn ${wizardState.pacing_rate === '1' ? 'selected' : ''}" data-val="1">1 ${unit} per week</button>
+                                <button class="choice-button ob-q8-btn ${wizardState.pacing_rate === '2' ? 'selected' : ''}" data-val="2">2 ${unit} per week</button>
+                                <button class="choice-button ob-q8-btn ${wizardState.pacing_rate === '3' ? 'selected' : ''}" data-val="3">3 ${unit} per week</button>
+                                <button class="choice-button ob-q8-btn ${wizardState.pacing_rate === 'custom' ? 'selected' : ''}" data-val="custom">Custom target</button>
+                            </div>
+                        </div>
+
+                        <div class="onboarding-nav-btns">
+                            <button class="onboarding-btn onboarding-btn-secondary" id="btn-back">Back</button>
+                            <button class="onboarding-btn onboarding-btn-primary" id="btn-next">Next</button>
                         </div>
                     </div>
-
-                    <div class="onboarding-nav-btns">
-                        <button class="onboarding-btn onboarding-btn-secondary" id="btn-back">Back</button>
-                        <button class="onboarding-btn onboarding-btn-primary" id="btn-next">Next</button>
-                    </div>
-                </div>
-            `,
+                `;
+            },
             // Step 9 (Q9) & Step 10 (Q10) - Working Hours & Working Days Selector
             () => `
                 <div class="onboarding-card">
@@ -761,6 +801,7 @@ class App {
                         wizardState.step = 2;
                     } else if (wizardState.step === 2) {
                         careerFollowUpConfig = await getCareerConfig(wizardState.career, 'follow_up_questions');
+                        careerTemplatesConfig = await getCareerConfig(wizardState.career, 'project_templates');
                         wizardState.step = 3; // Q1
                     } else if (wizardState.step === 3) {
                         if (wizardState.experience_status === 'experienced' || wizardState.experience_status === 'pro') {
@@ -787,10 +828,18 @@ class App {
                             wizardState.completed_stages.push(cb.value);
                         });
                         
-                        const isComic = wizardState.career === 'comic_creator';
-                        const stagesList = isComic
-                            ? ["Story outline", "World building", "Character descriptions", "Character designs", "Character reference sheets", "Chapter outlines", "Chapter dialogue", "Thumbnails", "Sketches", "Line art", "Coloring", "Lettering", "Cover", "Marketing assets"]
-                            : ["Site analysis zoning", "Site mapping", "Conceptual massing forms", "Revit grids and levels", "Basic floor plan layouts", "Section wall details", "3D renderings", "Presentation sheets"];
+                        const stagesList = [];
+                        if (careerTemplatesConfig && careerTemplatesConfig.phases) {
+                            careerTemplatesConfig.phases.forEach(p => {
+                                p.tasks.forEach(t => {
+                                    if (!stagesList.includes(t.title)) {
+                                        stagesList.push(t.title);
+                                    }
+                                });
+                            });
+                        } else {
+                            stagesList.push("Overview Module", "Drafting Phase", "Finishing Review");
+                        }
                         wizardState.scheduled_stages = stagesList.filter(s => !wizardState.completed_stages.includes(s));
                         
                         wizardState.step = 7;
