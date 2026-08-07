@@ -1,94 +1,235 @@
 {
   "career": "Comic Creator",
-  "title": "Comic Creator (Writer + Illustrator + Publisher)",
-  "requiresDegree": false,
-  "requiresLicense": false,
-  "supportsShortTerm": true,
-  "supportsLongTerm": true,
-  "defaultJourney": "short",
-  "shortTermExamples": [
-    "Publish My First Comic",
-    "Learn Drawing",
-    "Finish 10 Chapters"
-  ],
-  "longTermExamples": [
-    "Become a Professional Comic Creator",
-    "Build a Publishing Business",
-    "Create a Full Comic Series"
-  ],
-  "navigation": {
-    "MAIN": [
-      { "id": "dashboard", "name": "Overview", "icon": "📊" },
-      { "id": "donows", "name": "Today's Tasks", "icon": "⚡" },
-      { "id": "schedule", "name": "Schedule", "icon": "📅" }
-    ],
-    "CAREER JOURNEY": [
-      { "id": "learning_path", "name": "Learning Path", "icon": "🗺️" },
-      { "id": "milestones", "name": "Milestones", "icon": "🏆" },
-      { "id": "skills", "name": "Skills", "icon": "🎨" },
-      { "id": "portfolio", "name": "Portfolio", "icon": "📚" },
-      { "id": "opportunities", "name": "Opportunities", "icon": "🎓" },
-      { "id": "achievements", "name": "Achievements", "icon": "🏅" }
-    ],
-    "PRODUCTIVITY": [
-      { "id": "reset", "name": "Focus Mode", "icon": "🌙" },
-      { "id": "resources", "name": "Resources", "icon": "📚" },
-      { "id": "inspiration", "name": "Inspiration", "icon": "✨" },
-      { "id": "settings", "name": "Settings", "icon": "⚙️" }
-    ]
-  },
   "stages": [
     {
       "id": "stage-1",
-      "name": "Foundations",
-      "description": "Master drawing fundamentals, writing, and basic character designs.",
-      "timeframe": "Stage 1",
+      "name": "Preproduction Phase",
+      "description": "Master the elements of the Preproduction Phase.",
       "skills": [
-        { "name": "Perspective", "lessons": 10, "progress": 0, "resources": ["Drawabox Lesson 1 & 2", "Andrew Loomis - Creative Illustration"], "exercises": ["1-point and 2-point perspective rooms", "Draw 250 boxes challenge"] },
-        { "name": "Anatomy", "lessons": 15, "progress": 0, "resources": ["Proko Anatomy Course", "Bridgman's Life Drawing"], "exercises": ["Gesture drawing (30s, 2m, 5m)", "Draw 50 skull studies"] },
-        { "name": "Character Design", "lessons": 8, "progress": 0, "resources": ["Taco - Point Character Drawing", "Marc Brunet Youtube Tutorials"], "exercises": ["Create turnaround sheets for 3 characters", "Expression sheet (12 expressions)"] },
-        { "name": "Writing & Storyboard", "lessons": 12, "progress": 0, "resources": ["Scott McCloud - Making Comics", "Will Eisner - Comics and Sequential Art"], "exercises": ["Write a 3-page script", "Thumbnails for a 5-page comic scene"] },
-        { "name": "Color Theory & Lighting", "lessons": 6, "progress": 0, "resources": ["Marco Bucci - Color in Storytelling", "James Gurney - Color and Light"], "exercises": ["Paint a value study", "Create 3 distinct mood lighting charts"] }
+        {
+          "name": "Brainstorm story concept",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice details for Brainstorm story concept.",
+          "resources": [
+            "Standard reference handbook for Brainstorm story concept",
+            "Online masterclass video lecture on Brainstorm story concept"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Brainstorm story concept",
+            "Log peer review edits on Brainstorm story concept"
+          ]
+        },
+        {
+          "name": "Write story synopsis",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice details for Write story synopsis.",
+          "resources": [
+            "Standard reference handbook for Write story synopsis",
+            "Online masterclass video lecture on Write story synopsis"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Write story synopsis",
+            "Log peer review edits on Write story synopsis"
+          ]
+        },
+        {
+          "name": "Write chapter summaries",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice details for Write chapter summaries.",
+          "resources": [
+            "Standard reference handbook for Write chapter summaries",
+            "Online masterclass video lecture on Write chapter summaries"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Write chapter summaries",
+            "Log peer review edits on Write chapter summaries"
+          ]
+        },
+        {
+          "name": "Main character personality sheet",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice details for Main character personality sheet.",
+          "resources": [
+            "Standard reference handbook for Main character personality sheet",
+            "Online masterclass video lecture on Main character personality sheet"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Main character personality sheet",
+            "Log peer review edits on Main character personality sheet"
+          ]
+        },
+        {
+          "name": "Design character reference sheets",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice details for Design character reference sheets.",
+          "resources": [
+            "Standard reference handbook for Design character reference sheets",
+            "Online masterclass video lecture on Design character reference sheets"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Design character reference sheets",
+            "Log peer review edits on Design character reference sheets"
+          ]
+        },
+        {
+          "name": "Supporting characters turnaround sketches",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice details for Supporting characters turnaround sketches.",
+          "resources": [
+            "Standard reference handbook for Supporting characters turnaround sketches",
+            "Online masterclass video lecture on Supporting characters turnaround sketches"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Supporting characters turnaround sketches",
+            "Log peer review edits on Supporting characters turnaround sketches"
+          ]
+        },
+        {
+          "name": "Sketch key locations and settings",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice details for Sketch key locations and settings.",
+          "resources": [
+            "Standard reference handbook for Sketch key locations and settings",
+            "Online masterclass video lecture on Sketch key locations and settings"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Sketch key locations and settings",
+            "Log peer review edits on Sketch key locations and settings"
+          ]
+        }
       ]
     },
     {
       "id": "stage-2",
-      "name": "Comic Creation",
-      "description": "Produce your first comic pages and master sequential art layouts.",
-      "timeframe": "Stage 2",
+      "name": "Production Phase",
+      "description": "Master the elements of the Production Phase.",
       "skills": [
-        { "name": "Comic Layouts (Panels & Pacing)", "lessons": 8, "progress": 0, "resources": ["Framed Ink: Drawing and Composition", "Scott McCloud - Understanding Comics"], "exercises": ["Plan page layouts for 3 script pages", "Vary panel speeds in a chase scene"] },
-        { "name": "Lettering & Bubbles", "lessons": 4, "progress": 0, "resources": ["Comic Lettering Guide", "Blambot fonts"], "exercises": ["Letter 3 pages of dialogue", "Establish dialogue hierarchies"] },
-        { "name": "Digital Inking & Coloring", "lessons": 10, "progress": 0, "resources": ["Clip Studio Paint Inking", "Photoshop Digital Coloring"], "exercises": ["Ink a page digitally", "Flat color and shadow rendering on 1 page"] }
+        {
+          "name": "Draft dialogue script for chapters",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice details for Draft dialogue script for chapters.",
+          "resources": [
+            "Standard reference handbook for Draft dialogue script for chapters",
+            "Online masterclass video lecture on Draft dialogue script for chapters"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Draft dialogue script for chapters",
+            "Log peer review edits on Draft dialogue script for chapters"
+          ]
+        },
+        {
+          "name": "Layout panels and pacing thumbnails",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice details for Layout panels and pacing thumbnails.",
+          "resources": [
+            "Standard reference handbook for Layout panels and pacing thumbnails",
+            "Online masterclass video lecture on Layout panels and pacing thumbnails"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Layout panels and pacing thumbnails",
+            "Log peer review edits on Layout panels and pacing thumbnails"
+          ]
+        },
+        {
+          "name": "Rough penciling and background line art",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice details for Rough penciling and background line art.",
+          "resources": [
+            "Standard reference handbook for Rough penciling and background line art",
+            "Online masterclass video lecture on Rough penciling and background line art"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Rough penciling and background line art",
+            "Log peer review edits on Rough penciling and background line art"
+          ]
+        },
+        {
+          "name": "Apply flat base colors and shadow rendering",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice details for Apply flat base colors and shadow rendering.",
+          "resources": [
+            "Standard reference handbook for Apply flat base colors and shadow rendering",
+            "Online masterclass video lecture on Apply flat base colors and shadow rendering"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Apply flat base colors and shadow rendering",
+            "Log peer review edits on Apply flat base colors and shadow rendering"
+          ]
+        },
+        {
+          "name": "Letter dialogue script speech bubbles",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice details for Letter dialogue script speech bubbles.",
+          "resources": [
+            "Standard reference handbook for Letter dialogue script speech bubbles",
+            "Online masterclass video lecture on Letter dialogue script speech bubbles"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Letter dialogue script speech bubbles",
+            "Log peer review edits on Letter dialogue script speech bubbles"
+          ]
+        }
       ]
     },
     {
       "id": "stage-3",
-      "name": "Audience Growth",
-      "description": "Establish your online presence, social marketing, and community building.",
-      "timeframe": "Stage 3",
+      "name": "Publishing Phase",
+      "description": "Master the elements of the Publishing Phase.",
       "skills": [
-        { "name": "Social Media (Insta, TikTok, Twitter)", "lessons": 6, "progress": 0, "resources": ["Content Strategy for Creators", "Algorithm breakdown"], "exercises": ["Post 3 times weekly for a month", "Create 3 TikTok speedpaint shorts"] },
-        { "name": "Community & Lists (Discord, Newsletters)", "lessons": 5, "progress": 0, "resources": ["MailerLite/Substack setup", "Community management guides"], "exercises": ["Launch personal Discord server", "Create sign-up landing page for newsletter"] }
-      ]
-    },
-    {
-      "id": "stage-4",
-      "name": "Monetization",
-      "description": "Open revenue streams and self-publishing mechanisms.",
-      "timeframe": "Stage 4",
-      "skills": [
-        { "name": "Crowdfunding & Platforms (Patreon, Tapas, Kickstarter)", "lessons": 8, "progress": 0, "resources": ["Kickstarter Launch Playbook", "Patreon pricing tier design"], "exercises": ["Design Patreon tier rewards", "Outline a Kickstarter campaign description"] },
-        { "name": "Print-on-Demand & Sales (Amazon KDP, Merch)", "lessons": 6, "progress": 0, "resources": ["Amazon KDP publishing guide", "Shopify/Ko-fi print setups"], "exercises": ["Format comic book PDF for KDP print", "List first 3 items in Ko-fi shop"] }
-      ]
-    },
-    {
-      "id": "stage-5",
-      "name": "Professional Creator",
-      "description": "Scale up to a full volume release, attend conventions, and pitch publishers.",
-      "timeframe": "Stage 5",
-      "skills": [
-        { "name": "Conventions & Pitching", "lessons": 10, "progress": 0, "resources": ["Artist Alley survival guide", "Publisher pitch deck template"], "exercises": ["Prepare a 5-page pitch document", "Design booth banners for Artist Alley"] }
+        {
+          "name": "Review overall pacing and visual corrections",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice details for Review overall pacing and visual corrections.",
+          "resources": [
+            "Standard reference handbook for Review overall pacing and visual corrections",
+            "Online masterclass video lecture on Review overall pacing and visual corrections"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Review overall pacing and visual corrections",
+            "Log peer review edits on Review overall pacing and visual corrections"
+          ]
+        },
+        {
+          "name": "Format panels for online upload (Webtoon/Tapas)",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice details for Format panels for online upload (Webtoon/Tapas).",
+          "resources": [
+            "Standard reference handbook for Format panels for online upload (Webtoon/Tapas)",
+            "Online masterclass video lecture on Format panels for online upload (Webtoon/Tapas)"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Format panels for online upload (Webtoon/Tapas)",
+            "Log peer review edits on Format panels for online upload (Webtoon/Tapas)"
+          ]
+        },
+        {
+          "name": "Create social media promo teasers",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice details for Create social media promo teasers.",
+          "resources": [
+            "Standard reference handbook for Create social media promo teasers",
+            "Online masterclass video lecture on Create social media promo teasers"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Create social media promo teasers",
+            "Log peer review edits on Create social media promo teasers"
+          ]
+        }
       ]
     }
   ]

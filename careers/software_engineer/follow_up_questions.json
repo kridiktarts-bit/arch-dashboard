@@ -32,6 +32,18 @@
       "question": "How many days per feature sprint?",
       "type": "number",
       "placeholder": "e.g. 5"
+    },
+    {
+      "id": "tech_stack",
+      "question": "What is your primary programming language?",
+      "type": "select",
+      "options": [
+        "Javascript/Typescript",
+        "Python",
+        "Rust/Go",
+        "Java/Kotlin",
+        "C++/C#"
+      ]
     }
   ]
 }

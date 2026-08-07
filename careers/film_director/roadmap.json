@@ -3,73 +3,141 @@
   "stages": [
     {
       "id": "stage-1",
-      "title": "Development Phase",
+      "name": "Development Phase",
+      "description": "Master the elements of the Development Phase.",
       "skills": [
         {
           "name": "Finalize screenplay script revisions",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Finalize screenplay script revisions."
+          "description": "Practice details for Finalize screenplay script revisions.",
+          "resources": [
+            "Standard reference handbook for Finalize screenplay script revisions",
+            "Online masterclass video lecture on Finalize screenplay script revisions"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Finalize screenplay script revisions",
+            "Log peer review edits on Finalize screenplay script revisions"
+          ]
         },
         {
           "name": "Scout locations & secure permissions",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Scout locations & secure permissions."
+          "description": "Practice details for Scout locations & secure permissions.",
+          "resources": [
+            "Standard reference handbook for Scout locations & secure permissions",
+            "Online masterclass video lecture on Scout locations & secure permissions"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Scout locations & secure permissions",
+            "Log peer review edits on Scout locations & secure permissions"
+          ]
         }
       ]
     },
     {
       "id": "stage-2",
-      "title": "Preproduction Phase",
+      "name": "Preproduction Phase",
+      "description": "Master the elements of the Preproduction Phase.",
       "skills": [
         {
           "name": "Draw visual storyboard scene layouts",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Draw visual storyboard scene layouts."
+          "description": "Practice details for Draw visual storyboard scene layouts.",
+          "resources": [
+            "Standard reference handbook for Draw visual storyboard scene layouts",
+            "Online masterclass video lecture on Draw visual storyboard scene layouts"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Draw visual storyboard scene layouts",
+            "Log peer review edits on Draw visual storyboard scene layouts"
+          ]
         },
         {
           "name": "Draft complete shooting schedule lists",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Draft complete shooting schedule lists."
+          "description": "Practice details for Draft complete shooting schedule lists.",
+          "resources": [
+            "Standard reference handbook for Draft complete shooting schedule lists",
+            "Online masterclass video lecture on Draft complete shooting schedule lists"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Draft complete shooting schedule lists",
+            "Log peer review edits on Draft complete shooting schedule lists"
+          ]
         }
       ]
     },
     {
       "id": "stage-3",
-      "title": "Production Phase",
+      "name": "Production Phase",
+      "description": "Master the elements of the Production Phase.",
       "skills": [
         {
           "name": "Cast rehearsals & principal photography",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Cast rehearsals & principal photography."
+          "description": "Practice details for Cast rehearsals & principal photography.",
+          "resources": [
+            "Standard reference handbook for Cast rehearsals & principal photography",
+            "Online masterclass video lecture on Cast rehearsals & principal photography"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Cast rehearsals & principal photography",
+            "Log peer review edits on Cast rehearsals & principal photography"
+          ]
         },
         {
           "name": "Review daily rushes sequences footage",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Review daily rushes sequences footage."
+          "description": "Practice details for Review daily rushes sequences footage.",
+          "resources": [
+            "Standard reference handbook for Review daily rushes sequences footage",
+            "Online masterclass video lecture on Review daily rushes sequences footage"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Review daily rushes sequences footage",
+            "Log peer review edits on Review daily rushes sequences footage"
+          ]
         }
       ]
     },
     {
       "id": "stage-4",
-      "title": "Postproduction Phase",
+      "name": "Postproduction Phase",
+      "description": "Master the elements of the Postproduction Phase.",
       "skills": [
         {
           "name": "Perform rough cut linear video edits",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Perform rough cut linear video edits."
+          "description": "Practice details for Perform rough cut linear video edits.",
+          "resources": [
+            "Standard reference handbook for Perform rough cut linear video edits",
+            "Online masterclass video lecture on Perform rough cut linear video edits"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Perform rough cut linear video edits",
+            "Log peer review edits on Perform rough cut linear video edits"
+          ]
         },
         {
           "name": "Export final color-graded video cut",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Export final color-graded video cut."
+          "description": "Practice details for Export final color-graded video cut.",
+          "resources": [
+            "Standard reference handbook for Export final color-graded video cut",
+            "Online masterclass video lecture on Export final color-graded video cut"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Export final color-graded video cut",
+            "Log peer review edits on Export final color-graded video cut"
+          ]
         }
       ]
     }

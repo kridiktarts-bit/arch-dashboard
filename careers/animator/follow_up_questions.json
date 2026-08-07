@@ -31,6 +31,18 @@
       "question": "How many target seconds per shot?",
       "type": "number",
       "placeholder": "e.g. 10"
+    },
+    {
+      "id": "animation_software",
+      "question": "What software will you use?",
+      "type": "select",
+      "options": [
+        "Blender",
+        "Maya",
+        "Toon Boom Harmony",
+        "Adobe Animate",
+        "Clip Studio Paint"
+      ]
     }
   ]
 }

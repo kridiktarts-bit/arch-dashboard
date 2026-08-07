@@ -8,7 +8,7 @@
   ],
   "discoveryQuestions": [
     {
-      "id": "project_type",
+      "id": "law_specialty",
       "question": "What area of law will you practice?",
       "type": "select",
       "options": [
@@ -18,6 +18,18 @@
         "Criminal Defense",
         "Environmental Law",
         "Human Rights"
+      ]
+    },
+    {
+      "id": "project_type",
+      "question": "What is your current education stage?",
+      "type": "select",
+      "options": [
+        "High School",
+        "College Pre-Law",
+        "Law School (JD)",
+        "Preparing for Bar Exam",
+        "Practicing Attorney"
       ]
     },
     {

@@ -31,6 +31,18 @@
       "question": "How many core mechanics to code?",
       "type": "number",
       "placeholder": "e.g. 4"
+    },
+    {
+      "id": "game_engine",
+      "question": "Which game engine will you use?",
+      "type": "select",
+      "options": [
+        "Unity",
+        "Unreal Engine",
+        "Godot",
+        "Web/Phaser",
+        "Custom Engine"
+      ]
     }
   ]
 }

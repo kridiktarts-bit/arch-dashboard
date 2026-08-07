@@ -3,73 +3,141 @@
   "stages": [
     {
       "id": "stage-1",
-      "title": "Preproduction Phase",
+      "name": "Preproduction Phase",
+      "description": "Master the elements of the Preproduction Phase.",
       "skills": [
         {
           "name": "Write game design document (GDD)",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Write game design document (GDD)."
+          "description": "Practice details for Write game design document (GDD).",
+          "resources": [
+            "Standard reference handbook for Write game design document (GDD)",
+            "Online masterclass video lecture on Write game design document (GDD)"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Write game design document (GDD)",
+            "Log peer review edits on Write game design document (GDD)"
+          ]
         },
         {
           "name": "Greybox blocking scene layouts",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Greybox blocking scene layouts."
+          "description": "Practice details for Greybox blocking scene layouts.",
+          "resources": [
+            "Standard reference handbook for Greybox blocking scene layouts",
+            "Online masterclass video lecture on Greybox blocking scene layouts"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Greybox blocking scene layouts",
+            "Log peer review edits on Greybox blocking scene layouts"
+          ]
         }
       ]
     },
     {
       "id": "stage-2",
-      "title": "Mechanics Phase",
+      "name": "Mechanics Phase",
+      "description": "Master the elements of the Mechanics Phase.",
       "skills": [
         {
           "name": "Code player movement & controllers",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Code player movement & controllers."
+          "description": "Practice details for Code player movement & controllers.",
+          "resources": [
+            "Standard reference handbook for Code player movement & controllers",
+            "Online masterclass video lecture on Code player movement & controllers"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Code player movement & controllers",
+            "Log peer review edits on Code player movement & controllers"
+          ]
         },
         {
           "name": "Program game state & HUD UI systems",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Program game state & HUD UI systems."
+          "description": "Practice details for Program game state & HUD UI systems.",
+          "resources": [
+            "Standard reference handbook for Program game state & HUD UI systems",
+            "Online masterclass video lecture on Program game state & HUD UI systems"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Program game state & HUD UI systems",
+            "Log peer review edits on Program game state & HUD UI systems"
+          ]
         }
       ]
     },
     {
       "id": "stage-3",
-      "title": "Assets Phase",
+      "name": "Assets Phase",
+      "description": "Master the elements of the Assets Phase.",
       "skills": [
         {
           "name": "Import 3D models & key textures",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Import 3D models & key textures."
+          "description": "Practice details for Import 3D models & key textures.",
+          "resources": [
+            "Standard reference handbook for Import 3D models & key textures",
+            "Online masterclass video lecture on Import 3D models & key textures"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Import 3D models & key textures",
+            "Log peer review edits on Import 3D models & key textures"
+          ]
         },
         {
           "name": "Apply lighting and sound FX loops",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Apply lighting and sound FX loops."
+          "description": "Practice details for Apply lighting and sound FX loops.",
+          "resources": [
+            "Standard reference handbook for Apply lighting and sound FX loops",
+            "Online masterclass video lecture on Apply lighting and sound FX loops"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Apply lighting and sound FX loops",
+            "Log peer review edits on Apply lighting and sound FX loops"
+          ]
         }
       ]
     },
     {
       "id": "stage-4",
-      "title": "Polishing Phase",
+      "name": "Polishing Phase",
+      "description": "Master the elements of the Polishing Phase.",
       "skills": [
         {
           "name": "Optimize build draw calls",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Optimize build draw calls."
+          "description": "Practice details for Optimize build draw calls.",
+          "resources": [
+            "Standard reference handbook for Optimize build draw calls",
+            "Online masterclass video lecture on Optimize build draw calls"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Optimize build draw calls",
+            "Log peer review edits on Optimize build draw calls"
+          ]
         },
         {
           "name": "Steam upload playtest packages",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Steam upload playtest packages."
+          "description": "Practice details for Steam upload playtest packages.",
+          "resources": [
+            "Standard reference handbook for Steam upload playtest packages",
+            "Online masterclass video lecture on Steam upload playtest packages"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Steam upload playtest packages",
+            "Log peer review edits on Steam upload playtest packages"
+          ]
         }
       ]
     }

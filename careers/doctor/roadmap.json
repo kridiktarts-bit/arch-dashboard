@@ -3,55 +3,106 @@
   "stages": [
     {
       "id": "stage-1",
-      "title": "Clinical Review Phase",
+      "name": "Clinical Review Phase",
+      "description": "Master the elements of the Clinical Review Phase.",
       "skills": [
         {
           "name": "Synthesize cardiology rotation guides",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Synthesize cardiology rotation guides."
+          "description": "Practice details for Synthesize cardiology rotation guides.",
+          "resources": [
+            "Standard reference handbook for Synthesize cardiology rotation guides",
+            "Online masterclass video lecture on Synthesize cardiology rotation guides"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Synthesize cardiology rotation guides",
+            "Log peer review edits on Synthesize cardiology rotation guides"
+          ]
         },
         {
           "name": "Review pharmacology interaction sheets",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Review pharmacology interaction sheets."
+          "description": "Practice details for Review pharmacology interaction sheets.",
+          "resources": [
+            "Standard reference handbook for Review pharmacology interaction sheets",
+            "Online masterclass video lecture on Review pharmacology interaction sheets"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Review pharmacology interaction sheets",
+            "Log peer review edits on Review pharmacology interaction sheets"
+          ]
         }
       ]
     },
     {
       "id": "stage-2",
-      "title": "Differential Phase",
+      "name": "Differential Phase",
+      "description": "Master the elements of the Differential Phase.",
       "skills": [
         {
           "name": "Log clinical patient charts notes",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Log clinical patient charts notes."
+          "description": "Practice details for Log clinical patient charts notes.",
+          "resources": [
+            "Standard reference handbook for Log clinical patient charts notes",
+            "Online masterclass video lecture on Log clinical patient charts notes"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Log clinical patient charts notes",
+            "Log peer review edits on Log clinical patient charts notes"
+          ]
         },
         {
           "name": "Analyze diagnostic case studies profiles",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Analyze diagnostic case studies profiles."
+          "description": "Practice details for Analyze diagnostic case studies profiles.",
+          "resources": [
+            "Standard reference handbook for Analyze diagnostic case studies profiles",
+            "Online masterclass video lecture on Analyze diagnostic case studies profiles"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Analyze diagnostic case studies profiles",
+            "Log peer review edits on Analyze diagnostic case studies profiles"
+          ]
         }
       ]
     },
     {
       "id": "stage-3",
-      "title": "Exam Preparation Phase",
+      "name": "Exam Preparation Phase",
+      "description": "Master the elements of the Exam Preparation Phase.",
       "skills": [
         {
           "name": "Practice board exam mock questions",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Practice board exam mock questions."
+          "description": "Practice details for Practice board exam mock questions.",
+          "resources": [
+            "Standard reference handbook for Practice board exam mock questions",
+            "Online masterclass video lecture on Practice board exam mock questions"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Practice board exam mock questions",
+            "Log peer review edits on Practice board exam mock questions"
+          ]
         },
         {
           "name": "Review medical ethics clinical codes",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Review medical ethics clinical codes."
+          "description": "Practice details for Review medical ethics clinical codes.",
+          "resources": [
+            "Standard reference handbook for Review medical ethics clinical codes",
+            "Online masterclass video lecture on Review medical ethics clinical codes"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Review medical ethics clinical codes",
+            "Log peer review edits on Review medical ethics clinical codes"
+          ]
         }
       ]
     }

@@ -3,73 +3,141 @@
   "stages": [
     {
       "id": "stage-1",
-      "title": "Storyboard Phase",
+      "name": "Storyboard Phase",
+      "description": "Master the elements of the Storyboard Phase.",
       "skills": [
         {
           "name": "Draw keyframe story boards",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Draw keyframe story boards."
+          "description": "Practice details for Draw keyframe story boards.",
+          "resources": [
+            "Standard reference handbook for Draw keyframe story boards",
+            "Online masterclass video lecture on Draw keyframe story boards"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Draw keyframe story boards",
+            "Log peer review edits on Draw keyframe story boards"
+          ]
         },
         {
           "name": "Generate audio animatics timings",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Generate audio animatics timings."
+          "description": "Practice details for Generate audio animatics timings.",
+          "resources": [
+            "Standard reference handbook for Generate audio animatics timings",
+            "Online masterclass video lecture on Generate audio animatics timings"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Generate audio animatics timings",
+            "Log peer review edits on Generate audio animatics timings"
+          ]
         }
       ]
     },
     {
       "id": "stage-2",
-      "title": "Modeling Rig Phase",
+      "name": "Modeling Rig Phase",
+      "description": "Master the elements of the Modeling Rig Phase.",
       "skills": [
         {
           "name": "Model character turnarounds",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Model character turnarounds."
+          "description": "Practice details for Model character turnarounds.",
+          "resources": [
+            "Standard reference handbook for Model character turnarounds",
+            "Online masterclass video lecture on Model character turnarounds"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Model character turnarounds",
+            "Log peer review edits on Model character turnarounds"
+          ]
         },
         {
           "name": "Rig bone controls & controllers",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Rig bone controls & controllers."
+          "description": "Practice details for Rig bone controls & controllers.",
+          "resources": [
+            "Standard reference handbook for Rig bone controls & controllers",
+            "Online masterclass video lecture on Rig bone controls & controllers"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Rig bone controls & controllers",
+            "Log peer review edits on Rig bone controls & controllers"
+          ]
         }
       ]
     },
     {
       "id": "stage-3",
-      "title": "Animation Phase",
+      "name": "Animation Phase",
+      "description": "Master the elements of the Animation Phase.",
       "skills": [
         {
           "name": "Animate primary key poses",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Animate primary key poses."
+          "description": "Practice details for Animate primary key poses.",
+          "resources": [
+            "Standard reference handbook for Animate primary key poses",
+            "Online masterclass video lecture on Animate primary key poses"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Animate primary key poses",
+            "Log peer review edits on Animate primary key poses"
+          ]
         },
         {
           "name": "Pencil in-between motion arcs",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Pencil in-between motion arcs."
+          "description": "Practice details for Pencil in-between motion arcs.",
+          "resources": [
+            "Standard reference handbook for Pencil in-between motion arcs",
+            "Online masterclass video lecture on Pencil in-between motion arcs"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Pencil in-between motion arcs",
+            "Log peer review edits on Pencil in-between motion arcs"
+          ]
         }
       ]
     },
     {
       "id": "stage-4",
-      "title": "Rendering Phase",
+      "name": "Rendering Phase",
+      "description": "Master the elements of the Rendering Phase.",
       "skills": [
         {
           "name": "Composite backgrounds & lighting render",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Composite backgrounds & lighting render."
+          "description": "Practice details for Composite backgrounds & lighting render.",
+          "resources": [
+            "Standard reference handbook for Composite backgrounds & lighting render",
+            "Online masterclass video lecture on Composite backgrounds & lighting render"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Composite backgrounds & lighting render",
+            "Log peer review edits on Composite backgrounds & lighting render"
+          ]
         },
         {
           "name": "Export final video frames sequence",
           "progress": 0,
           "lessons": 5,
-          "description": "Practice lessons on Export final video frames sequence."
+          "description": "Practice details for Export final video frames sequence.",
+          "resources": [
+            "Standard reference handbook for Export final video frames sequence",
+            "Online masterclass video lecture on Export final video frames sequence"
+          ],
+          "exercises": [
+            "Complete 2 practical drawings/case files about Export final video frames sequence",
+            "Log peer review edits on Export final video frames sequence"
+          ]
         }
       ]
     }

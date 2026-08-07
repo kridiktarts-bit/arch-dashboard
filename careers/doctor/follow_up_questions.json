@@ -8,7 +8,7 @@
   ],
   "discoveryQuestions": [
     {
-      "id": "project_type",
+      "id": "specialty_target",
       "question": "What is your clinical specialty target?",
       "type": "select",
       "options": [
@@ -18,6 +18,18 @@
         "Surgery",
         "Emergency Medicine",
         "General Practice"
+      ]
+    },
+    {
+      "id": "project_type",
+      "question": "What is your current training stage?",
+      "type": "select",
+      "options": [
+        "High School",
+        "College Pre-Med",
+        "Medical School",
+        "Residency",
+        "Practicing"
       ]
     },
     {

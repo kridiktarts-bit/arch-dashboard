@@ -3,26 +3,97 @@
   "requiresDegree": false,
   "sidebarTemplates": {
     "beginner": [
-      { "id": "dashboard", "name": "Overview", "icon": "📊" },
-      { "id": "learning_path", "name": "Learning Path", "icon": "🗺️" },
-      { "id": "donows", "name": "Practice Tracker", "icon": "⚡" },
-      { "id": "portfolio", "name": "Projects", "icon": "🏗️" },
-      { "id": "schedule", "name": "Calendar", "icon": "📅" },
-      { "id": "resources", "name": "Resources", "icon": "📚" },
-      { "id": "settings", "name": "Settings", "icon": "⚙️" }
+      {
+        "id": "dashboard",
+        "name": "Overview",
+        "icon": "\ud83d\udcca"
+      },
+      {
+        "id": "learning_path",
+        "name": "Learning Path",
+        "icon": "\ud83d\uddfa\ufe0f"
+      },
+      {
+        "id": "donows",
+        "name": "Practice Tracker",
+        "icon": "\u26a1"
+      },
+      {
+        "id": "portfolio",
+        "name": "Projects",
+        "icon": "\ud83c\udfd7\ufe0f"
+      },
+      {
+        "id": "schedule",
+        "name": "Calendar",
+        "icon": "\ud83d\udcc5"
+      },
+      {
+        "id": "resources",
+        "name": "Resources",
+        "icon": "\ud83d\udcda"
+      },
+      {
+        "id": "settings",
+        "name": "Settings",
+        "icon": "\u2699\ufe0f"
+      }
     ],
     "professional": [
-      { "id": "dashboard", "name": "Overview", "icon": "📊" },
-      { "id": "learning_path", "name": "Production", "icon": "⚙️" },
-      { "id": "donows", "name": "Chapter Tracker", "icon": "⚡" },
-      { "id": "portfolio", "name": "Publishing", "icon": "🏗️" },
-      { "id": "schedule", "name": "Calendar", "icon": "📅" },
-      { "id": "resources", "name": "Marketing", "icon": "📚" },
-      { "id": "settings", "name": "Settings", "icon": "⚙️" }
+      {
+        "id": "dashboard",
+        "name": "Overview",
+        "icon": "\ud83d\udcca"
+      },
+      {
+        "id": "learning_path",
+        "name": "Production",
+        "icon": "\u2699\ufe0f"
+      },
+      {
+        "id": "donows",
+        "name": "Daily Planner",
+        "icon": "\u26a1"
+      },
+      {
+        "id": "portfolio",
+        "name": "Publishing",
+        "icon": "\ud83c\udfd7\ufe0f"
+      },
+      {
+        "id": "schedule",
+        "name": "Calendar",
+        "icon": "\ud83d\udcc5"
+      },
+      {
+        "id": "resources",
+        "name": "Resources",
+        "icon": "\ud83d\udcda"
+      },
+      {
+        "id": "settings",
+        "name": "Settings",
+        "icon": "\u2699\ufe0f"
+      }
     ]
   },
   "dashboardWidgets": {
-    "beginner": ["Learning Tracker", "Skill Tree", "Practice Tracker", "Habit Tracker", "Calendar", "Milestones", "AI Coach"],
-    "professional": ["Production Tracker", "Chapter Progress", "Remaining Pages", "Deadline Countdown", "Production Calendar", "Milestone Tracker"]
+    "beginner": [
+      "Learning Tracker",
+      "Skill Tree",
+      "Practice Tracker",
+      "Habit Tracker",
+      "Calendar",
+      "Milestones",
+      "AI Coach"
+    ],
+    "professional": [
+      "Production Tracker",
+      "Chapter Progress",
+      "Remaining Pages",
+      "Deadline Countdown",
+      "Production Calendar",
+      "Milestone Tracker"
+    ]
   }
 }

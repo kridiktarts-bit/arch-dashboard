@@ -31,6 +31,17 @@
       "question": "How many shots per scene?",
       "type": "number",
       "placeholder": "e.g. 8"
+    },
+    {
+      "id": "production_budget",
+      "question": "What is your estimated production budget?",
+      "type": "select",
+      "options": [
+        "No budget / Self-funded",
+        "Under $5,000",
+        "$5,000 - $25,000",
+        "Over $25,000"
+      ]
     }
   ]
 }

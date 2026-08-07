@@ -157,9 +157,19 @@ class App {
 
             if (userNameEl) userNameEl.innerText = onboarding.firstName;
             if (userRoleEl) {
-                userRoleEl.innerText = isProfessional 
-                    ? `Professional • ${career === 'comic_creator' ? 'Comic Creator' : 'Graduate Architect'}`
-                    : `Beginner • ${career === 'comic_creator' ? 'Comic Student' : 'Arch Student'}`;
+                const careerNames = {
+                    comic_creator: 'Comic Creator',
+                    architecture: 'Architect',
+                    software_engineer: 'Software Engineer',
+                    game_developer: 'Game Developer',
+                    animator: 'Animator',
+                    film_director: 'Film Director',
+                    doctor: 'Doctor',
+                    lawyer: 'Lawyer'
+                };
+                const title = isProfessional ? 'Professional' : 'Beginner';
+                const roleName = careerNames[career] || career;
+                userRoleEl.innerText = `${title} • ${roleName}`;
             }
             if (avatarEl) {
                 avatarEl.innerText = onboarding.firstName.charAt(0).toUpperCase();
@@ -206,6 +216,7 @@ class App {
             state: '',
             education: '', 
             career: '', 
+            has_degree: '', 
             
             // Q1
             experience_status: '', 
@@ -239,6 +250,7 @@ class App {
 
         let careerFollowUpConfig = null;
         let careerTemplatesConfig = null;
+        let careerOnboardingConfig = null;
 
         const getCareerUnitLabel = (c) => {
             const units = {
@@ -352,45 +364,100 @@ class App {
                     </div>
                 </div>
             `,
-            // Step 3 (Q1) - Experience level selector
-            () => `
-                <div class="onboarding-card">
-                    <div class="onboarding-step-indicator">
-                        <div class="step-dot active"></div>
-                        <div class="step-dot active"></div>
-                        <div class="step-dot active"></div>
-                        <div class="step-dot"></div>
-                        <div class="step-dot"></div>
-                        <div class="step-dot"></div>
-                        <div class="step-dot"></div>
-                    </div>
-                    <h2 class="onboarding-title" style="font-size: 28px; margin-bottom: 8px;">Step 3 — Experience Level</h2>
-                    <p class="onboarding-subtitle" style="margin-bottom: 24px;">What best describes your experience with ${wizardState.career === 'architecture' ? 'Architecture' : 'Comic Creation'}?</p>
-                    
-                    <div class="onboarding-form">
-                        <div class="choices-grid" style="grid-template-columns: 1fr; gap: 12px;">
-                            <button class="choice-button ob-q1-btn ${wizardState.experience_status === 'new' ? 'selected' : ''}" data-val="new" style="text-align: left; padding: 16px;">
-                                🌱 <strong>I'm completely new.</strong>
-                            </button>
-                            <button class="choice-button ob-q1-btn ${wizardState.experience_status === 'basics' ? 'selected' : ''}" data-val="basics" style="text-align: left; padding: 16px;">
-                                🌿 <strong>I know the basics.</strong>
-                            </button>
-                            <button class="choice-button ob-q1-btn ${wizardState.experience_status === 'experienced' ? 'selected' : ''}" data-val="experienced" style="text-align: left; padding: 16px;">
-                                🌳 <strong>I'm experienced.</strong> (Pivots to scheduler)
-                            </button>
-                            <button class="choice-button ob-q1-btn ${wizardState.experience_status === 'pro' ? 'selected' : ''}" data-val="pro" style="text-align: left; padding: 16px;">
-                                🏆 <strong>I'm already creating projects professionally.</strong> (Pivots to scheduler)
-                            </button>
+            // Step 3 (NEW) - Degree check for careers that require one
+            () => {
+                const careerNames = {
+                    comic_creator: 'Comic Creator',
+                    architecture: 'Architecture',
+                    software_engineer: 'Software Engineer',
+                    game_developer: 'Game Developer',
+                    animator: 'Animator',
+                    film_director: 'Film Director',
+                    doctor: 'Doctor',
+                    lawyer: 'Lawyer'
+                };
+                const cName = careerNames[wizardState.career] || 'this career';
+                return `
+                    <div class="onboarding-card">
+                        <div class="onboarding-step-indicator">
+                            <div class="step-dot active"></div>
+                            <div class="step-dot active"></div>
+                            <div class="step-dot active"></div>
+                            <div class="step-dot"></div>
+                            <div class="step-dot"></div>
+                            <div class="step-dot"></div>
+                            <div class="step-dot"></div>
+                        </div>
+                        <h2 class="onboarding-title" style="font-size: 28px; margin-bottom: 8px;">Degree Check</h2>
+                        <p class="onboarding-subtitle" style="margin-bottom: 24px;">Do you have a degree related to ${cName}?</p>
+                        
+                        <div class="onboarding-form">
+                            <div class="choices-grid" style="grid-template-columns: 1fr; gap: 10px;">
+                                <button class="choice-button ob-degree-btn ${wizardState.has_degree === 'yes' ? 'selected' : ''}" data-val="yes">Yes, I have a degree in ${cName}</button>
+                                <button class="choice-button ob-degree-btn ${wizardState.has_degree === 'studying' ? 'selected' : ''}" data-val="studying">Currently studying ${cName}</button>
+                                <button class="choice-button ob-degree-btn ${wizardState.has_degree === 'no' ? 'selected' : ''}" data-val="no">No degree</button>
+                            </div>
+                        </div>
+
+                        <div class="onboarding-nav-btns" style="margin-top: 16px;">
+                            <button class="onboarding-btn onboarding-btn-secondary" id="btn-back">Back</button>
+                            <button class="onboarding-btn onboarding-btn-primary" id="btn-next" ${wizardState.has_degree ? '' : 'disabled'}>Next</button>
                         </div>
                     </div>
+                `;
+            },
+            // Step 4 (Q1) - Experience level selector
+            () => {
+                const careerNames = {
+                    comic_creator: 'Comic Creator',
+                    architecture: 'Architecture',
+                    software_engineer: 'Software Engineer',
+                    game_developer: 'Game Developer',
+                    animator: 'Animator',
+                    film_director: 'Film Director',
+                    doctor: 'Doctor',
+                    lawyer: 'Lawyer'
+                };
+                const cName = careerNames[wizardState.career] || 'this career';
+                return `
+                    <div class="onboarding-card">
+                        <div class="onboarding-step-indicator">
+                            <div class="step-dot active"></div>
+                            <div class="step-dot active"></div>
+                            <div class="step-dot active"></div>
+                            <div class="step-dot active"></div>
+                            <div class="step-dot"></div>
+                            <div class="step-dot"></div>
+                            <div class="step-dot"></div>
+                        </div>
+                        <h2 class="onboarding-title" style="font-size: 28px; margin-bottom: 8px;">Step 4 — Experience Level</h2>
+                        <p class="onboarding-subtitle" style="margin-bottom: 24px;">What best describes your experience with ${cName}?</p>
+                        
+                        <div class="onboarding-form">
+                            <div class="choices-grid" style="grid-template-columns: 1fr; gap: 12px;">
+                                <button class="choice-button ob-q1-btn ${wizardState.experience_status === 'new' ? 'selected' : ''}" data-val="new" style="text-align: left; padding: 16px;">
+                                    🌱 <strong>I'm completely new.</strong>
+                                </button>
+                                <button class="choice-button ob-q1-btn ${wizardState.experience_status === 'basics' ? 'selected' : ''}" data-val="basics" style="text-align: left; padding: 16px;">
+                                    🌿 <strong>I know the basics.</strong>
+                                </button>
+                                <button class="choice-button ob-q1-btn ${wizardState.experience_status === 'experienced' ? 'selected' : ''}" data-val="experienced" style="text-align: left; padding: 16px;">
+                                    🌳 <strong>I'm experienced.</strong> (Pivots to scheduler)
+                                </button>
+                                <button class="choice-button ob-q1-btn ${wizardState.experience_status === 'pro' ? 'selected' : ''}" data-val="pro" style="text-align: left; padding: 16px;">
+                                    🏆 <strong>I'm already creating projects professionally.</strong> (Pivots to scheduler)
+                                </button>
+                            </div>
+                        </div>
 
-                    <div class="onboarding-nav-btns">
-                        <button class="onboarding-btn onboarding-btn-secondary" id="btn-back">Back</button>
-                        <button class="onboarding-btn onboarding-btn-primary" id="btn-next" ${wizardState.experience_status ? '' : 'disabled'}>Next</button>
+                        <div class="onboarding-nav-btns">
+                            <button class="onboarding-btn onboarding-btn-secondary" id="btn-back">Back</button>
+                            <button class="onboarding-btn onboarding-btn-primary" id="btn-next" ${wizardState.experience_status ? '' : 'disabled'}>Next</button>
+                        </div>
                     </div>
-                </div>
-            `,
-            // Step 4 (Q2) - Experienced Basics Pivot
+                `;
+            },
+            // Step 5 (Q2) - Experienced Basics Pivot
             () => {
                 const options = careerFollowUpConfig ? careerFollowUpConfig.skipBasicsOptions : [];
                 return `
@@ -802,27 +869,35 @@ class App {
                     } else if (wizardState.step === 2) {
                         careerFollowUpConfig = await getCareerConfig(wizardState.career, 'follow_up_questions');
                         careerTemplatesConfig = await getCareerConfig(wizardState.career, 'project_templates');
-                        wizardState.step = 3; // Q1
+                        careerOnboardingConfig = await getCareerConfig(wizardState.career, 'onboarding');
+                        
+                        if (careerOnboardingConfig && careerOnboardingConfig.requiresDegree) {
+                            wizardState.step = 3; // Go to Degree Check
+                        } else {
+                            wizardState.step = 4; // Go straight to Experience Level
+                        }
                     } else if (wizardState.step === 3) {
+                        wizardState.step = 4;
+                    } else if (wizardState.step === 4) {
                         if (wizardState.experience_status === 'experienced' || wizardState.experience_status === 'pro') {
-                            wizardState.step = 4; // Skip basics (Q2)
+                            wizardState.step = 5; // Go to Skip Basics (formerly step 4)
                         } else {
                             wizardState.journeyType = 'long';
                             wizardState.specificGoal = 'Become professional';
-                            wizardState.step = 9; // Jump directly to Goals (Step 9 pacing rate index in array)
+                            wizardState.step = 10; // Jump directly to pacing rate (formerly step 9, now index 10)
                         }
-                    } else if (wizardState.step === 4) {
-                        wizardState.journeyType = 'short';
-                        wizardState.step = 5; 
                     } else if (wizardState.step === 5) {
+                        wizardState.journeyType = 'short';
+                        wizardState.step = 6; 
+                    } else if (wizardState.step === 6) {
                         wizardState.project_type = document.getElementById('ob-q3-type').value;
                         wizardState.chapters_count = parseInt(document.getElementById('ob-q4-count').value) || 5;
                         const pageInput = document.getElementById('ob-q5-pages');
                         if (pageInput) {
                             wizardState.pages_per_chapter = parseInt(pageInput.value) || 10;
                         }
-                        wizardState.step = 6; 
-                    } else if (wizardState.step === 6) {
+                        wizardState.step = 7; 
+                    } else if (wizardState.step === 7) {
                         wizardState.completed_stages = [];
                         document.querySelectorAll('.ob-q6-check:checked').forEach(cb => {
                             wizardState.completed_stages.push(cb.value);
@@ -842,34 +917,34 @@ class App {
                         }
                         wizardState.scheduled_stages = stagesList.filter(s => !wizardState.completed_stages.includes(s));
                         
-                        wizardState.step = 7;
-                    } else if (wizardState.step === 7) {
+                        wizardState.step = 8;
+                    } else if (wizardState.step === 8) {
                         wizardState.scheduled_stages = [];
                         document.querySelectorAll('.ob-q7-check:checked').forEach(cb => {
                             wizardState.scheduled_stages.push(cb.value);
                         });
-                        wizardState.step = 8; // Step 7.5 Planning depth (index 8)
-                    } else if (wizardState.step === 8) {
-                        // Depth captured. Step 9 is pacing rate
-                        wizardState.step = 9;
+                        wizardState.step = 9; // Step 7.5 Planning depth (index 9)
                     } else if (wizardState.step === 9) {
-                        wizardState.step = 10; 
+                        // Depth captured. Step 10 is pacing rate
+                        wizardState.step = 10;
                     } else if (wizardState.step === 10) {
-                        wizardState.daily_hours = parseInt(document.getElementById('ob-q9-hours').value) || 3;
-                        wizardState.weeklyHours = wizardState.daily_hours * wizardState.work_days.length;
                         wizardState.step = 11; 
                     } else if (wizardState.step === 11) {
+                        wizardState.daily_hours = parseInt(document.getElementById('ob-q9-hours').value) || 3;
+                        wizardState.weeklyHours = wizardState.daily_hours * wizardState.work_days.length;
+                        wizardState.step = 12; 
+                    } else if (wizardState.step === 12) {
                         wizardState.start_date = document.getElementById('ob-q11-start').value;
                         wizardState.desired_deadline = document.getElementById('ob-q12-end').value;
-                        wizardState.step = 12;
-                    } else if (wizardState.step === 12) {
+                        wizardState.step = 13;
+                    } else if (wizardState.step === 13) {
                         wizardState.unavailable_dates_custom = document.getElementById('ob-q13-custom-dates').value;
-                        wizardState.step = 13; // Loading screen
+                        wizardState.step = 14; // Loading screen (index 14)
                     }
                     
                     renderStep();
                     
-                    if (wizardState.step === 13) {
+                    if (wizardState.step === 14) {
                         this.simulateAIGeneration(wizardState);
                     }
                 });
@@ -877,8 +952,14 @@ class App {
 
             if (backBtn) {
                 backBtn.addEventListener('click', () => {
-                    if (wizardState.step === 4) {
-                        wizardState.step = 3;
+                    if (wizardState.step === 3) {
+                        wizardState.step = 2;
+                    } else if (wizardState.step === 4) {
+                        if (careerOnboardingConfig && careerOnboardingConfig.requiresDegree) {
+                            wizardState.step = 3;
+                        } else {
+                            wizardState.step = 2;
+                        }
                     } else if (wizardState.step === 5) {
                         wizardState.step = 4;
                     } else if (wizardState.step === 6) {
@@ -888,25 +969,37 @@ class App {
                     } else if (wizardState.step === 8) {
                         wizardState.step = 7;
                     } else if (wizardState.step === 9) {
-                        if (wizardState.experience_status === 'experienced' || wizardState.experience_status === 'pro') {
-                            wizardState.step = 8; // Back to Step 7.5 Planning depth
-                        } else {
-                            wizardState.step = 3; 
-                        }
+                        wizardState.step = 8;
                     } else if (wizardState.step === 10) {
-                        wizardState.step = 9;
+                        if (wizardState.experience_status === 'experienced' || wizardState.experience_status === 'pro') {
+                            wizardState.step = 9; // Back to Step 7.5 Planning depth (index 9)
+                        } else {
+                            wizardState.step = 4; // Back to Experience Status
+                        }
                     } else if (wizardState.step === 11) {
                         wizardState.step = 10;
                     } else if (wizardState.step === 12) {
                         wizardState.step = 11;
                     } else if (wizardState.step === 13) {
                         wizardState.step = 12;
+                    } else if (wizardState.step === 14) {
+                        wizardState.step = 13;
                     } else {
                         wizardState.step--;
                     }
                     renderStep();
                 });
             }
+
+            // Degree Check click listeners
+            document.querySelectorAll('.ob-degree-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.ob-degree-btn').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    wizardState.has_degree = btn.getAttribute('data-val');
+                    nextBtn.disabled = false;
+                });
+            });
 
             // Q2 - Target Goal click listeners
             document.querySelectorAll('.ob-q2-btn').forEach(btn => {
@@ -982,16 +1075,26 @@ class App {
                     const diffWeeks = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 7));
 
                     let totalHours = 40;
-                    if (wizardState.career === 'comic_creator') {
-                        const ch = wizardState.chapters_count;
-                        const pg = wizardState.pages_per_chapter;
-                        totalHours = ch * pg * 4; 
+                    if (careerTemplatesConfig && careerTemplatesConfig.phases) {
+                        let taskCount = 0;
+                        careerTemplatesConfig.phases.forEach(p => taskCount += p.tasks.length);
+                        
+                        const multiplier = wizardState.pages_per_chapter || 4; // Use pages/prep weeks multiplier if present
+                        const elements = wizardState.chapters_count || 5;     // Use chapters/exams count
+                        
+                        totalHours = Math.max(15, elements * multiplier * (taskCount / 3));
                     } else {
-                        const sheets = wizardState.chapters_count;
-                        totalHours = sheets * 12; 
+                        totalHours = (wizardState.chapters_count || 5) * 12;
                     }
+                    totalHours = Math.round(totalHours);
 
-                    const totalStages = wizardState.career === 'comic_creator' ? 14 : 8;
+                    // Compile dynamic total stages
+                    let totalStages = 8;
+                    if (careerTemplatesConfig && careerTemplatesConfig.phases) {
+                        let count = 0;
+                        careerTemplatesConfig.phases.forEach(p => count += p.tasks.length);
+                        totalStages = count || 8;
+                    }
                     const deductionPct = wizardState.completed_stages.length / totalStages;
                     totalHours = Math.max(10, Math.round(totalHours * (1 - deductionPct * 0.8)));
 

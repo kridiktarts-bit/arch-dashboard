@@ -1,34 +1,82 @@
 {
+  "career": "Architecture",
   "phases": [
     {
-      "name": "Phase 1: Research & Site Analysis",
+      "id": "phase-1",
+      "name": "Site & Concept Phase",
       "tasks": [
-        { "title": "Analyze site zoning rules", "durationHours": 2, "dependencyId": "" },
-        { "title": "Compile site photo documentation", "durationHours": 1.5, "dependencyId": "" },
-        { "title": "Create architectural site map", "durationHours": 3, "dependencyId": "Analyze site zoning rules" }
+        {
+          "title": "Site analysis zoning review",
+          "durationHours": 4,
+          "dependencies": []
+        },
+        {
+          "title": "Site mapping & contextual overlays",
+          "durationHours": 5,
+          "dependencies": [
+            "Site analysis zoning review"
+          ]
+        }
       ]
     },
     {
-      "name": "Phase 2: Conceptual Design",
+      "id": "phase-2",
+      "name": "Massing Phase",
       "tasks": [
-        { "title": "Sketch abstract massing forms", "durationHours": 3, "dependencyId": "Create architectural site map" },
-        { "title": "Model conceptual envelope in Rhino", "durationHours": 4, "dependencyId": "Sketch abstract massing forms" }
+        {
+          "title": "Conceptual massing forms study",
+          "durationHours": 6,
+          "dependencies": [
+            "Site mapping & contextual overlays"
+          ]
+        },
+        {
+          "title": "Revit grids and level alignments",
+          "durationHours": 4,
+          "dependencies": [
+            "Conceptual massing forms study"
+          ]
+        }
       ]
     },
     {
-      "name": "Phase 3: Design Development",
+      "id": "phase-3",
+      "name": "Schematic Design",
       "tasks": [
-        { "title": "Establish grid alignments in Revit", "durationHours": 2.5, "dependencyId": "Model conceptual envelope in Rhino" },
-        { "title": "Draw basic floor plan layout", "durationHours": 5, "dependencyId": "Establish grid alignments in Revit" },
-        { "title": "Set up structural wall section details", "durationHours": 4, "dependencyId": "Draw basic floor plan layout" }
+        {
+          "title": "Basic floor plan layouts draft",
+          "durationHours": 10,
+          "dependencies": [
+            "Revit grids and level alignments"
+          ]
+        },
+        {
+          "title": "Section wall details sketches",
+          "durationHours": 8,
+          "dependencies": [
+            "Basic floor plan layouts draft"
+          ]
+        }
       ]
     },
     {
-      "name": "Phase 4: Render & Sheets",
+      "id": "phase-4",
+      "name": "Presentation Phase",
       "tasks": [
-        { "title": "Apply materials and lighting in rendering software", "durationHours": 3, "dependencyId": "Draw basic floor plan layout" },
-        { "title": "Polish final renders in Photoshop", "durationHours": 2.5, "dependencyId": "Apply materials and lighting in rendering software" },
-        { "title": "Assemble presentation sheets in InDesign", "durationHours": 4, "dependencyId": "Polish final renders in Photoshop" }
+        {
+          "title": "3D renderings and material lights",
+          "durationHours": 8,
+          "dependencies": [
+            "Section wall details sketches"
+          ]
+        },
+        {
+          "title": "Presentation sheets final layout",
+          "durationHours": 6,
+          "dependencies": [
+            "3D renderings and material lights"
+          ]
+        }
       ]
     }
   ]

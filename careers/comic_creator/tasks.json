@@ -1,46 +1,13 @@
 [
   {
-    "id": "comic-task-1",
-    "title": "Draw hands for 30 minutes",
-    "stage": "stage-1",
-    "description": "Complete 30 minutes of hand anatomy sketches using photo references.",
-    "estimatedHours": 0.5,
+    "title": "Practice drawing hands gestures",
+    "description": "Log 30 minutes of sketch references.",
     "month": "Current Month",
     "status": "pending"
   },
   {
-    "id": "comic-task-2",
-    "title": "Read chapter on perspective",
-    "stage": "stage-1",
-    "description": "Read Scott McCloud's Making Comics chapter on setting the scene and drawing perspective grids.",
-    "estimatedHours": 1,
-    "month": "Current Month",
-    "status": "pending"
-  },
-  {
-    "id": "comic-task-3",
-    "title": "Finish page 4 pencils",
-    "stage": "stage-1",
-    "description": "Pencil panel outlines, backgrounds, and character positioning for page 4.",
-    "estimatedHours": 2,
-    "month": "Current Month",
-    "status": "pending"
-  },
-  {
-    "id": "comic-task-4",
-    "title": "Watch anatomy lesson",
-    "stage": "stage-1",
-    "description": "Watch Proko's torso anatomy fundamentals video and draw along.",
-    "estimatedHours": 1,
-    "month": "Current Month",
-    "status": "pending"
-  },
-  {
-    "id": "comic-task-5",
-    "title": "Post artwork teaser on socials",
-    "stage": "stage-1",
-    "description": "Create a short reel or post showing character sketches to Twitter/Instagram.",
-    "estimatedHours": 0.5,
+    "title": "Watch panel composition lesson",
+    "description": "Watch Will Eisner sequencing guides.",
     "month": "Current Month",
     "status": "pending"
   }

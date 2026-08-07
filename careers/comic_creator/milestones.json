@@ -1,8 +1,19 @@
-[
-  { "id": "m1", "title": "Story outline complete", "completed": false, "points": 100 },
-  { "id": "m2", "title": "Character designs approved", "completed": false, "points": 150 },
-  { "id": "m3", "title": "Chapter 1 script finished", "completed": false, "points": 200 },
-  { "id": "m4", "title": "Chapter 1 artwork complete", "completed": false, "points": 300 },
-  { "id": "m5", "title": "Comic uploaded online", "completed": false, "points": 500 },
-  { "id": "m6", "title": "100 readers reached", "completed": false, "points": 1000 }
-]
+{
+  "milestones": [
+    {
+      "id": "milestone-0",
+      "title": "Complete Preproduction Phase",
+      "requiresTasksCount": 7
+    },
+    {
+      "id": "milestone-1",
+      "title": "Complete Production Phase",
+      "requiresTasksCount": 5
+    },
+    {
+      "id": "milestone-2",
+      "title": "Complete Publishing Phase",
+      "requiresTasksCount": 3
+    }
+  ]
+}
