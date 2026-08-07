@@ -1,0 +1,8 @@
+[
+  { "id": "m1", "title": "Story outline complete", "completed": false, "points": 100 },
+  { "id": "m2", "title": "Character designs approved", "completed": false, "points": 150 },
+  { "id": "m3", "title": "Chapter 1 script finished", "completed": false, "points": 200 },
+  { "id": "m4", "title": "Chapter 1 artwork complete", "completed": false, "points": 300 },
+  { "id": "m5", "title": "Comic uploaded online", "completed": false, "points": 500 },
+  { "id": "m6", "title": "100 readers reached", "completed": false, "points": 1000 }
+]

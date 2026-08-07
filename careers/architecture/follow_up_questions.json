@@ -1,0 +1,33 @@
+{
+  "skipBasicsOptions": [
+    "Become licensed",
+    "Find my first job",
+    "Build my portfolio",
+    "Learn Revit",
+    "Learn AutoCAD",
+    "Learn Rhino",
+    "Pass the ARE",
+    "Start my own firm",
+    "Other"
+  ],
+  "discoveryQuestions": [
+    {
+      "id": "project_type",
+      "question": "What project are you scheduling?",
+      "type": "select",
+      "options": ["Residential House Design", "Commercial Plaza Redesign", "Specialized Software Course", "Academic Portfolio Compilation"]
+    },
+    {
+      "id": "scale_levels",
+      "question": "How many sheets/drawings do you need to produce?",
+      "type": "number",
+      "placeholder": "e.g. 5"
+    },
+    {
+      "id": "software_used",
+      "question": "Which software will you focus on?",
+      "type": "select",
+      "options": ["Revit", "AutoCAD", "Rhino 3D", "SketchUp + Photoshop"]
+    }
+  ]
+}

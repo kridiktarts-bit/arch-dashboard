@@ -18,55 +18,8 @@
                 <h1 class="logo-text">ArchTrack</h1>
             </div>
             
-            <div class="nav-section">
-                <p class="nav-heading">MAIN</p>
-                <ul class="nav-links">
-                    <li class="active" data-view="dashboard">
-                        <span class="icon">📊</span> Overview
-                    </li>
-                    <li data-view="donows">
-                        <span class="icon">⚡</span> Do Nows & Time
-                    </li>
-                </ul>
-            </div>
-
-            <div class="nav-section">
-                <p class="nav-heading">NCARB JOURNEY</p>
-                <ul class="nav-links">
-                    <li data-view="axp">
-                        <span class="icon">⏱️</span> AXP Experience (3,740)
-                    </li>
-                    <li data-view="exams">
-                        <span class="icon">📝</span> ARE Exams
-                    </li>
-                </ul>
-            </div>
-
-            <div class="nav-section">
-                <p class="nav-heading">CAREER</p>
-                <ul class="nav-links">
-                    <li data-view="roadmap">
-                        <span class="icon">🗺️</span> Career Roadmap
-                    </li>
-                    <li data-view="projects">
-                        <span class="icon">🏗️</span> Projects & Portfolio
-                    </li>
-                    <li data-view="opportunities">
-                        <span class="icon">🎓</span> Opportunities
-                    </li>
-                </ul>
-            </div>
-
-            <div class="nav-section">
-                <p class="nav-heading">STUDIO OS</p>
-                <ul class="nav-links">
-                    <li data-view="reset">
-                        <span class="icon">🌙</span> Studio Reset
-                    </li>
-                    <li data-view="inspiration">
-                        <span class="icon">✨</span> Inspiration Vault
-                    </li>
-                </ul>
+            <div id="dynamic-nav-sections">
+                <!-- Navigation sections will be injected dynamically -->
             </div>
 
             <div class="sidebar-footer">
@@ -74,7 +27,7 @@
                     <div class="avatar"></div>
                     <div class="user-info">
                         <p class="user-name">Maris</p>
-                        <p class="user-role">City College Freshman</p>
+                        <p class="user-role">CCNY Pre-Architecture</p>
                     </div>
                 </div>
             </div>
@@ -98,6 +51,9 @@
             </div>
         </main>
     </div>
+
+    <!-- Onboarding Flow Overlay -->
+    <div id="onboarding-container" class="onboarding-overlay"></div>
 
     <!-- Modals Container -->
     <div id="modal-container"></div>

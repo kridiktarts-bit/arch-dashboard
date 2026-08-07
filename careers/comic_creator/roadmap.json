@@ -1,0 +1,95 @@
+{
+  "career": "Comic Creator",
+  "title": "Comic Creator (Writer + Illustrator + Publisher)",
+  "requiresDegree": false,
+  "requiresLicense": false,
+  "supportsShortTerm": true,
+  "supportsLongTerm": true,
+  "defaultJourney": "short",
+  "shortTermExamples": [
+    "Publish My First Comic",
+    "Learn Drawing",
+    "Finish 10 Chapters"
+  ],
+  "longTermExamples": [
+    "Become a Professional Comic Creator",
+    "Build a Publishing Business",
+    "Create a Full Comic Series"
+  ],
+  "navigation": {
+    "MAIN": [
+      { "id": "dashboard", "name": "Overview", "icon": "📊" },
+      { "id": "donows", "name": "Today's Tasks", "icon": "⚡" },
+      { "id": "schedule", "name": "Schedule", "icon": "📅" }
+    ],
+    "CAREER JOURNEY": [
+      { "id": "learning_path", "name": "Learning Path", "icon": "🗺️" },
+      { "id": "milestones", "name": "Milestones", "icon": "🏆" },
+      { "id": "skills", "name": "Skills", "icon": "🎨" },
+      { "id": "portfolio", "name": "Portfolio", "icon": "📚" },
+      { "id": "opportunities", "name": "Opportunities", "icon": "🎓" },
+      { "id": "achievements", "name": "Achievements", "icon": "🏅" }
+    ],
+    "PRODUCTIVITY": [
+      { "id": "reset", "name": "Focus Mode", "icon": "🌙" },
+      { "id": "resources", "name": "Resources", "icon": "📚" },
+      { "id": "inspiration", "name": "Inspiration", "icon": "✨" },
+      { "id": "settings", "name": "Settings", "icon": "⚙️" }
+    ]
+  },
+  "stages": [
+    {
+      "id": "stage-1",
+      "name": "Foundations",
+      "description": "Master drawing fundamentals, writing, and basic character designs.",
+      "timeframe": "Stage 1",
+      "skills": [
+        { "name": "Perspective", "lessons": 10, "progress": 0, "resources": ["Drawabox Lesson 1 & 2", "Andrew Loomis - Creative Illustration"], "exercises": ["1-point and 2-point perspective rooms", "Draw 250 boxes challenge"] },
+        { "name": "Anatomy", "lessons": 15, "progress": 0, "resources": ["Proko Anatomy Course", "Bridgman's Life Drawing"], "exercises": ["Gesture drawing (30s, 2m, 5m)", "Draw 50 skull studies"] },
+        { "name": "Character Design", "lessons": 8, "progress": 0, "resources": ["Taco - Point Character Drawing", "Marc Brunet Youtube Tutorials"], "exercises": ["Create turnaround sheets for 3 characters", "Expression sheet (12 expressions)"] },
+        { "name": "Writing & Storyboard", "lessons": 12, "progress": 0, "resources": ["Scott McCloud - Making Comics", "Will Eisner - Comics and Sequential Art"], "exercises": ["Write a 3-page script", "Thumbnails for a 5-page comic scene"] },
+        { "name": "Color Theory & Lighting", "lessons": 6, "progress": 0, "resources": ["Marco Bucci - Color in Storytelling", "James Gurney - Color and Light"], "exercises": ["Paint a value study", "Create 3 distinct mood lighting charts"] }
+      ]
+    },
+    {
+      "id": "stage-2",
+      "name": "Comic Creation",
+      "description": "Produce your first comic pages and master sequential art layouts.",
+      "timeframe": "Stage 2",
+      "skills": [
+        { "name": "Comic Layouts (Panels & Pacing)", "lessons": 8, "progress": 0, "resources": ["Framed Ink: Drawing and Composition", "Scott McCloud - Understanding Comics"], "exercises": ["Plan page layouts for 3 script pages", "Vary panel speeds in a chase scene"] },
+        { "name": "Lettering & Bubbles", "lessons": 4, "progress": 0, "resources": ["Comic Lettering Guide", "Blambot fonts"], "exercises": ["Letter 3 pages of dialogue", "Establish dialogue hierarchies"] },
+        { "name": "Digital Inking & Coloring", "lessons": 10, "progress": 0, "resources": ["Clip Studio Paint Inking", "Photoshop Digital Coloring"], "exercises": ["Ink a page digitally", "Flat color and shadow rendering on 1 page"] }
+      ]
+    },
+    {
+      "id": "stage-3",
+      "name": "Audience Growth",
+      "description": "Establish your online presence, social marketing, and community building.",
+      "timeframe": "Stage 3",
+      "skills": [
+        { "name": "Social Media (Insta, TikTok, Twitter)", "lessons": 6, "progress": 0, "resources": ["Content Strategy for Creators", "Algorithm breakdown"], "exercises": ["Post 3 times weekly for a month", "Create 3 TikTok speedpaint shorts"] },
+        { "name": "Community & Lists (Discord, Newsletters)", "lessons": 5, "progress": 0, "resources": ["MailerLite/Substack setup", "Community management guides"], "exercises": ["Launch personal Discord server", "Create sign-up landing page for newsletter"] }
+      ]
+    },
+    {
+      "id": "stage-4",
+      "name": "Monetization",
+      "description": "Open revenue streams and self-publishing mechanisms.",
+      "timeframe": "Stage 4",
+      "skills": [
+        { "name": "Crowdfunding & Platforms (Patreon, Tapas, Kickstarter)", "lessons": 8, "progress": 0, "resources": ["Kickstarter Launch Playbook", "Patreon pricing tier design"], "exercises": ["Design Patreon tier rewards", "Outline a Kickstarter campaign description"] },
+        { "name": "Print-on-Demand & Sales (Amazon KDP, Merch)", "lessons": 6, "progress": 0, "resources": ["Amazon KDP publishing guide", "Shopify/Ko-fi print setups"], "exercises": ["Format comic book PDF for KDP print", "List first 3 items in Ko-fi shop"] }
+      ]
+    },
+    {
+      "id": "stage-5",
+      "name": "Professional Creator",
+      "description": "Scale up to a full volume release, attend conventions, and pitch publishers.",
+      "timeframe": "Stage 5",
+      "skills": [
+        { "name": "Conventions & Pitching", "lessons": 10, "progress": 0, "resources": ["Artist Alley survival guide", "Publisher pitch deck template"], "exercises": ["Prepare a 5-page pitch document", "Design booth banners for Artist Alley"] }
+      ]
+    }
+  ]
+}

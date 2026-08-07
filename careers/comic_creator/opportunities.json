@@ -1,0 +1,38 @@
+[
+  {
+    "id": "comic-opp-1",
+    "title": "Nihonbashi Webtoon Competition",
+    "type": "Competition",
+    "org": "MediBang Pro",
+    "deadline": "November 30",
+    "notes": "Global webtoon layout challenge. Grand prize is $5,000 and serialization opportunities.",
+    "status": "due"
+  },
+  {
+    "id": "comic-opp-2",
+    "title": "Wacom Creator Grant",
+    "type": "Scholarship",
+    "org": "Wacom Foundation",
+    "deadline": "June 15",
+    "notes": "Offers drawing tablet setups and digital software licenses to emerging creators.",
+    "status": "mustDo"
+  },
+  {
+    "id": "comic-opp-3",
+    "title": "Tapas Creator Incubator",
+    "type": "Mentorship",
+    "org": "Tapas Media",
+    "deadline": "Rolling",
+    "notes": "Matches novice webcomic creators with senior editors for monthly project feedback.",
+    "status": "optional"
+  },
+  {
+    "id": "comic-opp-4",
+    "title": "New York Comic Con Artist Alley Pitch",
+    "type": "Competition",
+    "org": "NYCC / ReedPop",
+    "deadline": "September 1",
+    "notes": "Submit pitch deck for in-person editor reviews at NYCC. High potential!",
+    "status": "optional"
+  }
+]

@@ -33,9 +33,9 @@ async function run() {
             existingTitles.add(doc.data().title.trim());
         });
 
-        // 3. Scrape Dezeen Competitions RSS Feed
-        console.log("📡 Scraping Dezeen Competitions RSS feed...");
-        const feed = await parser.parseURL('https://www.dezeen.com/competitions/feed/');
+        // 3. Scrape Bustler RSS Feed
+        console.log("📡 Scraping Bustler Competitions RSS feed...");
+        const feed = await parser.parseURL('https://bustler.net/competitions/rss');
         
         let newItemsAdded = 0;
 
@@ -44,12 +44,13 @@ async function run() {
             
             // Only add if it doesn't already exist
             if (!existingTitles.has(title)) {
+                // Determine Deadline (Bustler titles often don't contain deadlines, but we will put 'Rolling' and let the user update it)
                 const newOpp = {
                     title: title,
                     type: "Competition",
-                    org: "Dezeen Competitions",
+                    org: "Bustler Discovery",
                     deadline: "Check Link",
-                    notes: `Auto-Scraped via GitHub Actions.\n\nLink: ${item.link}\n\nDetails: ${item.contentSnippet ? item.contentSnippet.substring(0, 150) + '...' : 'Visit link for details.'}`,
+                    notes: `Auto-Scraped via GitHub Actions.\\n\\nLink: ${item.link}\\n\\nDetails: ${item.contentSnippet ? item.contentSnippet.substring(0, 150) + '...' : 'Visit link for details.'}`,
                     status: "optional"
                 };
 
@@ -57,6 +58,7 @@ async function run() {
                 console.log(`✨ Added new opportunity: ${title}`);
                 newItemsAdded++;
                 
+                // Don't overwhelm the board, stop after adding 3 new items max per run
                 if (newItemsAdded >= 3) {
                     console.log("🛑 Reached max 3 new items for this run to keep board clean.");
                     break;

@@ -1,9 +1,14 @@
-import { getProjects, addProject, updateProjectTitle, updateProjectStatus } from '../db.js';
+import { getProjects, addProject, updateProjectTitle, updateProjectStatus, getActiveCareer } from '../db.js';
 
 export default {
     render: () => {
         const container = document.createElement('div');
         container.className = 'projects-view';
+
+        const career = getActiveCareer();
+        const placeholderName = career === 'architecture' ? 'e.g. 110th St Plaza Memorial Design' : 'e.g. Character Sheet: Turnaround';
+        const placeholderTools = career === 'architecture' ? 'e.g. Sketching, Rhino, AutoCAD' : 'e.g. Clip Studio Paint, Photoshop, ink';
+        const pageSubtitle = career === 'architecture' ? 'Curate your studio designs. Support for up to 5 documentation images per project.' : 'Curate your pages, character turnaround sheets, and illustrations.';
 
         container.innerHTML = `
             <style>
@@ -11,7 +16,6 @@ export default {
                 .project-card { background: var(--glass-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: var(--transition); }
                 .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.3); border-color: var(--primary); }
                 
-                /* We can use one of the nature images as a placeholder */
                 .project-image-placeholder { height: 160px; background: url('assets/media__1778714721711.jpg') center/cover; position: relative; }
                 
                 .project-content { padding: 20px; flex: 1; display: flex; flex-direction: column; }
@@ -32,37 +36,37 @@ export default {
 
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div>
-                    <h2>Projects & Portfolio</h2>
-                    <p class="text-muted" style="margin-top: 8px;">Curate your studio work. Support for up to 5 documentation images per project.</p>
+                    <h2>Portfolio & Deliverables</h2>
+                    <p class="text-muted" style="margin-top: 8px;">${pageSubtitle}</p>
                 </div>
-                <button class="btn btn-primary" id="new-project-btn">+ Add Project</button>
+                <button class="btn btn-primary" id="new-project-btn">+ Add Item</button>
             </div>
 
             <!-- New Project Form -->
             <div class="new-project-form" id="new-project-form">
-                <h3 style="margin-bottom: 16px;">Create New Project</h3>
+                <h3 style="margin-bottom: 16px;">Create Portfolio Item</h3>
                 <div class="form-group">
-                    <label>Project Name</label>
-                    <input type="text" id="proj-name" placeholder="e.g. 110th St Plaza Memorial Design">
+                    <label>Item Name / Title</label>
+                    <input type="text" id="proj-name" placeholder="${placeholderName}">
                 </div>
                 <div style="display: flex; gap: 16px;">
                     <div class="form-group" style="flex: 1;">
-                        <label>Deadline / Date</label>
+                        <label>Date Created</label>
                         <input type="text" id="proj-date" placeholder="e.g. Fall 2026 or Dec 15th">
                     </div>
                     <div class="form-group" style="flex: 1;">
-                        <label>Primary Tools</label>
-                        <input type="text" id="proj-tools" placeholder="e.g. Sketching, Rhino, AutoCAD">
+                        <label>Primary Media / Tools</label>
+                        <input type="text" id="proj-tools" placeholder="${placeholderTools}">
                     </div>
                 </div>
                 <div style="display: flex; gap: 12px; margin-top: 8px;">
-                    <button class="btn btn-primary" id="save-project-btn">Save Project</button>
+                    <button class="btn btn-primary" id="save-project-btn">Save Item</button>
                     <button class="btn" id="cancel-project-btn" style="background: transparent; border: 1px solid var(--border);">Cancel</button>
                 </div>
             </div>
 
             <div class="projects-grid" id="projects-grid">
-                <div style="text-align: center; width: 100%; color: var(--text-muted); grid-column: 1 / -1;">Loading projects from cloud...</div>
+                <div style="text-align: center; width: 100%; color: var(--text-muted); grid-column: 1 / -1;">Loading portfolio items...</div>
             </div>
         `;
 
@@ -95,7 +99,7 @@ export default {
                         </div>
                         <div class="project-meta">
                             <div>🗓️ ${p.date}</div>
-                            <div>💻 ${p.software}</div>
+                            <div>🛠️ ${p.software}</div>
                             <button class="btn btn-primary toggle-status-btn" data-id="${p.id}" data-status="${p.status || 'In Progress'}" style="padding: 4px 8px; font-size: 11px; margin-left: auto;">
                                 Mark ${p.status === 'Completed' ? 'In Progress' : 'Completed'}
                             </button>
@@ -117,7 +121,7 @@ export default {
             // Add listener to upload slots
             document.querySelectorAll('.img-upload-slot').forEach(slot => {
                 slot.addEventListener('click', () => {
-                    alert('Cloud Storage for images coming soon!');
+                    alert('Cloud upload coming soon! Drag and drop files to your workspace for now.');
                 });
             });
 
@@ -138,7 +142,7 @@ export default {
                 });
 
                 saveBtn.addEventListener('click', async () => {
-                    const newTitle = titleInput.value.trim() || 'Untitled Project';
+                    const newTitle = titleInput.value.trim() || 'Untitled Item';
                     saveBtn.textContent = '...';
                     await updateProjectTitle(id, newTitle);
                     await loadAndRenderProjects();
@@ -165,11 +169,11 @@ export default {
         cancelBtn.addEventListener('click', () => { form.style.display = 'none'; });
 
         saveBtn.addEventListener('click', async () => {
-            const title = document.getElementById('proj-name').value || 'Untitled Project';
+            const title = document.getElementById('proj-name').value || 'Untitled Item';
             const date = document.getElementById('proj-date').value || 'TBD';
-            const software = document.getElementById('proj-tools').value || 'Sketching';
+            const software = document.getElementById('proj-tools').value || 'Digital Paint';
             
-            saveBtn.textContent = 'Saving to Cloud...';
+            saveBtn.textContent = 'Saving...';
             saveBtn.disabled = true;
 
             await addProject({
@@ -180,7 +184,7 @@ export default {
                 images: []
             });
 
-            saveBtn.textContent = 'Save Project';
+            saveBtn.textContent = 'Save Item';
             saveBtn.disabled = false;
             form.style.display = 'none';
             document.getElementById('proj-name').value = '';

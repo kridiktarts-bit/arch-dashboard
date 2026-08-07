@@ -1,5 +1,4 @@
-import { getOpportunities, updateOpportunityStatus, deleteOpportunity, db } from '../db.js';
-import { addDoc, collection } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+import { getOpportunities, updateOpportunityStatus, deleteOpportunity, addOpportunity, getActiveCareer } from '../db.js';
 
 export default {
     render: () => {
@@ -12,10 +11,10 @@ export default {
                 .kanban-column { flex: 1; min-width: 300px; background: rgba(10, 25, 47, 0.4); border-radius: 12px; padding: 16px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 16px; min-height: 200px; }
                 .kanban-column.drag-over { border-color: var(--primary); background: rgba(10, 25, 47, 0.6); }
                 .column-header { font-weight: 600; color: var(--primary); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
-                .kanban-card { background: var(--glass-bg); backdrop-filter: blur(8px); padding: 16px; border-radius: 8px; border: 1px solid var(--glass-border); cursor: grab; transition: var(--transition); }
-                .kanban-card:active { cursor: grabbing; }
-                .kanban-card.dragging { opacity: 0.5; }
-                .kanban-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+                .kanban-card { background: var(--glass-bg); backdrop-filter: blur(8px); padding: 16px; border-radius: 8px; border: 1px solid var(--glass-border); cursor: grab; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); animation: popIn 0.5s ease-out backwards; }
+                .kanban-card:active { cursor: grabbing; transform: scale(0.98); }
+                .kanban-card.dragging { opacity: 0.5; transform: scale(0.95); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+                .kanban-card:hover { border-color: var(--primary); transform: translateY(-4px) scale(1.02); box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2); z-index: 2; }
                 .card-tag { font-size: 10px; text-transform: uppercase; padding: 4px 8px; border-radius: 4px; background: var(--primary-glow); color: var(--primary); display: inline-block; margin-bottom: 8px; font-weight: 700; letter-spacing: 1px; }
                 .card-title { font-weight: 600; margin-bottom: 8px; }
                 .card-meta { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
@@ -40,10 +39,10 @@ export default {
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div>
                     <h2>Opportunities Board</h2>
-                    <p class="text-muted" style="margin-top: 8px;">Personalized scholarships and internships. Drag and drop to organize!</p>
+                    <p class="text-muted" style="margin-top: 8px;">Personalized opportunities and programs. Drag and drop to organize!</p>
                 </div>
                 <div style="display: flex; gap: 12px;">
-                    <button class="discover-btn" id="discover-opps-btn">✨ Discover Scholarships</button>
+                    <button class="discover-btn" id="discover-opps-btn">✨ Discover Opportunities</button>
                     <button class="btn btn-primary" id="add-opportunity-btn">+ Add Opportunity</button>
                 </div>
             </div>
@@ -53,7 +52,7 @@ export default {
                     <h3 style="margin-bottom: 24px; color: white;">Add Opportunity</h3>
                     <div class="form-group">
                         <label>Title</label>
-                        <input type="text" id="opp-title" placeholder="e.g. Gensler Brinkmann Scholarship">
+                        <input type="text" id="opp-title" placeholder="e.g. Wacom Creator Grant">
                     </div>
                     <div style="display: flex; gap: 16px;">
                         <div class="form-group" style="flex: 1;">
@@ -63,16 +62,17 @@ export default {
                                 <option value="Internship">Internship</option>
                                 <option value="Mentorship">Mentorship</option>
                                 <option value="Competition">Competition</option>
+                                <option value="Convention">Convention</option>
                             </select>
                         </div>
                         <div class="form-group" style="flex: 1;">
                             <label>Organization</label>
-                            <input type="text" id="opp-org" placeholder="e.g. AIA New York">
+                            <input type="text" id="opp-org" placeholder="e.g. Wacom Foundation">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Deadline (Use a standard date format like "April 15, 2026" for auto-pruning)</label>
-                        <input type="text" id="opp-deadline" placeholder="e.g. April 15, 2026">
+                        <label>Deadline</label>
+                        <input type="text" id="opp-deadline" placeholder="e.g. April 15, 2027">
                     </div>
                     <div class="form-group">
                         <label>Notes</label>
@@ -86,7 +86,7 @@ export default {
             </div>
 
             <div class="kanban-board" id="kanban-board-container">
-                <div style="text-align: center; width: 100%; color: var(--text-muted);">Loading opportunities from cloud...</div>
+                <div style="text-align: center; width: 100%; color: var(--text-muted);">Loading opportunities...</div>
             </div>
             
             <div id="agent-toast-container"></div>
@@ -97,78 +97,51 @@ export default {
 
     onMount: async () => {
         let draggedCardId = null;
+        const career = getActiveCareer();
 
-        // Auto Agent Logic
-        const runAutoAgent = async () => {
-            const lastRun = localStorage.getItem('lastAgentRun');
-            const now = Date.now();
-            const sevenDays = 7 * 24 * 60 * 60 * 1000;
-
-            if (!lastRun || (now - parseInt(lastRun)) > sevenDays) {
-                const currentOpps = await getOpportunities();
-                const currentTitles = currentOpps.map(o => o.title);
-
-                // Time to run agent! Add 2 random opportunities from a pool
-                const pool = [
-                    { title: "Architects Foundation Diversity Scholarship", type: "Scholarship", org: "Architects Foundation", deadline: "January 15, 2027", notes: "National scholarship - monetary aid.", status: "optional" },
-                    { title: "Houzz Architecture Scholarship", type: "Scholarship", org: "Houzz", deadline: "March 31, 2027", notes: "National - Houzz offers $2,000 for architecture students.", status: "optional" },
-                    { title: "Vectorworks Design Scholarship", type: "Scholarship", org: "Vectorworks", deadline: "July 1, 2027", notes: "National - Open to all students. Submit a project.", status: "optional" },
-                    { title: "Center for Architecture Design Scholarship", type: "Scholarship", org: "AIA New York (Manhattan)", deadline: "May 20, 2027", notes: "Local NYC - Great for students studying in New York.", status: "optional" },
-                    { title: "PBDW Architects Scholarship", type: "Scholarship", org: "PBDW (NYC)", deadline: "April", notes: "Local NYC - Specific to students studying architecture in New York.", status: "optional" }
+        // Recommendations lists depending on chosen career
+        const getRecommendations = () => {
+            if (career === 'architecture') {
+                return [
+                    { title: "NOMA Foundation Fellowship", type: "Mentorship", org: "NOMA", deadline: "February 28", notes: "National - Provides design research experience. Must-do for minority students.", status: "optional" },
+                    { title: "Gensler Brinkmann Scholarship", type: "Scholarship", org: "Gensler", deadline: "March 15", notes: "National - Extremely competitive B.Arch study funding.", status: "optional" },
+                    { title: "SOM Foundation Robert L. Wesley Award", type: "Scholarship", org: "SOM", deadline: "November 1", notes: "Supports BIPOC undergraduate students enrolled in architecture.", status: "optional" },
+                    { title: "AIA New York Mentorship Program", type: "Mentorship", org: "AIA NY", deadline: "Rolling", notes: "Local NYC - Connects student members to Manhattan mentors.", status: "optional" }
                 ];
-                
-                // Filter out ones already in DB
-                const newOpps = pool.filter(p => !currentTitles.includes(p.title));
-                
-                if (newOpps.length > 0) {
-                    const shuffled = newOpps.sort(() => 0.5 - Math.random());
-                    const selected = shuffled.slice(0, 2);
-
-                    for (const opp of selected) {
-                        await addDoc(collection(db, 'opportunities'), opp);
-                    }
-
-                    const toastContainer = document.getElementById('agent-toast-container');
-                    if (toastContainer) {
-                        toastContainer.innerHTML = `<div class="agent-toast">🤖 Auto-Agent ran! Found ${selected.length} new opportunities.</div>`;
-                        setTimeout(() => toastContainer.innerHTML = '', 5000);
-                    }
-                }
-                
-                localStorage.setItem('lastAgentRun', now.toString());
+            } else {
+                return [
+                    { title: "Image Comics Talent Search", type: "Competition", org: "Image Comics", deadline: "Rolling", notes: "Submit portfolio page layouts for publisher review search program.", status: "optional" },
+                    { title: "BOOM! Studios Editorial Internship", type: "Internship", org: "BOOM! Studios", deadline: "April 30", notes: "Valuable in-studio assistant training for structural scripting.", status: "optional" },
+                    { title: "AIGA Design Contest", type: "Competition", org: "AIGA", deadline: "August 15", notes: "National design contest with dedicated graphic storytelling categories.", status: "optional" },
+                    { title: "Scholastic Art Awards Portfolio Scholarship", type: "Scholarship", org: "Scholastic Foundation", deadline: "December 1", notes: "National scholarship award for graduating high school portfolio sheets.", status: "optional" }
+                ];
             }
         };
 
         const loadOpportunities = async () => {
             let opps = await getOpportunities();
             
-            // Deadline Pruning logic
-            const validOpps = [];
-            for (const opp of opps) {
-                if (!opp.deadline || opp.deadline.toLowerCase() === 'rolling') {
-                    validOpps.push(opp);
-                    continue;
-                }
-                
-                const parsedDate = Date.parse(opp.deadline);
-                // If it parses to a valid date AND that date is in the past, delete it!
-                if (!isNaN(parsedDate) && parsedDate < Date.now()) {
-                    console.log(`Pruning expired opportunity: ${opp.title} (Deadline: ${opp.deadline})`);
-                    await deleteOpportunity(opp.id);
-                } else {
-                    validOpps.push(opp);
-                }
-            }
-            
-            const due = validOpps.filter(o => o.status === 'due');
-            const mustDo = validOpps.filter(o => o.status === 'mustDo');
-            const optional = validOpps.filter(o => o.status === 'optional');
+            const due = opps.filter(o => o.status === 'due');
+            const mustDo = opps.filter(o => o.status === 'mustDo');
+            const optional = opps.filter(o => o.status === 'optional');
 
-            const renderCard = (opp) => {
-                const isInternship = opp.type === 'Mentorship' || opp.type === 'Internship';
+            const renderCard = (opp, index) => {
+                const isBlue = opp.type === 'Mentorship' || opp.type === 'Internship';
+                const isPurple = opp.type === 'Competition' || opp.type === 'Convention';
+                
+                let tagStyle = '';
+                if (isBlue) {
+                    tagStyle = 'background: rgba(139, 92, 246, 0.2); color: var(--accent);';
+                } else if (isPurple) {
+                    tagStyle = 'background: rgba(45, 212, 191, 0.2); color: var(--secondary);';
+                }
+
                 return `
-                    <div class="kanban-card" draggable="true" data-id="${opp.id}">
-                        <span class="card-tag" style="${isInternship ? 'background: rgba(139, 92, 246, 0.2); color: var(--accent);' : ''}">${opp.type}</span>
+                    <div class="kanban-card" draggable="true" data-id="${opp.id}" style="animation-delay: ${index * 0.05}s;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <span class="card-tag" style="${tagStyle}">${opp.type}</span>
+                            <button class="delete-opp-btn" data-id="${opp.id}" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 12px;">✕</button>
+                        </div>
                         <div class="card-title">${opp.title}</div>
                         <div class="card-meta">🏢 ${opp.org}</div>
                         <div class="card-meta" style="margin-top: 4px; color: var(--warning);">📅 Deadline: ${opp.deadline}</div>
@@ -183,7 +156,7 @@ export default {
                         <span>${title}</span>
                         <span style="background: var(--bg-surface-elevated); padding: 2px 8px; border-radius: 12px; font-size: 12px; color: white;">${items.length}</span>
                     </div>
-                    ${items.length > 0 ? items.map(renderCard).join('') : '<div style="text-align: center; color: var(--text-muted); font-size: 14px; margin-top: 24px;">No applications here yet.</div>'}
+                    ${items.length > 0 ? items.map((item, idx) => renderCard(item, idx)).join('') : '<div style="text-align: center; color: var(--text-muted); font-size: 14px; margin-top: 24px; animation: popIn 0.3s;">Empty column</div>'}
                 </div>
             `;
 
@@ -194,6 +167,7 @@ export default {
             `;
 
             setupDragAndDrop();
+            attachDeleteListeners();
         };
 
         const setupDragAndDrop = () => {
@@ -228,8 +202,7 @@ export default {
                     
                     if (draggedCardId) {
                         const newStatus = column.getAttribute('data-status');
-                        // Optimistic UI update could go here, but we'll just reload for simplicity
-                        document.getElementById('kanban-board-container').innerHTML = '<div style="text-align: center; width: 100%; color: var(--text-muted);">Saving to cloud...</div>';
+                        document.getElementById('kanban-board-container').innerHTML = '<div style="text-align: center; width: 100%; color: var(--text-muted);">Moving opportunity...</div>';
                         await updateOpportunityStatus(draggedCardId, newStatus);
                         await loadOpportunities();
                     }
@@ -237,10 +210,19 @@ export default {
             });
         };
 
-        await loadOpportunities();
+        const attachDeleteListeners = () => {
+            document.querySelectorAll('.delete-opp-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    e.stopPropagation();
+                    const id = btn.getAttribute('data-id');
+                    if (confirm("Are you sure you want to remove this opportunity?")) {
+                        await deleteOpportunity(id);
+                        await loadOpportunities();
+                    }
+                });
+            });
+        };
 
-        // Run the agent on mount!
-        await runAutoAgent();
         await loadOpportunities();
 
         // Modal Logic
@@ -263,10 +245,10 @@ export default {
                 org: document.getElementById('opp-org').value || 'Unknown',
                 deadline: document.getElementById('opp-deadline').value || 'Rolling',
                 notes: document.getElementById('opp-notes').value || '',
-                status: 'optional' // Default column
+                status: 'optional'
             };
 
-            await addDoc(collection(db, 'opportunities'), newOpp);
+            await addOpportunity(newOpp);
             
             modal.style.display = 'none';
             saveBtn.textContent = 'Save to Board';
@@ -286,28 +268,27 @@ export default {
         discoverBtn.addEventListener('click', async (e) => {
             e.preventDefault();
 
-            discoverBtn.textContent = 'Fetching...';
+            discoverBtn.textContent = 'Scanning...';
             discoverBtn.disabled = true;
             
             const currentOpps = await getOpportunities();
-            const currentTitles = currentOpps.map(o => o.title);
+            const currentTitles = currentOpps.map(o => o.title.toLowerCase().trim());
 
-            const recommendations = [
-                { title: "NOMA Foundation Fellowship", type: "Mentorship", org: "NOMA", deadline: "February", notes: "National - Provides design research experience and matches fellows with top firms. Must-do for minority students.", status: "optional" },
-                { title: "Gensler Brinkmann Scholarship", type: "Scholarship", org: "Gensler", deadline: "March", notes: "National - Extremely competitive but highly prestigious.", status: "optional" },
-                { title: "SOM Foundation Robert L. Wesley Award", type: "Scholarship", org: "SOM", deadline: "November", notes: "National - Supports BIPOC undergraduate students enrolled in architecture/design programs.", status: "optional" },
-                { title: "AIA New York Mentorship Program", type: "Mentorship", org: "AIA NY", deadline: "Rolling", notes: "Local NYC - Great resource for connecting with local AIA chapters in Manhattan.", status: "optional" },
-                { title: "ACE Mentor Program Alumni Scholarship", type: "Scholarship", org: "ACE", deadline: "Spring", notes: "National - If you participated in ACE in high school, you are eligible for this college funding.", status: "optional" }
-            ];
-            
-            const newOpps = recommendations.filter(p => !currentTitles.includes(p.title));
+            const recommendations = getRecommendations();
+            const newOpps = recommendations.filter(p => !currentTitles.includes(p.title.toLowerCase().trim()));
 
             for (const opp of newOpps) {
-                await addDoc(collection(db, 'opportunities'), opp);
+                await addOpportunity(opp);
             }
 
             discoverBtn.style.display = 'none';
             await loadOpportunities();
+
+            const toastContainer = document.getElementById('agent-toast-container');
+            if (toastContainer) {
+                toastContainer.innerHTML = `<div class="agent-toast">🤖 Discovery run complete! Added ${newOpps.length} new matching recommendations.</div>`;
+                setTimeout(() => toastContainer.innerHTML = '', 4000);
+            }
         });
     }
 };

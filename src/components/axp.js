@@ -59,7 +59,7 @@ export default {
                                     <div class="progress-bar" style="width: ${catPercent}%; background: ${catPercent >= 100 ? 'var(--success)' : 'var(--primary)'}"></div>
                                 </div>
                                 <div class="log-hours-form">
-                                    <input type="number" class="log-hours-input" min="1" placeholder="Hours" data-cat="${cat.name}">
+                                    <input type="number" class="log-hours-input" placeholder="Hours" data-cat="${cat.name}">
                                     <button class="btn btn-primary log-btn" style="padding: 4px 12px; font-size: 12px;" data-cat="${cat.name}">Log Hours</button>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@ export default {
                     const input = document.querySelector(`input[data-cat="${catName}"]`);
                     const hours = parseInt(input.value);
 
-                    if (hours > 0) {
+                    if (hours !== 0 && !isNaN(hours)) {
                         e.target.textContent = '...';
                         await updateAxpCategory(catName, hours);
                         await loadAndRenderAxp();

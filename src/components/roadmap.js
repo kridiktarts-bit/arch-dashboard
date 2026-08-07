@@ -1,120 +1,4 @@
-import { getRoadmapCheckpoints, saveRoadmapCheckpoint } from '../db.js';
-
-const ROADMAP_DATA = [
-    {
-        id: "phase-1",
-        timeframe: "MAY → MID JUNE 2026",
-        title: "Revit Foundation",
-        details: [
-            "Spend 1–3 hours daily on Revit.",
-            "Learn walls, floors, stairs, windows, sheets, sections, rendering basics.",
-            "Goal: Create one complete modern house project from scratch (not tutorial copying)."
-        ]
-    },
-    {
-        id: "phase-2",
-        timeframe: "MID JUNE → MID JULY 2026",
-        title: "Portfolio Projects & Presentation Skills",
-        details: [
-            "Make: Small modern house, Apartment redesign, Small café/store concept.",
-            "Include floor plans, exterior/interior renders, simple diagrams.",
-            "Spend 30m–1hr daily on Presentation (Photoshop, InDesign): clean layouts, typography."
-        ]
-    },
-    {
-        id: "phase-3",
-        timeframe: "MID JULY → AUGUST 2026",
-        title: "Organize Professionally",
-        details: [
-            "Create resume, LinkedIn, portfolio PDF, and folders for all projects.",
-            "Research CCNY architecture culture, studio expectations, and student portfolios."
-        ]
-    },
-    {
-        id: "phase-4",
-        timeframe: "FALL SEMESTER (AUG → DEC 2026)",
-        title: "Adapt to Architecture School",
-        details: [
-            "Focus on time management, improving workflow, and getting comfortable in studio.",
-            "Continue improving Revit, rendering, diagrams (extra 3–6 hrs/week).",
-            "Begin Soft Networking: talk to professors, upperclassmen, studio classmates."
-        ]
-    },
-    {
-        id: "phase-5",
-        timeframe: "WINTER BREAK (DEC 2026 → JAN 2027)",
-        title: "Portfolio Polish & Early Applications",
-        details: [
-            "Spend 2–5 weeks improving portfolio (add best freshman projects, cleaner presentation).",
-            "Apply to small internships, drafting help, office assistant roles (even if underqualified)."
-        ]
-    },
-    {
-        id: "phase-6",
-        timeframe: "SPRING SEMESTER (JAN → MAY 2027)",
-        title: "Internship Search & Skill Building",
-        details: [
-            "Apply to small architecture firms, local studios, drafting positions (Aim for 10–30 apps).",
-            "Ensure proficiency in Revit, rendering, Photoshop, and diagrams."
-        ]
-    },
-    {
-        id: "phase-7",
-        timeframe: "SUMMER 2027",
-        title: "First Architecture Internship",
-        details: [
-            "Get real office exposure (drafting workflow, sheet setup, office communication).",
-            "This matters heavily even if part-time or initially unpaid."
-        ]
-    },
-    {
-        id: "phase-8",
-        timeframe: "SOPHOMORE YEAR (2027-2028)",
-        title: "Part-Time Work & NCARB Record",
-        details: [
-            "Create NCARB Record officially to let your work hours count toward licensure.",
-            "Goal: Secure a part-time firm job (10-20 hrs/week during semesters).",
-            "Learn real construction (wall assemblies, codes, details)."
-        ]
-    },
-    {
-        id: "phase-9",
-        timeframe: "SUMMER 2028",
-        title: "Bigger Internship",
-        details: [
-            "Bigger internship or continued firm work.",
-            "Firms will trust you with more real work since you know Revit, workflow, and basic construction drawings."
-        ]
-    },
-    {
-        id: "phase-10",
-        timeframe: "JUNIOR YEAR (2028-2029)",
-        title: "Become Professionally Solid",
-        details: [
-            "Focus on technical drawings, construction details, code knowledge, and real project workflow.",
-            "Aim for consistent internships, repeat employers, and references."
-        ]
-    },
-    {
-        id: "phase-11",
-        timeframe: "SENIOR YEAR (2029-2031)",
-        title: "Graduate Strong",
-        details: [
-            "Graduate with a strong portfolio, industry experience, and substantial AXP progress.",
-            "Ideally have a full-time offer lined up before graduation."
-        ]
-    },
-    {
-        id: "phase-12",
-        timeframe: "1-3 YEARS AFTER SCHOOL",
-        title: "Licensure & Beyond",
-        details: [
-            "Finish remaining AXP hours.",
-            "Pass ARE exams and become a licensed architect.",
-            "Future: Own studio, architecture firm, or development business."
-        ]
-    }
-];
+import { getRoadmap, getRoadmapCheckpoints, saveRoadmapCheckpoint } from '../db.js';
 
 export default {
     render: () => {
@@ -155,7 +39,7 @@ export default {
             </style>
 
             <div style="margin-bottom: 24px;">
-                <h2 style="text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Career Roadmap</h2>
+                <h2 style="text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Career Roadmap stages</h2>
                 <p class="text-muted" style="margin-top: 8px;">Your macro timeline. Track your overarching goals and attach portfolio updates to each specific phase.</p>
             </div>
 
@@ -170,21 +54,33 @@ export default {
 
     onMount: async () => {
         const container = document.getElementById('timeline-container');
+        const roadmap = await getRoadmap();
         const checkpoints = await getRoadmapCheckpoints();
 
+        if (!roadmap.stages || roadmap.stages.length === 0) {
+            container.innerHTML = '<div style="color: var(--text-muted); padding: 20px;">No stages configured for this career path.</div>';
+            return;
+        }
+
         // Render Timeline
-        container.innerHTML = `<div class="timeline-line"></div>` + ROADMAP_DATA.map(phase => {
-            const cp = checkpoints[phase.id] || {};
+        container.innerHTML = `<div class="timeline-line"></div>` + roadmap.stages.map(stage => {
+            const cp = checkpoints[stage.id] || {};
             const hasData = cp.link || cp.notes;
             
+            // Build visual details list
+            const detailsList = [
+                stage.description,
+                ...stage.skills.map(s => `${s.name}: ${s.exercises.join(', ')}`)
+            ];
+
             return `
-                <div class="timeline-node" data-id="${phase.id}">
+                <div class="timeline-node" data-id="${stage.id}">
                     <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
                     <div class="timeline-content">
-                        <div class="phase-time">${phase.timeframe}</div>
-                        <div class="phase-title">${phase.title}</div>
+                        <div class="phase-time">${stage.timeframe || 'Stage Progress'}</div>
+                        <div class="phase-title">${stage.name}</div>
                         <ul class="phase-details">
-                            ${phase.details.map(d => `<li>${d}</li>`).join('')}
+                            ${detailsList.map(d => `<li>${d}</li>`).join('')}
                         </ul>
                         
                         <div class="checkpoint-section">
@@ -198,7 +94,7 @@ export default {
                             </div>
 
                             <input type="text" class="portfolio-link-input" placeholder="Paste Google Drive/Portfolio link here..." value="${cp.link || ''}">
-                            <textarea class="portfolio-notes" placeholder="Notes (e.g. Added 3 modern house renders to PDF...)">${cp.notes || ''}</textarea>
+                            <textarea class="portfolio-notes" placeholder="Notes (e.g. Finished anatomy sketches turnaround sheet PDF...)">${cp.notes || ''}</textarea>
                             
                             <div style="display: flex; gap: 8px;">
                                 <button class="btn update-btn" style="background: ${hasData ? 'rgba(255,255,255,0.1)' : 'var(--primary)'}; border: 1px solid var(--border); padding: 6px 12px; font-size: 12px;">${hasData ? 'Edit Update' : '+ Add Portfolio Update'}</button>
@@ -250,7 +146,7 @@ export default {
 
                 await saveRoadmapCheckpoint(phaseId, { link, notes });
                 
-                // Re-render is easiest, or just optimistic update. For simplicity, reload view.
+                // Re-render
                 window.app.renderView(); 
             });
         });

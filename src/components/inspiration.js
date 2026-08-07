@@ -82,18 +82,34 @@ export default {
         const btn = document.getElementById('randomize-btn');
         const display = document.getElementById('prompt-display');
 
-        const prompts = [
-            "Detail a hidden pivot door integrated perfectly into a wood-slatted accent wall.",
-            "Design a brutalist bus stop shelter that captures rainwater.",
-            "Conceptualize a suspended steel staircase without visible stringers.",
-            "Design a tiny cafe built entirely out of repurposed shipping containers.",
-            "Sketch a minimalist kitchen island where the sink is completely hidden.",
-            "Design a facade screen system inspired by local indigenous weaving patterns.",
-            "Create a public park bench that naturally separates strangers while feeling cohesive.",
-            "Design a skylight detail that washes a textured brick wall with indirect sunlight.",
-            "Detail an outdoor fireplace integrated directly into a retaining wall.",
-            "Design a pop-up reading pavilion for a dense urban plaza."
+        const actions = ["Design", "Detail", "Conceptualize", "Sketch", "Model", "Draft"];
+        const typologies = [
+            "a tiny minimalist cafe", "a brutalist bus stop shelter", "a suspended pedestrian bridge", 
+            "an underground meditation pavilion", "a floating sauna", "a zero-waste botanical greenhouse", 
+            "a modular affordable housing unit", "an off-grid artists' retreat", "a public reading room", 
+            "a kinetic observation tower", "a hidden speakeasy", "a community seed bank", 
+            "a disaster-relief shelter", "a vertical urban farm", "an outdoor amphitheater"
         ];
+        const materials = [
+            "built entirely from repurposed shipping containers", "featuring a facade of charred timber (Shou Sugi Ban)", 
+            "using massive rammed-earth walls", "with a translucent polycarbonate envelope", 
+            "focusing heavily on exposed board-formed concrete", "utilizing parametric brickwork", 
+            "supported by an intricate bamboo structural lattice", "featuring a folded corten steel roof", 
+            "with zero visible structural fasteners", "incorporating a living green wall system"
+        ];
+        const contexts = [
+            "in a dense, noisy urban plaza.", "cantilevered over a steep rocky cliff.", 
+            "nestled seamlessly into a snowy alpine forest.", "bridging a narrow, fast-flowing river.", 
+            "floating on a calm, isolated lake.", "in a scorching, arid desert landscape.", 
+            "retrofitted inside an abandoned industrial warehouse.", "on a tiny, awkwardly shaped street corner.",
+            "hidden underneath a busy highway overpass.", "partially submerged underwater."
+        ];
+
+        // Load saved concept if it exists
+        const savedConcept = localStorage.getItem('current_concept');
+        if (savedConcept) {
+            display.textContent = savedConcept;
+        }
 
         btn.addEventListener('click', () => {
             // Simple flip animation
@@ -101,8 +117,14 @@ export default {
             display.style.transform = 'translateY(10px)';
             
             setTimeout(() => {
-                const random = prompts[Math.floor(Math.random() * prompts.length)];
-                display.textContent = `"${random}"`;
+                const act = actions[Math.floor(Math.random() * actions.length)];
+                const typ = typologies[Math.floor(Math.random() * typologies.length)];
+                const mat = materials[Math.floor(Math.random() * materials.length)];
+                const ctx = contexts[Math.floor(Math.random() * contexts.length)];
+                
+                const newConcept = `"${act} ${typ} ${mat} ${ctx}"`;
+                display.textContent = newConcept;
+                localStorage.setItem('current_concept', newConcept);
                 
                 display.style.transition = 'all 0.3s ease';
                 display.style.opacity = '1';

@@ -1,0 +1,16 @@
+{
+  "maxDailyHoursLimit": 6,
+  "defaultTaskBufferDays": 1,
+  "restDays": ["Sunday"],
+  "dependenciesList": [
+    { "task": "Create architectural site map", "dependsOn": "Analyze site zoning rules" },
+    { "task": "Sketch abstract massing forms", "dependsOn": "Create architectural site map" },
+    { "task": "Model conceptual envelope in Rhino", "dependsOn": "Sketch abstract massing forms" },
+    { "task": "Establish grid alignments in Revit", "dependsOn": "Model conceptual envelope in Rhino" },
+    { "task": "Draw basic floor plan layout", "dependsOn": "Establish grid alignments in Revit" },
+    { "task": "Set up structural wall section details", "dependsOn": "Draw basic floor plan layout" },
+    { "task": "Apply materials and lighting in rendering software", "dependsOn": "Draw basic floor plan layout" },
+    { "task": "Polish final renders in Photoshop", "dependsOn": "Apply materials and lighting in rendering software" },
+    { "task": "Assemble presentation sheets in InDesign", "dependsOn": "Polish final renders in Photoshop" }
+  ]
+}

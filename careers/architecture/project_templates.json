@@ -1,0 +1,35 @@
+{
+  "phases": [
+    {
+      "name": "Phase 1: Research & Site Analysis",
+      "tasks": [
+        { "title": "Analyze site zoning rules", "durationHours": 2, "dependencyId": "" },
+        { "title": "Compile site photo documentation", "durationHours": 1.5, "dependencyId": "" },
+        { "title": "Create architectural site map", "durationHours": 3, "dependencyId": "Analyze site zoning rules" }
+      ]
+    },
+    {
+      "name": "Phase 2: Conceptual Design",
+      "tasks": [
+        { "title": "Sketch abstract massing forms", "durationHours": 3, "dependencyId": "Create architectural site map" },
+        { "title": "Model conceptual envelope in Rhino", "durationHours": 4, "dependencyId": "Sketch abstract massing forms" }
+      ]
+    },
+    {
+      "name": "Phase 3: Design Development",
+      "tasks": [
+        { "title": "Establish grid alignments in Revit", "durationHours": 2.5, "dependencyId": "Model conceptual envelope in Rhino" },
+        { "title": "Draw basic floor plan layout", "durationHours": 5, "dependencyId": "Establish grid alignments in Revit" },
+        { "title": "Set up structural wall section details", "durationHours": 4, "dependencyId": "Draw basic floor plan layout" }
+      ]
+    },
+    {
+      "name": "Phase 4: Render & Sheets",
+      "tasks": [
+        { "title": "Apply materials and lighting in rendering software", "durationHours": 3, "dependencyId": "Draw basic floor plan layout" },
+        { "title": "Polish final renders in Photoshop", "durationHours": 2.5, "dependencyId": "Apply materials and lighting in rendering software" },
+        { "title": "Assemble presentation sheets in InDesign", "durationHours": 4, "dependencyId": "Polish final renders in Photoshop" }
+      ]
+    }
+  ]
+}

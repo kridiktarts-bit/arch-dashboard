@@ -1,0 +1,38 @@
+[
+  {
+    "id": "arch-task-1",
+    "title": "Practice Revit wall connections",
+    "stage": "stage-1",
+    "description": "Watch tutorials and practice clean T-junction joints in Revit.",
+    "estimatedHours": 1,
+    "month": "Current Month",
+    "status": "pending"
+  },
+  {
+    "id": "arch-task-2",
+    "title": "Assemble Spitzer transfer portfolio draft",
+    "stage": "stage-1",
+    "description": "Gather 5 sketches and model photos to structure the first draft.",
+    "estimatedHours": 3,
+    "month": "Current Month",
+    "status": "pending"
+  },
+  {
+    "id": "arch-task-3",
+    "title": "Research NAAB program standards",
+    "stage": "stage-1",
+    "description": "Understand credit transfers and program accreditation guidelines.",
+    "estimatedHours": 2,
+    "month": "Current Month",
+    "status": "pending"
+  },
+  {
+    "id": "arch-task-4",
+    "title": "Draft Walter Hunt Scholarship application",
+    "stage": "stage-1",
+    "description": "Outline requirements and draft the introduction essay.",
+    "estimatedHours": 2,
+    "month": "Next Month",
+    "status": "pending"
+  }
+]

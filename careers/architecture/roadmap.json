@@ -1,0 +1,91 @@
+{
+  "career": "Architecture",
+  "title": "Architect",
+  "requiresDegree": true,
+  "requiresLicense": true,
+  "supportsShortTerm": true,
+  "supportsLongTerm": true,
+  "defaultJourney": "long",
+  "shortTermExamples": [
+    "Portfolio Preparation",
+    "Job Search",
+    "Learn Revit",
+    "ARE Exam Preparation"
+  ],
+  "longTermExamples": [
+    "Become Licensed",
+    "Own an Architecture Firm"
+  ],
+  "navigation": {
+    "MAIN": [
+      { "id": "dashboard", "name": "Overview", "icon": "📊" },
+      { "id": "donows", "name": "Today's Tasks", "icon": "⚡" },
+      { "id": "schedule", "name": "Schedule", "icon": "📅" }
+    ],
+    "CAREER JOURNEY": [
+      { "id": "learning_path", "name": "Learning Path", "icon": "🗺️" },
+      { "id": "milestones", "name": "Milestones", "icon": "🏆" },
+      { "id": "skills", "name": "Skills", "icon": "📐" },
+      { "id": "portfolio", "name": "Portfolio", "icon": "🏗️" },
+      { "id": "opportunities", "name": "Opportunities", "icon": "🎓" },
+      { "id": "achievements", "name": "Achievements", "icon": "🏅" }
+    ],
+    "PRODUCTIVITY": [
+      { "id": "reset", "name": "Focus Mode", "icon": "🌙" },
+      { "id": "resources", "name": "Resources", "icon": "📚" },
+      { "id": "inspiration", "name": "Inspiration", "icon": "✨" },
+      { "id": "settings", "name": "Settings", "icon": "⚙️" }
+    ]
+  },
+  "stages": [
+    {
+      "id": "stage-1",
+      "name": "Foundations & Software",
+      "description": "Master Revit, Rhino, and graphic presentations.",
+      "timeframe": "Months 1 - 3",
+      "skills": [
+        { "name": "Revit Foundation", "lessons": 12, "progress": 0, "resources": ["Autodesk Revit Tutorial", "CCNY BIM Workshop"], "exercises": ["Build a 3D modern house", "Create sheets and section views"] },
+        { "name": "Rhino 3D", "lessons": 8, "progress": 0, "resources": ["Rhino Basics Course", "Niel's Rhino Guides"], "exercises": ["Model organic surface canopy", "Export 2D drawings for illustrator"] },
+        { "name": "Presentation Design", "lessons": 6, "progress": 0, "resources": ["InDesign Portfolio layouts", "Photoshop render touch-ups"], "exercises": ["Draft clean 2-page project spread", "Color grade render mockup"] }
+      ]
+    },
+    {
+      "id": "stage-2",
+      "name": "Academic Adaptation",
+      "description": "Navigate freshman studio culture, time management, and model making.",
+      "timeframe": "First Year College",
+      "skills": [
+        { "name": "Physical Modeling", "lessons": 5, "progress": 0, "resources": ["Basswood & Chipboard Tips", "Laser cutter prep guide"], "exercises": ["Construct structural frame at 1:50 scale", "Build topological site model"] },
+        { "name": "Architectural Theory", "lessons": 10, "progress": 0, "resources": ["Ching - Form, Space, & Order", "Tadao Ando Essays"], "exercises": ["Write spatial sequence analysis", "Create sketch collage of CCNY Spitzer campus"] }
+      ]
+    },
+    {
+      "id": "stage-3",
+      "name": "AXP Accumulation",
+      "description": "Log experience hours under direct supervision of licensed architects.",
+      "timeframe": "Sophomore & Junior Years",
+      "skills": [
+        { "name": "Construction Documents", "lessons": 15, "progress": 0, "resources": ["AIA Sheet Standards", "Wall Detail assemblies"], "exercises": ["Draw wall section details", "Annotate partition schedules"] },
+        { "name": "Project Management", "lessons": 10, "progress": 0, "resources": ["NCARB AXP Guidebook", "Firm coordination standard"], "exercises": ["Review shop drawing submittals", "Attend contractor site walk-through"] }
+      ]
+    },
+    {
+      "id": "stage-4",
+      "name": "Professional Polish",
+      "description": "Polish final portfolio, line up internships, and complete graduation requirements.",
+      "timeframe": "Senior Years",
+      "skills": [
+        { "name": "B.Arch Capstone Project", "lessons": 20, "progress": 0, "resources": ["Thesis research methods", "Urban site analysis"], "exercises": ["Complete comprehensive thesis site map", "Produce final presentation renders"] }
+      ]
+    },
+    {
+      "id": "stage-5",
+      "name": "Licensure & ARE",
+      "description": "Complete remaining AXP hours and pass all 6 ARE divisions.",
+      "timeframe": "Post-Graduation",
+      "skills": [
+        { "name": "Practice & Project Management Exams", "lessons": 30, "progress": 0, "resources": ["Black Spectacles study guides", "NCARB ARE Practice exams"], "exercises": ["Pass practice exam PcM & PjM", "Review architectural contracts"] }
+      ]
+    }
+  ]
+}
