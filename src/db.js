@@ -420,6 +420,299 @@ export async function getCareerConfig(career, configType) {
     }
 }
 
+export async function buildDoctorWorkspace(onboarding) {
+    const specialty = onboarding.doc_specialty || 'Family Medicine';
+    const stage = onboarding.doc_stage || 'College Junior';
+    const goal = onboarding.doc_goal || 'doctor_begin';
+    const specific = onboarding.doc_specific || '';
+    
+    // 1. Build Roadmap & Learning Path
+    let stages = [];
+    if (goal === 'specific_goal') {
+        stages = [
+            {
+                id: 'stage-1',
+                name: `Specific Goal: ${specific}`,
+                skills: [
+                    { 
+                        name: `${specific} Content Review`, 
+                        progress: 0, 
+                        lessons: 10,
+                        resources: ["First Aid Review Guide", "Board-Style Review Video Series"],
+                        exercises: ["Chapter summary cards review", "High-yield topic quizzes"]
+                    },
+                    { 
+                        name: `${specific} Practice Questions`, 
+                        progress: 0, 
+                        lessons: 15,
+                        resources: ["USMLE/MCAT QBank Account", "Detailed Question Explanation Logs"],
+                        exercises: ["Timed 40-question practice blocks", "Review incorrect question logic logs"]
+                    },
+                    { 
+                        name: `${specific} Mock Examinations`, 
+                        progress: 0, 
+                        lessons: 5,
+                        resources: ["Official Practice Exam Mocks", "Simulated testing environment guidance"],
+                        exercises: ["Full-length simulated mock exam", "Performance dashboard diagnosis review"]
+                    }
+                ]
+            }
+        ];
+    } else {
+        // Full Journey
+        const isCollegePassed = stage.includes("Medical School") || stage.includes("Resident") || stage.includes("Physician") || stage === 'College Graduate';
+        const isMedSchoolPassed = stage.includes("Resident") || stage.includes("Physician");
+        
+        stages.push({
+            id: 'stage-1',
+            name: 'Pre-medical Prep (Undergrad)',
+            skills: [
+                { 
+                    name: 'Biology & Chemistry Prereqs', 
+                    progress: isCollegePassed ? 5 : 0, 
+                    lessons: 5,
+                    resources: ["Campbell Biology 12th Ed", "Khan Academy General Chemistry Lectures"],
+                    exercises: ["Genetics pedigree charts worksheet", "Chemical equation balancing worksheets"]
+                },
+                { 
+                    name: 'Organic Chem & Physics', 
+                    progress: isCollegePassed ? 5 : 0, 
+                    lessons: 5,
+                    resources: ["Organic Chemistry Second Language Book", "OpenStax Physics Lectures"],
+                    exercises: ["Mechanism synthesis reaction pathways", "Force vector equilibrium exercises"]
+                },
+                { 
+                    name: 'MCAT Preparation Review', 
+                    progress: isCollegePassed ? 5 : 0, 
+                    lessons: 5,
+                    resources: ["Official AAMC MCAT Prep Bundle", "Kaplan MCAT Review Coursebooks"],
+                    exercises: ["3 Full-length mock exam simulations", "CARs comprehension exercises daily"]
+                }
+            ]
+        });
+        
+        stages.push({
+            id: 'stage-2',
+            name: `Medical School Curriculum`,
+            skills: [
+                { 
+                    name: 'Pre-clinical Anatomy & Pathology', 
+                    progress: isMedSchoolPassed ? 5 : 0, 
+                    lessons: 5,
+                    resources: ["Netter's Atlas of Human Anatomy", "Pathoma Fundamentals of Pathology"],
+                    exercises: ["Anatomy cadaver quiz cards", "System-based pathology cards deck"]
+                },
+                { 
+                    name: 'USMLE Licensing Preparation', 
+                    progress: isMedSchoolPassed ? 5 : 0, 
+                    lessons: 5,
+                    resources: ["First Aid for USMLE Step 1", "UWorld USMLE QBank Access"],
+                    exercises: ["Daily 40-question randomized test block", "Incorrect answers breakdown review"]
+                },
+                { 
+                    name: 'Specialty Rotations Block', 
+                    progress: isMedSchoolPassed ? 5 : 0, 
+                    lessons: 5,
+                    resources: ["Case Files Internal Medicine Clinical Book", "OnlineMedEd Clinical Videos Collection"],
+                    exercises: ["Complete patient clinical presentation review", "Suturing & surgical knot-tying drills"]
+                }
+            ]
+        });
+        
+        stages.push({
+            id: 'stage-3',
+            name: `Residency & Board Certification (${specialty})`,
+            skills: [
+                { 
+                    name: 'Clinical Ward Rounds', 
+                    progress: stage === 'Practicing Physician' ? 5 : 0, 
+                    lessons: 5,
+                    resources: ["Harrison's Internal Medicine Guide", "UpToDate Clinical Decision Engine"],
+                    exercises: ["Ventilator management simulations", "Rounds patient logs write-up review"]
+                },
+                { 
+                    name: 'Board Certification Exam Prep', 
+                    progress: (stage === 'Practicing Physician' || onboarding.doc_board_completed) ? 5 : 0, 
+                    lessons: 5,
+                    resources: ["MKSAP Specialty Board Questions", "NEJM Knowledge+ review dashboard"],
+                    exercises: ["100 board-style question study set", "Mock board oral examination rehearsal"]
+                },
+                { 
+                    name: 'Continuing Medical Education', 
+                    progress: stage === 'Practicing Physician' ? 5 : 0, 
+                    lessons: 5,
+                    resources: ["JAMA clinical updates lectures", "Mayo Clinic CME certification workshops"],
+                    exercises: ["Systematic literature case audit updates", "Clinical guidelines conference logs review"]
+                }
+            ]
+        });
+    }
+    
+    const docRoadmap = {
+        career: 'Doctor',
+        stages: stages
+    };
+    localStorage.setItem('career_roadmap_doctor', JSON.stringify(docRoadmap));
+
+    // 2. Build Milestones
+    const docMilestones = [];
+    if (goal === 'specific_goal') {
+        docMilestones.push({ id: 'm-1', name: `Register for ${specific}`, completed: false });
+        docMilestones.push({ id: 'm-2', name: `Complete initial mock for ${specific}`, completed: false });
+        docMilestones.push({ id: 'm-3', name: `Submit application/materials for ${specific}`, completed: false });
+        docMilestones.push({ id: 'm-4', name: `Pass ${specific} certification`, completed: false });
+    } else {
+        docMilestones.push({ id: 'm-1', name: 'Complete undergrad science courses', completed: (onboarding.doc_prereqs || []).length >= 4 });
+        docMilestones.push({ id: 'm-2', name: 'Take the MCAT exam', completed: stage.includes("Medical School") || stage.includes("Resident") || stage.includes("Physician") });
+        docMilestones.push({ id: 'm-3', name: 'Gain clinical shadowing hours', completed: (onboarding.doc_exp || []).includes("Physician shadowing") });
+        docMilestones.push({ id: 'm-4', name: 'Gain med school admission letter', completed: stage.includes("Medical School") || stage.includes("Resident") || stage.includes("Physician") });
+        docMilestones.push({ id: 'm-5', name: 'Pass USMLE Step 1', completed: (onboarding.doc_med_progress || []).includes("Passed USMLE Step 1") || stage.includes("Resident") || stage.includes("Physician") });
+        docMilestones.push({ id: 'm-6', name: 'Complete core clinical rotations', completed: (onboarding.doc_med_progress || []).includes("Completed Clinical Rotations") || stage.includes("Resident") || stage.includes("Physician") });
+        docMilestones.push({ id: 'm-7', name: `Complete Residency in ${specialty}`, completed: stage === 'Practicing Physician' });
+        docMilestones.push({ id: 'm-8', name: 'Obtain medical license & board certification', completed: onboarding.doc_board_completed || stage === 'Practicing Physician' });
+    }
+    localStorage.setItem('career_milestones_doctor', JSON.stringify(docMilestones));
+
+    // 3. Build Opportunities
+    const docOpps = [];
+    if (stage.includes("High School")) {
+        docOpps.push({ title: 'STEM Summer Medical Programs', description: 'Early exposure to biology labs and patient care models.', link: '#' });
+        docOpps.push({ title: 'Hospital Volunteering guidelines', description: 'Accrue volunteering hours at your local medical clinic.', link: '#' });
+    } else if (stage.includes("College")) {
+        docOpps.push({ title: 'Physician Shadowing search engine', description: 'Match with active clinicians in your target specialty.', link: '#' });
+        docOpps.push({ title: 'Undergrad Research Fellowships', description: 'Apply for funded research assistant roles in pathology lab.', link: '#' });
+        docOpps.push({ title: 'Premedical Student organizations', description: 'Join student associations to receive peer mentorship.', link: '#' });
+    } else if (stage.includes("Medical School")) {
+        docOpps.push({ title: 'Sub-Internship elective choices', description: 'Select 4th-year clinical electives at academic hospitals.', link: '#' });
+        docOpps.push({ title: 'Specialty interest groups listings', description: 'Join national resident networking circles.', link: '#' });
+        docOpps.push({ title: 'AMA Student Research grants', description: 'Funding for medical students performing clinical trials.', link: '#' });
+    } else {
+        docOpps.push({ title: 'Clinical Fellowship listings', description: 'Advanced sub-specialty fellowships in Cardiology/Oncology.', link: '#' });
+        docOpps.push({ title: 'Board Review preparation courses', description: 'Comprehensive prep courses for final board certification.', link: '#' });
+        docOpps.push({ title: 'Hospital Leadership committee roles', description: 'Step into clinical director and department lead positions.', link: '#' });
+    }
+    localStorage.setItem('career_opps_doctor', JSON.stringify(docOpps));
+
+    // 4. Build Tasks & Calendar
+    const tasksToSchedule = [];
+    let taskId = 1;
+
+    if (goal === 'specific_goal') {
+        const ph = `Study ${specific}`;
+        tasksToSchedule.push({ id: `t-${taskId++}`, title: `Review study material for ${specific}`, durationHours: 3, phaseName: ph });
+        tasksToSchedule.push({ id: `t-${taskId++}`, title: `Practice USMLE/MCAT QBank exercises`, durationHours: 3, phaseName: ph });
+        tasksToSchedule.push({ id: `t-${taskId++}`, title: `Take a mock exam for ${specific}`, durationHours: 4, phaseName: ph });
+        tasksToSchedule.push({ id: `t-${taskId++}`, title: `Analyze question explanations & error logs`, durationHours: 2, phaseName: ph });
+    } else {
+        const isCollege = !stage.includes("Medical School") && !stage.includes("Resident") && !stage.includes("Physician");
+        const isMed = stage.includes("Medical School");
+        
+        if (isCollege) {
+            const ph1 = "Prerequisites Study";
+            if (!(onboarding.doc_prereqs || []).includes("Biology")) {
+                tasksToSchedule.push({ id: `t-${taskId++}`, title: "Study biology cell structure & genetics", durationHours: 2, phaseName: ph1 });
+            }
+            if (!(onboarding.doc_prereqs || []).includes("Chemistry")) {
+                tasksToSchedule.push({ id: `t-${taskId++}`, title: "Practice general chemistry equations", durationHours: 2, phaseName: ph1 });
+            }
+            if (!(onboarding.doc_prereqs || []).includes("Organic Chemistry")) {
+                tasksToSchedule.push({ id: `t-${taskId++}`, title: "Practice organic chemistry reactions", durationHours: 3, phaseName: ph1 });
+            }
+            if (!(onboarding.doc_prereqs || []).includes("Physics")) {
+                tasksToSchedule.push({ id: `t-${taskId++}`, title: "Review physics mechanics concepts", durationHours: 2, phaseName: ph1 });
+            }
+            if (!(onboarding.doc_prereqs || []).includes("Biochemistry")) {
+                tasksToSchedule.push({ id: `t-${taskId++}`, title: "Review biochemistry metabolic pathways", durationHours: 3, phaseName: ph1 });
+            }
+            
+            const ph2 = "Clinical Experience";
+            if (!(onboarding.doc_exp || []).includes("Physician shadowing")) {
+                tasksToSchedule.push({ id: `t-${taskId++}`, title: `Shadow local doctor in ${specialty}`, durationHours: 4, phaseName: ph2 });
+            }
+            if (!(onboarding.doc_exp || []).includes("Clinical volunteering")) {
+                tasksToSchedule.push({ id: `t-${taskId++}`, title: "Volunteer shifts at community health clinic", durationHours: 3, phaseName: ph2 });
+            }
+            if (!(onboarding.doc_exp || []).includes("Research")) {
+                tasksToSchedule.push({ id: `t-${taskId++}`, title: "Compile literature list for research lab", durationHours: 2, phaseName: ph2 });
+            }
+            
+            const ph3 = "MCAT Prep";
+            tasksToSchedule.push({ id: `t-${taskId++}`, title: "Complete MCAT verbal reasoning drills", durationHours: 3, phaseName: ph3 });
+            tasksToSchedule.push({ id: `t-${taskId++}`, title: "Take full-length MCAT simulation test", durationHours: 6, phaseName: ph3 });
+            
+            const ph4 = "Medical School Applications";
+            tasksToSchedule.push({ id: `t-${taskId++}`, title: "Draft AMCAS personal statement essay", durationHours: 3, phaseName: ph4 });
+            tasksToSchedule.push({ id: `t-${taskId++}`, title: "Gather academic recommendation letters", durationHours: 2, phaseName: ph4 });
+        } else if (isMed) {
+            const ph1 = "Pre-clinical theory";
+            tasksToSchedule.push({ id: `t-${taskId++}`, title: "Study pathology block lectures", durationHours: 3, phaseName: ph1 });
+            tasksToSchedule.push({ id: `t-${taskId++}`, title: "Review pharmacology drug flashcards", durationHours: 2, phaseName: ph1 });
+            
+            const ph2 = "Clinical Rotations";
+            tasksToSchedule.push({ id: `t-${taskId++}`, title: `Attend clinical ward rotation shift (${specialty})`, durationHours: 6, phaseName: ph2 });
+            tasksToSchedule.push({ id: `t-${taskId++}`, title: "Log medical cases on tracking portal", durationHours: 1, phaseName: ph2 });
+            
+            const ph3 = "USMLE Preparation";
+            if (!(onboarding.doc_med_progress || []).includes("Passed USMLE Step 1")) {
+                tasksToSchedule.push({ id: `t-${taskId++}`, title: "Practice USMLE Step 1 QBank questions", durationHours: 3, phaseName: ph3 });
+            }
+            if (!(onboarding.doc_med_progress || []).includes("Passed USMLE Step 2")) {
+                tasksToSchedule.push({ id: `t-${taskId++}`, title: "Study USMLE Step 2 Clinical Knowledge material", durationHours: 3, phaseName: ph3 });
+            }
+        } else {
+            const ph1 = "Residency Shift Work";
+            tasksToSchedule.push({ id: `t-${taskId++}`, title: `Conduct department rounds in ${specialty}`, durationHours: 6, phaseName: ph1 });
+            tasksToSchedule.push({ id: `t-${taskId++}`, title: "Log specialized clinical procedures", durationHours: 1, phaseName: ph1 });
+            
+            const ph2 = "Board Prep";
+            if (!onboarding.doc_board_completed) {
+                tasksToSchedule.push({ id: `t-${taskId++}`, title: "Review board certification review book", durationHours: 3, phaseName: ph2 });
+            }
+            
+            const ph3 = "CME & Advancement";
+            tasksToSchedule.push({ id: `t-${taskId++}`, title: "Complete CME online medical lectures", durationHours: 2, phaseName: ph3 });
+        }
+    }
+
+    const preferredWorkDays = onboarding.work_days || ["Monday", "Tuesday", "Wednesday", "Friday", "Saturday"];
+    const dailyHoursMax = onboarding.daily_hours || 4;
+    localStorage.setItem(`weeklyHours_doctor`, dailyHoursMax * preferredWorkDays.length);
+    localStorage.setItem(`dailyHours_doctor`, dailyHoursMax);
+    localStorage.setItem(`preferredDays_doctor`, JSON.stringify(preferredWorkDays));
+
+    let dateCursor = onboarding.start_date ? new Date(onboarding.start_date) : new Date();
+    dateCursor.setHours(0,0,0,0);
+
+    const isPreferredDay = (date) => {
+        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        const dayName = days[date.getDay()];
+        return preferredWorkDays.includes(dayName);
+    };
+
+    let scheduledTasks = [];
+    tasksToSchedule.forEach((task, idx) => {
+        while (!isPreferredDay(dateCursor)) {
+            dateCursor.setDate(dateCursor.getDate() + 1);
+        }
+        
+        const dateStr = dateCursor.toISOString().split('T')[0];
+        scheduledTasks.push({
+            id: task.id,
+            title: task.title,
+            durationHours: task.durationHours,
+            phaseName: task.phaseName,
+            status: 'pending',
+            startDate: dateStr,
+            endDate: dateStr
+        });
+        
+        dateCursor.setDate(dateCursor.getDate() + 1);
+    });
+
+    localStorage.setItem('career_tasks_doctor', JSON.stringify(scheduledTasks));
+    window.dispatchEvent(new Event('careerDataUpdated'));
+}
+
 export async function generateCalendarSchedule(onboarding) {
     const career = onboarding.career;
     
@@ -430,6 +723,11 @@ export async function generateCalendarSchedule(onboarding) {
     localStorage.removeItem(`career_opps_${career}`);
     localStorage.removeItem(`career_portfolio_${career}`);
     localStorage.removeItem(`career_checkpoints_${career}`);
+
+    if (career === 'doctor') {
+        await buildDoctorWorkspace(onboarding);
+        return;
+    }
 
     // Load config files
     const templates = await getCareerConfig(career, 'project_templates');

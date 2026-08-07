@@ -203,11 +203,21 @@ export default {
         };
         const cName = careerNames[career] || career;
 
-        if (welcomeTitle) welcomeTitle.innerText = `OS Workspace: ${onboarding.firstName}`;
+        if (welcomeTitle) {
+            if (career === 'doctor') {
+                welcomeTitle.innerText = `Medical OS: Dr. ${onboarding.firstName}`;
+            } else {
+                welcomeTitle.innerText = `OS Workspace: ${onboarding.firstName}`;
+            }
+        }
         if (welcomeSubtitle) {
-            welcomeSubtitle.innerText = isProfessional
-                ? `Active Production: ${onboarding.specificGoal || 'Finish Project Roadmap'}`
-                : `${cName} Study Tracker: Foundations & Fundamentals`;
+            if (career === 'doctor') {
+                welcomeSubtitle.innerHTML = `<strong>Stage:</strong> ${onboarding.doc_stage || 'College Junior'} | <strong>Specialty:</strong> ${onboarding.doc_specialty || 'General Practice'} | <strong>Goal:</strong> ${onboarding.doc_goal === 'specific_goal' ? onboarding.doc_specific : 'Become licensed MD'} | <strong>Target:</strong> ${onboarding.desired_deadline}`;
+            } else {
+                welcomeSubtitle.innerText = isProfessional
+                    ? `Active Production: ${onboarding.specificGoal || 'Finish Project Roadmap'}`
+                    : `${cName} Study Tracker: Foundations & Fundamentals`;
+            }
         }
 
         const getCareerUnitLabel = (c) => {
@@ -238,10 +248,11 @@ export default {
             return units[c] || 'units';
         };
 
-        // Get list of widgets from onboarding config
         const careerOnboardingConfig = await getCareerConfig(career, 'onboarding');
         let widgetList = [];
-        if (careerOnboardingConfig && careerOnboardingConfig.dashboardWidgets && careerOnboardingConfig.dashboardWidgets[navKey]) {
+        if (career === 'doctor') {
+            widgetList = ["Practice Tracker", "Skill Tree", "Calendar", "Deadline Countdown", "Milestone Tracker", "AI Coach"];
+        } else if (careerOnboardingConfig && careerOnboardingConfig.dashboardWidgets && careerOnboardingConfig.dashboardWidgets[navKey]) {
             widgetList = careerOnboardingConfig.dashboardWidgets[navKey];
         } else {
             widgetList = ["Calendar", "Milestones", "AI Coach"];
