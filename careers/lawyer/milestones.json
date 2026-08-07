@@ -1,0 +1,19 @@
+{
+  "milestones": [
+    {
+      "id": "milestone-0",
+      "title": "Complete Legal Research Phase",
+      "requiresTasksCount": 2
+    },
+    {
+      "id": "milestone-1",
+      "title": "Complete Case Writing Phase",
+      "requiresTasksCount": 2
+    },
+    {
+      "id": "milestone-2",
+      "title": "Complete Advocacy Phase",
+      "requiresTasksCount": 2
+    }
+  ]
+}

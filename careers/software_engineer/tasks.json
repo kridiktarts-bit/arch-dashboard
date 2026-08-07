@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Complete daily syntax exercises",
+    "description": "Solve 3 medium Leetcode problems.",
+    "month": "Current Month",
+    "status": "pending"
+  },
+  {
+    "title": "Watch system design fundamentals",
+    "description": "Learn horizontal vs vertical scaling.",
+    "month": "Current Month",
+    "status": "pending"
+  }
+]

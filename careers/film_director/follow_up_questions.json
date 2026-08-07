@@ -1,0 +1,36 @@
+{
+  "skipBasicsOptions": [
+    "Screenwriting",
+    "Casting",
+    "Location Scouting",
+    "Camera Blocking",
+    "Color Grading",
+    "Sound Mix"
+  ],
+  "discoveryQuestions": [
+    {
+      "id": "project_type",
+      "question": "What format film are you directing?",
+      "type": "select",
+      "options": [
+        "Short Film",
+        "Feature Film",
+        "Music Video",
+        "Commercial",
+        "Documentary"
+      ]
+    },
+    {
+      "id": "chapters_count",
+      "question": "How many scenes are in your script?",
+      "type": "number",
+      "placeholder": "e.g. 12"
+    },
+    {
+      "id": "pages_per_chapter",
+      "question": "How many shots per scene?",
+      "type": "number",
+      "placeholder": "e.g. 8"
+    }
+  ]
+}

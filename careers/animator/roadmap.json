@@ -1,0 +1,77 @@
+{
+  "career": "Animator",
+  "stages": [
+    {
+      "id": "stage-1",
+      "title": "Storyboard Phase",
+      "skills": [
+        {
+          "name": "Draw keyframe story boards",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Draw keyframe story boards."
+        },
+        {
+          "name": "Generate audio animatics timings",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Generate audio animatics timings."
+        }
+      ]
+    },
+    {
+      "id": "stage-2",
+      "title": "Modeling Rig Phase",
+      "skills": [
+        {
+          "name": "Model character turnarounds",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Model character turnarounds."
+        },
+        {
+          "name": "Rig bone controls & controllers",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Rig bone controls & controllers."
+        }
+      ]
+    },
+    {
+      "id": "stage-3",
+      "title": "Animation Phase",
+      "skills": [
+        {
+          "name": "Animate primary key poses",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Animate primary key poses."
+        },
+        {
+          "name": "Pencil in-between motion arcs",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Pencil in-between motion arcs."
+        }
+      ]
+    },
+    {
+      "id": "stage-4",
+      "title": "Rendering Phase",
+      "skills": [
+        {
+          "name": "Composite backgrounds & lighting render",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Composite backgrounds & lighting render."
+        },
+        {
+          "name": "Export final video frames sequence",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Export final video frames sequence."
+        }
+      ]
+    }
+  ]
+}

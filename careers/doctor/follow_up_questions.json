@@ -1,0 +1,36 @@
+{
+  "skipBasicsOptions": [
+    "Anatomy Lectures",
+    "Chemistry Prep",
+    "USMLE Practice",
+    "Clinical Rotation Schedules",
+    "Patient Charting Notes"
+  ],
+  "discoveryQuestions": [
+    {
+      "id": "project_type",
+      "question": "What is your clinical specialty target?",
+      "type": "select",
+      "options": [
+        "Internal Medicine",
+        "Pediatrics",
+        "Cardiology",
+        "Surgery",
+        "Emergency Medicine",
+        "General Practice"
+      ]
+    },
+    {
+      "id": "chapters_count",
+      "question": "How many medical rotations left?",
+      "type": "number",
+      "placeholder": "e.g. 4"
+    },
+    {
+      "id": "pages_per_chapter",
+      "question": "How many exam prep weeks per rotation?",
+      "type": "number",
+      "placeholder": "e.g. 3"
+    }
+  ]
+}

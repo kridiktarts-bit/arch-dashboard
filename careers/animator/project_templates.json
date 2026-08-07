@@ -1,0 +1,83 @@
+{
+  "career": "Animator",
+  "phases": [
+    {
+      "id": "phase-1",
+      "name": "Storyboard Phase",
+      "tasks": [
+        {
+          "title": "Draw keyframe story boards",
+          "durationHours": 6,
+          "dependencies": []
+        },
+        {
+          "title": "Generate audio animatics timings",
+          "durationHours": 5,
+          "dependencies": [
+            "Draw keyframe story boards"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-2",
+      "name": "Modeling Rig Phase",
+      "tasks": [
+        {
+          "title": "Model character turnarounds",
+          "durationHours": 10,
+          "dependencies": [
+            "Generate audio animatics timings"
+          ]
+        },
+        {
+          "title": "Rig bone controls & controllers",
+          "durationHours": 12,
+          "dependencies": [
+            "Model character turnarounds"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-3",
+      "name": "Animation Phase",
+      "tasks": [
+        {
+          "title": "Animate primary key poses",
+          "durationHours": 15,
+          "dependencies": [
+            "Rig bone controls & controllers"
+          ]
+        },
+        {
+          "title": "Pencil in-between motion arcs",
+          "durationHours": 10,
+          "dependencies": [
+            "Animate primary key poses"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-4",
+      "name": "Rendering Phase",
+      "tasks": [
+        {
+          "title": "Composite backgrounds & lighting render",
+          "durationHours": 8,
+          "dependencies": [
+            "Pencil in-between motion arcs"
+          ]
+        },
+        {
+          "title": "Export final video frames sequence",
+          "durationHours": 6,
+          "dependencies": [
+            "Composite backgrounds & lighting render"
+          ]
+        }
+      ]
+    }
+  ]
+}

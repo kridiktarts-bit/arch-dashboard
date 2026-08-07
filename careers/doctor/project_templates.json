@@ -1,0 +1,63 @@
+{
+  "career": "Doctor",
+  "phases": [
+    {
+      "id": "phase-1",
+      "name": "Clinical Review Phase",
+      "tasks": [
+        {
+          "title": "Synthesize cardiology rotation guides",
+          "durationHours": 8,
+          "dependencies": []
+        },
+        {
+          "title": "Review pharmacology interaction sheets",
+          "durationHours": 6,
+          "dependencies": [
+            "Synthesize cardiology rotation guides"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-2",
+      "name": "Differential Phase",
+      "tasks": [
+        {
+          "title": "Log clinical patient charts notes",
+          "durationHours": 10,
+          "dependencies": [
+            "Review pharmacology interaction sheets"
+          ]
+        },
+        {
+          "title": "Analyze diagnostic case studies profiles",
+          "durationHours": 6,
+          "dependencies": [
+            "Log clinical patient charts notes"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-3",
+      "name": "Exam Preparation Phase",
+      "tasks": [
+        {
+          "title": "Practice board exam mock questions",
+          "durationHours": 12,
+          "dependencies": [
+            "Analyze diagnostic case studies profiles"
+          ]
+        },
+        {
+          "title": "Review medical ethics clinical codes",
+          "durationHours": 5,
+          "dependencies": [
+            "Practice board exam mock questions"
+          ]
+        }
+      ]
+    }
+  ]
+}

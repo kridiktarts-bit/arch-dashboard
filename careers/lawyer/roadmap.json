@@ -1,0 +1,59 @@
+{
+  "career": "Lawyer",
+  "stages": [
+    {
+      "id": "stage-1",
+      "title": "Legal Research Phase",
+      "skills": [
+        {
+          "name": "Analyze supreme court case precedents",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Analyze supreme court case precedents."
+        },
+        {
+          "name": "Summarize statutory text regulations definitions",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Summarize statutory text regulations definitions."
+        }
+      ]
+    },
+    {
+      "id": "stage-2",
+      "title": "Case Writing Phase",
+      "skills": [
+        {
+          "name": "Draft legal contract brief clauses",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Draft legal contract brief clauses."
+        },
+        {
+          "name": "Outline cross-examination arguments notes",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Outline cross-examination arguments notes."
+        }
+      ]
+    },
+    {
+      "id": "stage-3",
+      "title": "Advocacy Phase",
+      "skills": [
+        {
+          "name": "Run simulated mock trial courtroom arguments",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Run simulated mock trial courtroom arguments."
+        },
+        {
+          "name": "Review bar examination essay modules",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Review bar examination essay modules."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "skipBasicsOptions": [
+    "Contracts Outline",
+    "Torts Flashcards",
+    "LSAT Prep Guides",
+    "Mock Trials Briefs",
+    "Bar Exam Essays Review"
+  ],
+  "discoveryQuestions": [
+    {
+      "id": "project_type",
+      "question": "What area of law will you practice?",
+      "type": "select",
+      "options": [
+        "Corporate Law",
+        "Intellectual Property",
+        "Civil Litigation",
+        "Criminal Defense",
+        "Environmental Law",
+        "Human Rights"
+      ]
+    },
+    {
+      "id": "chapters_count",
+      "question": "How many legal case briefings in scope?",
+      "type": "number",
+      "placeholder": "e.g. 15"
+    },
+    {
+      "id": "pages_per_chapter",
+      "question": "How many reference source texts per brief?",
+      "type": "number",
+      "placeholder": "e.g. 4"
+    }
+  ]
+}

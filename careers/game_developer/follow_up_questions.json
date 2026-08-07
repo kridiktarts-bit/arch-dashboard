@@ -1,0 +1,36 @@
+{
+  "skipBasicsOptions": [
+    "Physics Engines",
+    "Shader Programming",
+    "Asset Pipelines",
+    "Level Design",
+    "Multiplayer Sync",
+    "Console Ports"
+  ],
+  "discoveryQuestions": [
+    {
+      "id": "project_type",
+      "question": "What target game platform?",
+      "type": "select",
+      "options": [
+        "PC / Steam",
+        "Mobile (iOS/Android)",
+        "Web/HTML5",
+        "Console",
+        "VR/AR"
+      ]
+    },
+    {
+      "id": "chapters_count",
+      "question": "How many game levels/scenes?",
+      "type": "number",
+      "placeholder": "e.g. 5"
+    },
+    {
+      "id": "pages_per_chapter",
+      "question": "How many core mechanics to code?",
+      "type": "number",
+      "placeholder": "e.g. 4"
+    }
+  ]
+}

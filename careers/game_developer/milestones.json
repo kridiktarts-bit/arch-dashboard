@@ -1,0 +1,24 @@
+{
+  "milestones": [
+    {
+      "id": "milestone-0",
+      "title": "Complete Preproduction Phase",
+      "requiresTasksCount": 2
+    },
+    {
+      "id": "milestone-1",
+      "title": "Complete Mechanics Phase",
+      "requiresTasksCount": 2
+    },
+    {
+      "id": "milestone-2",
+      "title": "Complete Assets Phase",
+      "requiresTasksCount": 2
+    },
+    {
+      "id": "milestone-3",
+      "title": "Complete Polishing Phase",
+      "requiresTasksCount": 2
+    }
+  ]
+}

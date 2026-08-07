@@ -1,0 +1,36 @@
+{
+  "skipBasicsOptions": [
+    "Keyframing",
+    "Rigging",
+    "3D Lighting",
+    "Texture Painting",
+    "Rendering",
+    "Storyboards"
+  ],
+  "discoveryQuestions": [
+    {
+      "id": "project_type",
+      "question": "What type of animation project?",
+      "type": "select",
+      "options": [
+        "2D Traditional",
+        "3D Character",
+        "Stop Motion",
+        "Motion Graphics",
+        "VFX Composite"
+      ]
+    },
+    {
+      "id": "chapters_count",
+      "question": "How many scenes/shots?",
+      "type": "number",
+      "placeholder": "e.g. 8"
+    },
+    {
+      "id": "pages_per_chapter",
+      "question": "How many target seconds per shot?",
+      "type": "number",
+      "placeholder": "e.g. 10"
+    }
+  ]
+}

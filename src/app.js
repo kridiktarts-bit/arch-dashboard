@@ -1026,12 +1026,12 @@ class App {
                 const careersList = [
                     { name: 'Architecture', id: 'architecture' },
                     { name: 'Comic Creator', id: 'comic_creator' },
-                    { name: 'Doctor', id: 'doctor', unsupported: true },
-                    { name: 'Lawyer', id: 'lawyer', unsupported: true },
-                    { name: 'Software Engineer', id: 'software_engineer', unsupported: true },
-                    { name: 'Game Developer', id: 'game_developer', unsupported: true },
-                    { name: 'Animator', id: 'animator', unsupported: true },
-                    { name: 'Film Director', id: 'film_director', unsupported: true }
+                    { name: 'Doctor', id: 'doctor' },
+                    { name: 'Lawyer', id: 'lawyer' },
+                    { name: 'Software Engineer', id: 'software_engineer' },
+                    { name: 'Game Developer', id: 'game_developer' },
+                    { name: 'Animator', id: 'animator' },
+                    { name: 'Film Director', id: 'film_director' }
                 ];
 
                 searchInput.addEventListener('input', () => {

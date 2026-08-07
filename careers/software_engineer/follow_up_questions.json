@@ -1,0 +1,37 @@
+{
+  "skipBasicsOptions": [
+    "System Design",
+    "Cloud Infrastructure",
+    "Database Scaling",
+    "Security/Auth",
+    "API Integrations",
+    "Refactoring"
+  ],
+  "discoveryQuestions": [
+    {
+      "id": "project_type",
+      "question": "What type of software project are you building?",
+      "type": "select",
+      "options": [
+        "Web Application",
+        "Mobile App",
+        "REST API Backend",
+        "Desktop App",
+        "CLI Tool",
+        "Game Engine"
+      ]
+    },
+    {
+      "id": "chapters_count",
+      "question": "How many features/modules are in the scope?",
+      "type": "number",
+      "placeholder": "e.g. 6"
+    },
+    {
+      "id": "pages_per_chapter",
+      "question": "How many days per feature sprint?",
+      "type": "number",
+      "placeholder": "e.g. 5"
+    }
+  ]
+}

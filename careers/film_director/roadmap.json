@@ -1,0 +1,77 @@
+{
+  "career": "Film Director",
+  "stages": [
+    {
+      "id": "stage-1",
+      "title": "Development Phase",
+      "skills": [
+        {
+          "name": "Finalize screenplay script revisions",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Finalize screenplay script revisions."
+        },
+        {
+          "name": "Scout locations & secure permissions",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Scout locations & secure permissions."
+        }
+      ]
+    },
+    {
+      "id": "stage-2",
+      "title": "Preproduction Phase",
+      "skills": [
+        {
+          "name": "Draw visual storyboard scene layouts",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Draw visual storyboard scene layouts."
+        },
+        {
+          "name": "Draft complete shooting schedule lists",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Draft complete shooting schedule lists."
+        }
+      ]
+    },
+    {
+      "id": "stage-3",
+      "title": "Production Phase",
+      "skills": [
+        {
+          "name": "Cast rehearsals & principal photography",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Cast rehearsals & principal photography."
+        },
+        {
+          "name": "Review daily rushes sequences footage",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Review daily rushes sequences footage."
+        }
+      ]
+    },
+    {
+      "id": "stage-4",
+      "title": "Postproduction Phase",
+      "skills": [
+        {
+          "name": "Perform rough cut linear video edits",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Perform rough cut linear video edits."
+        },
+        {
+          "name": "Export final color-graded video cut",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Export final color-graded video cut."
+        }
+      ]
+    }
+  ]
+}

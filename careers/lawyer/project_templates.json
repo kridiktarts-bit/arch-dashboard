@@ -1,0 +1,63 @@
+{
+  "career": "Lawyer",
+  "phases": [
+    {
+      "id": "phase-1",
+      "name": "Legal Research Phase",
+      "tasks": [
+        {
+          "title": "Analyze supreme court case precedents",
+          "durationHours": 8,
+          "dependencies": []
+        },
+        {
+          "title": "Summarize statutory text regulations definitions",
+          "durationHours": 6,
+          "dependencies": [
+            "Analyze supreme court case precedents"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-2",
+      "name": "Case Writing Phase",
+      "tasks": [
+        {
+          "title": "Draft legal contract brief clauses",
+          "durationHours": 10,
+          "dependencies": [
+            "Summarize statutory text regulations definitions"
+          ]
+        },
+        {
+          "title": "Outline cross-examination arguments notes",
+          "durationHours": 6,
+          "dependencies": [
+            "Draft legal contract brief clauses"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-3",
+      "name": "Advocacy Phase",
+      "tasks": [
+        {
+          "title": "Run simulated mock trial courtroom arguments",
+          "durationHours": 8,
+          "dependencies": [
+            "Outline cross-examination arguments notes"
+          ]
+        },
+        {
+          "title": "Review bar examination essay modules",
+          "durationHours": 10,
+          "dependencies": [
+            "Run simulated mock trial courtroom arguments"
+          ]
+        }
+      ]
+    }
+  ]
+}

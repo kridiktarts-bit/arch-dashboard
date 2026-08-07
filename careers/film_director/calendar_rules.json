@@ -1,0 +1,37 @@
+{
+  "maxDailyHoursLimit": 6,
+  "defaultTaskBufferDays": 1,
+  "restDays": [
+    "Sunday"
+  ],
+  "dependenciesList": [
+    {
+      "task": "Scout locations & secure permissions",
+      "dependsOn": "Finalize screenplay script revisions"
+    },
+    {
+      "task": "Draw visual storyboard scene layouts",
+      "dependsOn": "Scout locations & secure permissions"
+    },
+    {
+      "task": "Draft complete shooting schedule lists",
+      "dependsOn": "Draw visual storyboard scene layouts"
+    },
+    {
+      "task": "Cast rehearsals & principal photography",
+      "dependsOn": "Draft complete shooting schedule lists"
+    },
+    {
+      "task": "Review daily rushes sequences footage",
+      "dependsOn": "Cast rehearsals & principal photography"
+    },
+    {
+      "task": "Perform rough cut linear video edits",
+      "dependsOn": "Review daily rushes sequences footage"
+    },
+    {
+      "task": "Export final color-graded video cut",
+      "dependsOn": "Perform rough cut linear video edits"
+    }
+  ]
+}

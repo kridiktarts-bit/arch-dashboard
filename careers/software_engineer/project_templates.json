@@ -1,0 +1,83 @@
+{
+  "career": "Software Engineer",
+  "phases": [
+    {
+      "id": "phase-1",
+      "name": "Requirement Phase",
+      "tasks": [
+        {
+          "title": "Draft software specifications",
+          "durationHours": 4,
+          "dependencies": []
+        },
+        {
+          "title": "Design database schema ERD",
+          "durationHours": 6,
+          "dependencies": [
+            "Draft software specifications"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-2",
+      "name": "Architecture Phase",
+      "tasks": [
+        {
+          "title": "Setup git repo & CI/CD workflow",
+          "durationHours": 4,
+          "dependencies": [
+            "Design database schema ERD"
+          ]
+        },
+        {
+          "title": "Mock API contracts & endpoints",
+          "durationHours": 5,
+          "dependencies": [
+            "Setup git repo & CI/CD workflow"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-3",
+      "name": "Development Phase",
+      "tasks": [
+        {
+          "title": "Implement core business logic",
+          "durationHours": 12,
+          "dependencies": [
+            "Mock API contracts & endpoints"
+          ]
+        },
+        {
+          "title": "Write unit and integration tests",
+          "durationHours": 6,
+          "dependencies": [
+            "Implement core business logic"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-4",
+      "name": "Deployment Phase",
+      "tasks": [
+        {
+          "title": "Deploy to staging and run QA audits",
+          "durationHours": 4,
+          "dependencies": [
+            "Write unit and integration tests"
+          ]
+        },
+        {
+          "title": "Release production build to Cloud",
+          "durationHours": 5,
+          "dependencies": [
+            "Deploy to staging and run QA audits"
+          ]
+        }
+      ]
+    }
+  ]
+}

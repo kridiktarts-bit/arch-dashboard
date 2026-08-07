@@ -1,0 +1,59 @@
+{
+  "career": "Doctor",
+  "stages": [
+    {
+      "id": "stage-1",
+      "title": "Clinical Review Phase",
+      "skills": [
+        {
+          "name": "Synthesize cardiology rotation guides",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Synthesize cardiology rotation guides."
+        },
+        {
+          "name": "Review pharmacology interaction sheets",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Review pharmacology interaction sheets."
+        }
+      ]
+    },
+    {
+      "id": "stage-2",
+      "title": "Differential Phase",
+      "skills": [
+        {
+          "name": "Log clinical patient charts notes",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Log clinical patient charts notes."
+        },
+        {
+          "name": "Analyze diagnostic case studies profiles",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Analyze diagnostic case studies profiles."
+        }
+      ]
+    },
+    {
+      "id": "stage-3",
+      "title": "Exam Preparation Phase",
+      "skills": [
+        {
+          "name": "Practice board exam mock questions",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Practice board exam mock questions."
+        },
+        {
+          "name": "Review medical ethics clinical codes",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Review medical ethics clinical codes."
+        }
+      ]
+    }
+  ]
+}

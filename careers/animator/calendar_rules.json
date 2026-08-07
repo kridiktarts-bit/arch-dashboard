@@ -1,0 +1,37 @@
+{
+  "maxDailyHoursLimit": 6,
+  "defaultTaskBufferDays": 1,
+  "restDays": [
+    "Sunday"
+  ],
+  "dependenciesList": [
+    {
+      "task": "Generate audio animatics timings",
+      "dependsOn": "Draw keyframe story boards"
+    },
+    {
+      "task": "Model character turnarounds",
+      "dependsOn": "Generate audio animatics timings"
+    },
+    {
+      "task": "Rig bone controls & controllers",
+      "dependsOn": "Model character turnarounds"
+    },
+    {
+      "task": "Animate primary key poses",
+      "dependsOn": "Rig bone controls & controllers"
+    },
+    {
+      "task": "Pencil in-between motion arcs",
+      "dependsOn": "Animate primary key poses"
+    },
+    {
+      "task": "Composite backgrounds & lighting render",
+      "dependsOn": "Pencil in-between motion arcs"
+    },
+    {
+      "task": "Export final video frames sequence",
+      "dependsOn": "Composite backgrounds & lighting render"
+    }
+  ]
+}

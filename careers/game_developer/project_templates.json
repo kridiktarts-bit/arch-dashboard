@@ -1,0 +1,83 @@
+{
+  "career": "Game Developer",
+  "phases": [
+    {
+      "id": "phase-1",
+      "name": "Preproduction Phase",
+      "tasks": [
+        {
+          "title": "Write game design document (GDD)",
+          "durationHours": 6,
+          "dependencies": []
+        },
+        {
+          "title": "Greybox blocking scene layouts",
+          "durationHours": 8,
+          "dependencies": [
+            "Write game design document (GDD)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-2",
+      "name": "Mechanics Phase",
+      "tasks": [
+        {
+          "title": "Code player movement & controllers",
+          "durationHours": 10,
+          "dependencies": [
+            "Greybox blocking scene layouts"
+          ]
+        },
+        {
+          "title": "Program game state & HUD UI systems",
+          "durationHours": 8,
+          "dependencies": [
+            "Code player movement & controllers"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-3",
+      "name": "Assets Phase",
+      "tasks": [
+        {
+          "title": "Import 3D models & key textures",
+          "durationHours": 8,
+          "dependencies": [
+            "Program game state & HUD UI systems"
+          ]
+        },
+        {
+          "title": "Apply lighting and sound FX loops",
+          "durationHours": 6,
+          "dependencies": [
+            "Import 3D models & key textures"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-4",
+      "name": "Polishing Phase",
+      "tasks": [
+        {
+          "title": "Optimize build draw calls",
+          "durationHours": 6,
+          "dependencies": [
+            "Apply lighting and sound FX loops"
+          ]
+        },
+        {
+          "title": "Steam upload playtest packages",
+          "durationHours": 5,
+          "dependencies": [
+            "Optimize build draw calls"
+          ]
+        }
+      ]
+    }
+  ]
+}

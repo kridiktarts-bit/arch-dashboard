@@ -1,0 +1,19 @@
+{
+  "milestones": [
+    {
+      "id": "milestone-0",
+      "title": "Complete Clinical Review Phase",
+      "requiresTasksCount": 2
+    },
+    {
+      "id": "milestone-1",
+      "title": "Complete Differential Phase",
+      "requiresTasksCount": 2
+    },
+    {
+      "id": "milestone-2",
+      "title": "Complete Exam Preparation Phase",
+      "requiresTasksCount": 2
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "maxDailyHoursLimit": 6,
+  "defaultTaskBufferDays": 1,
+  "restDays": [
+    "Sunday"
+  ],
+  "dependenciesList": [
+    {
+      "task": "Greybox blocking scene layouts",
+      "dependsOn": "Write game design document (GDD)"
+    },
+    {
+      "task": "Code player movement & controllers",
+      "dependsOn": "Greybox blocking scene layouts"
+    },
+    {
+      "task": "Program game state & HUD UI systems",
+      "dependsOn": "Code player movement & controllers"
+    },
+    {
+      "task": "Import 3D models & key textures",
+      "dependsOn": "Program game state & HUD UI systems"
+    },
+    {
+      "task": "Apply lighting and sound FX loops",
+      "dependsOn": "Import 3D models & key textures"
+    },
+    {
+      "task": "Optimize build draw calls",
+      "dependsOn": "Apply lighting and sound FX loops"
+    },
+    {
+      "task": "Steam upload playtest packages",
+      "dependsOn": "Optimize build draw calls"
+    }
+  ]
+}

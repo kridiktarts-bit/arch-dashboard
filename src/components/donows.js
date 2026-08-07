@@ -16,8 +16,8 @@ export default {
                 .task-checkbox:hover { background: rgba(59, 130, 246, 0.2); }
                 .task-item.completed .task-checkbox { background: var(--primary); }
                 
-                .timer-card { text-align: center; padding: 40px 20px; }
-                .timer-display { font-size: 64px; font-weight: 700; font-variant-numeric: tabular-nums; margin: 20px 0; color: var(--primary); text-shadow: 0 0 20px var(--primary-glow); }
+                .timer-card { text-align: center; padding: 24px 16px; }
+                .timer-display { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--primary); text-shadow: 0 0 20px var(--primary-glow); }
                 
                 /* Form Styles */
                 .new-task-form { background: rgba(10, 25, 47, 0.6); padding: 20px; border-radius: 12px; border: 1px solid var(--primary); margin-top: 16px; margin-bottom: 24px; display: none; }
@@ -105,17 +105,46 @@ export default {
                 </div>
 
                 <div class="glass-card timer-card">
-                    <h3>Focus Session</h3>
-                    <p class="text-muted" style="margin-top: 8px; font-size: 14px;">Pomodoro timer for career study.</p>
-                    <div class="timer-display" id="timer-display">25:00</div>
-                    <div style="margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                        <label style="font-size: 13px; color: var(--text-muted);">Duration:</label>
-                        <input type="number" id="timer-duration-input" value="25" min="1" max="180" style="width: 60px; padding: 6px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 6px; color: white; text-align: center; font-size: 13px;">
-                        <span style="font-size: 13px; color: var(--text-muted);">minutes</span>
+                    <h3>Focus & Relax Sessions</h3>
+                    <p class="text-muted" style="margin-top: 8px; font-size: 13px; margin-bottom: 20px;">Procure steady intervals with calm ambient noise.</p>
+                    
+                    <div style="display: flex; gap: 12px; justify-content: center; margin-bottom: 24px;">
+                        <!-- Focus Timer Column -->
+                        <div style="flex: 1; padding: 12px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px;">
+                            <div style="font-weight: 600; font-size: 12px; color: var(--primary);">⏱️ Focus Timer</div>
+                            <div class="timer-display" id="focus-timer-display" style="font-size: 32px; margin: 10px 0;">25:00</div>
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px;">
+                                <span>Length:</span>
+                                <input type="number" id="focus-duration-input" value="25" min="1" max="180" style="width: 45px; padding: 4px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 4px; color: white; text-align: center; font-size: 11px;">
+                                <span>m</span>
+                            </div>
+                        </div>
+
+                        <!-- Relax Timer Column -->
+                        <div style="flex: 1; padding: 12px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px;">
+                            <div style="font-weight: 600; font-size: 12px; color: var(--success);">🌱 Relax Break</div>
+                            <div class="timer-display" id="relax-timer-display" style="font-size: 32px; margin: 10px 0; color: var(--success); text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);">05:00</div>
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px;">
+                                <span>Length:</span>
+                                <input type="number" id="relax-duration-input" value="5" min="1" max="180" style="width: 45px; padding: 4px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); border-radius: 4px; color: white; text-align: center; font-size: 11px;">
+                                <span>m</span>
+                            </div>
+                        </div>
                     </div>
-                    <div style="display: flex; gap: 12px; justify-content: center;">
-                        <button class="btn btn-primary" id="timer-start">Start</button>
-                        <button class="btn" id="timer-reset" style="background: rgba(255,255,255,0.1);">Reset</button>
+
+                    <div style="display: flex; gap: 12px; justify-content: center; margin-bottom: 24px;">
+                        <button class="btn btn-primary" id="timer-start" style="padding: 8px 20px; font-size: 13px;">Start Focus</button>
+                        <button class="btn" id="timer-reset" style="background: rgba(255,255,255,0.1); padding: 8px 16px; font-size: 13px;">Reset</button>
+                    </div>
+
+                    <!-- Ambient Sound Machine -->
+                    <div style="border-top: 1px solid var(--border); padding-top: 16px; margin-top: 16px;">
+                        <h4 style="font-size: 13px; color: white; margin-bottom: 12px; font-weight: 600;">🎧 Calm Ambient Sounds</h4>
+                        <div style="display: flex; justify-content: center; gap: 8px;">
+                            <button class="nav-week-btn" id="btn-sound-rain" style="padding: 6px 10px; font-size: 11px;">🌧️ Rain</button>
+                            <button class="nav-week-btn" id="btn-sound-ocean" style="padding: 6px 10px; font-size: 11px;">🌊 Ocean</button>
+                            <button class="nav-week-btn" id="btn-sound-mute" style="padding: 6px 10px; font-size: 11px; background: rgba(239, 68, 68, 0.15); color: var(--danger); border-color: rgba(239,68,68,0.3);">🔇 Mute</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -153,14 +182,13 @@ export default {
             const tasks = await getTasks();
             const targetDateStr = formatDateString(dateCursor);
 
-            // Filter tasks that are active on the target date cursor
+            // Filter tasks active on dateCursor
             const dailyTasks = tasks.filter(t => t.startDate === targetDateStr || (t.startDate <= targetDateStr && t.endDate >= targetDateStr));
 
             let html = '';
             if (dailyTasks.length === 0) {
                 html = '<div style="text-align: center; color: var(--text-muted); padding: 40px 20px;">No scheduled tasks for this day. Enjoy your rest!</div>';
             } else {
-                // Group by completed and pending
                 dailyTasks.sort((a, b) => {
                     if (a.status === 'completed' && b.status !== 'completed') return 1;
                     if (a.status !== 'completed' && b.status === 'completed') return -1;
@@ -189,7 +217,6 @@ export default {
 
             listContainer.innerHTML = html;
 
-            // Connect event listeners
             document.querySelectorAll('.task-item').forEach(item => {
                 const id = item.getAttribute('data-id');
                 const checkbox = item.querySelector('.task-checkbox');
@@ -233,7 +260,7 @@ export default {
         updateDateLabel();
         await loadAndRenderTasks();
 
-        // Day Selector Button triggers
+        // Day Navigation
         document.getElementById('btn-prev-day').addEventListener('click', async () => {
             dateCursor.setDate(dateCursor.getDate() - 1);
             updateDateLabel();
@@ -258,7 +285,6 @@ export default {
 
             const targetDateStr = formatDateString(dateCursor);
 
-            // Add custom task scheduled precisely on the active dateCursor!
             await addTask({
                 title,
                 description,
@@ -277,54 +303,89 @@ export default {
             await loadAndRenderTasks();
         });
 
-        // Pomodoro Timer Logic
+        // FOCUS & RELAX TIMER ENGINE
         let timerInterval;
-        let timeLeft = 25 * 60;
+        let activeTimer = 'focus'; // 'focus' | 'relax'
         let isRunning = false;
-        const display = document.getElementById('timer-display');
-        const durationInput = document.getElementById('timer-duration-input');
+        
+        const focusDisplay = document.getElementById('focus-timer-display');
+        const relaxDisplay = document.getElementById('relax-timer-display');
+        const focusInput = document.getElementById('focus-duration-input');
+        const relaxInput = document.getElementById('relax-duration-input');
+        const startBtn = document.getElementById('timer-start');
 
-        const updateDisplay = () => {
-            const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-            const s = (timeLeft % 60).toString().padStart(2, '0');
-            display.textContent = `${m}:${s}`;
+        let focusTimeLeft = (parseInt(focusInput.value) || 25) * 60;
+        let relaxTimeLeft = (parseInt(relaxInput.value) || 5) * 60;
+
+        const updateTimerDisplays = () => {
+            const fmt = (secs) => {
+                const m = Math.floor(secs / 60).toString().padStart(2, '0');
+                const s = (secs % 60).toString().padStart(2, '0');
+                return `${m}:${s}`;
+            };
+            focusDisplay.textContent = fmt(focusTimeLeft);
+            relaxDisplay.textContent = fmt(relaxTimeLeft);
         };
 
-        if (durationInput) {
-            const syncTimerDuration = () => {
-                if (!isRunning) {
-                    const mins = parseInt(durationInput.value) || 25;
-                    timeLeft = mins * 60;
-                    updateDisplay();
-                }
-            };
-            durationInput.addEventListener('change', syncTimerDuration);
-            durationInput.addEventListener('input', syncTimerDuration);
-        }
+        const syncInputs = () => {
+            if (!isRunning) {
+                focusTimeLeft = (parseInt(focusInput.value) || 25) * 60;
+                relaxTimeLeft = (parseInt(relaxInput.value) || 5) * 60;
+                updateTimerDisplays();
+            }
+        };
 
-        document.getElementById('timer-start').addEventListener('click', (e) => {
+        focusInput.addEventListener('change', syncInputs);
+        focusInput.addEventListener('input', syncInputs);
+        relaxInput.addEventListener('change', syncInputs);
+        relaxInput.addEventListener('input', syncInputs);
+
+        startBtn.addEventListener('click', () => {
             if (isRunning) {
+                // Pause
                 clearInterval(timerInterval);
-                e.target.textContent = 'Resume';
                 isRunning = false;
-                if (durationInput) durationInput.disabled = false;
+                startBtn.textContent = activeTimer === 'focus' ? 'Resume Focus' : 'Resume Relax';
+                focusInput.disabled = false;
+                relaxInput.disabled = false;
             } else {
+                // Start
                 isRunning = true;
-                e.target.textContent = 'Pause';
-                if (durationInput) durationInput.disabled = true;
+                focusInput.disabled = true;
+                relaxInput.disabled = true;
+                startBtn.textContent = 'Pause';
+
                 timerInterval = setInterval(() => {
-                    if (timeLeft > 0) {
-                        timeLeft--;
-                        updateDisplay();
+                    if (activeTimer === 'focus') {
+                        if (focusTimeLeft > 0) {
+                            focusTimeLeft--;
+                            updateTimerDisplays();
+                        } else {
+                            clearInterval(timerInterval);
+                            isRunning = false;
+                            alert('Focus Session complete! Time for a short relax break.');
+                            activeTimer = 'relax';
+                            startBtn.textContent = 'Start Relax';
+                            focusInput.disabled = false;
+                            relaxInput.disabled = false;
+                        }
                     } else {
-                        clearInterval(timerInterval);
-                        alert('Focus session complete! Rest your eyes.');
-                        const mins = durationInput ? (parseInt(durationInput.value) || 25) : 25;
-                        timeLeft = mins * 60;
-                        updateDisplay();
-                        e.target.textContent = 'Start';
-                        isRunning = false;
-                        if (durationInput) durationInput.disabled = false;
+                        if (relaxTimeLeft > 0) {
+                            relaxTimeLeft--;
+                            updateTimerDisplays();
+                        } else {
+                            clearInterval(timerInterval);
+                            isRunning = false;
+                            alert('Relax Break complete! Let\'s focus again.');
+                            activeTimer = 'focus';
+                            // Reset both to input defaults
+                            focusTimeLeft = (parseInt(focusInput.value) || 25) * 60;
+                            relaxTimeLeft = (parseInt(relaxInput.value) || 5) * 60;
+                            updateTimerDisplays();
+                            startBtn.textContent = 'Start Focus';
+                            focusInput.disabled = false;
+                            relaxInput.disabled = false;
+                        }
                     }
                 }, 1000);
             }
@@ -333,11 +394,140 @@ export default {
         document.getElementById('timer-reset').addEventListener('click', () => {
             clearInterval(timerInterval);
             isRunning = false;
-            const mins = durationInput ? (parseInt(durationInput.value) || 25) : 25;
-            timeLeft = mins * 60;
-            updateDisplay();
-            document.getElementById('timer-start').textContent = 'Start';
-            if (durationInput) durationInput.disabled = false;
+            activeTimer = 'focus';
+            focusTimeLeft = (parseInt(focusInput.value) || 25) * 60;
+            relaxTimeLeft = (parseInt(relaxInput.value) || 5) * 60;
+            updateTimerDisplays();
+            startBtn.textContent = 'Start Focus';
+            focusInput.disabled = false;
+            relaxInput.disabled = false;
         });
+
+        updateTimerDisplays();
+
+
+        // WEB AUDIO procedurual sound machine
+        let audioCtx = null;
+        let rainSource = null;
+        let oceanSource = null;
+        let masterGain = null;
+
+        const initAudio = () => {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                masterGain = audioCtx.createGain();
+                masterGain.gain.value = 0.5;
+                masterGain.connect(audioCtx.destination);
+            }
+        };
+
+        const stopAllAudio = () => {
+            if (rainSource) {
+                try { rainSource.stop(); } catch(e) {}
+                rainSource = null;
+            }
+            if (oceanSource) {
+                try { oceanSource.stop(); } catch(e) {}
+                oceanSource = null;
+            }
+        };
+
+        const playRain = () => {
+            initAudio();
+            stopAllAudio();
+
+            const bufferSize = audioCtx.sampleRate * 2;
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = Math.random() * 2 - 1;
+            }
+
+            const source = audioCtx.createBufferSource();
+            source.buffer = buffer;
+            source.loop = true;
+
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(800, audioCtx.currentTime);
+
+            source.connect(filter);
+            filter.connect(masterGain);
+            source.start();
+            rainSource = source;
+        };
+
+        const playOcean = () => {
+            initAudio();
+            stopAllAudio();
+
+            const bufferSize = audioCtx.sampleRate * 2;
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = Math.random() * 2 - 1;
+            }
+
+            const source = audioCtx.createBufferSource();
+            source.buffer = buffer;
+            source.loop = true;
+
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(450, audioCtx.currentTime);
+
+            const waveGain = audioCtx.createGain();
+            waveGain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+
+            source.connect(filter);
+            filter.connect(waveGain);
+            waveGain.connect(masterGain);
+            source.start();
+
+            let dir = 1;
+            const modulate = setInterval(() => {
+                if (!audioCtx || audioCtx.state === 'closed' || !oceanSource) {
+                    clearInterval(modulate);
+                    return;
+                }
+                let val = waveGain.gain.value;
+                if (dir === 1) {
+                    val += 0.04;
+                    if (val >= 0.75) dir = -1;
+                } else {
+                    val -= 0.04;
+                    if (val <= 0.1) dir = 1;
+                }
+                waveGain.gain.setValueAtTime(val, audioCtx.currentTime);
+            }, 300);
+
+            oceanSource = {
+                stop: () => {
+                    source.stop();
+                    clearInterval(modulate);
+                }
+            };
+        };
+
+        document.getElementById('btn-sound-rain').addEventListener('click', () => {
+            playRain();
+            document.getElementById('btn-sound-rain').style.borderColor = 'var(--primary)';
+            document.getElementById('btn-sound-ocean').style.borderColor = 'var(--border)';
+        });
+
+        document.getElementById('btn-sound-ocean').addEventListener('click', () => {
+            playOcean();
+            document.getElementById('btn-sound-rain').style.borderColor = 'var(--border)';
+            document.getElementById('btn-sound-ocean').style.borderColor = 'var(--primary)';
+        });
+
+        document.getElementById('btn-sound-mute').addEventListener('click', () => {
+            stopAllAudio();
+            document.getElementById('btn-sound-rain').style.borderColor = 'var(--border)';
+            document.getElementById('btn-sound-ocean').style.borderColor = 'var(--border)';
+        });
+
+        // Stop audio when navigating away
+        window.addEventListener('hashchange', stopAllAudio);
     }
 };

@@ -1,0 +1,29 @@
+{
+  "maxDailyHoursLimit": 6,
+  "defaultTaskBufferDays": 1,
+  "restDays": [
+    "Sunday"
+  ],
+  "dependenciesList": [
+    {
+      "task": "Summarize statutory text regulations definitions",
+      "dependsOn": "Analyze supreme court case precedents"
+    },
+    {
+      "task": "Draft legal contract brief clauses",
+      "dependsOn": "Summarize statutory text regulations definitions"
+    },
+    {
+      "task": "Outline cross-examination arguments notes",
+      "dependsOn": "Draft legal contract brief clauses"
+    },
+    {
+      "task": "Run simulated mock trial courtroom arguments",
+      "dependsOn": "Outline cross-examination arguments notes"
+    },
+    {
+      "task": "Review bar examination essay modules",
+      "dependsOn": "Run simulated mock trial courtroom arguments"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "maxDailyHoursLimit": 6,
+  "defaultTaskBufferDays": 1,
+  "restDays": [
+    "Sunday"
+  ],
+  "dependenciesList": [
+    {
+      "task": "Design database schema ERD",
+      "dependsOn": "Draft software specifications"
+    },
+    {
+      "task": "Setup git repo & CI/CD workflow",
+      "dependsOn": "Design database schema ERD"
+    },
+    {
+      "task": "Mock API contracts & endpoints",
+      "dependsOn": "Setup git repo & CI/CD workflow"
+    },
+    {
+      "task": "Implement core business logic",
+      "dependsOn": "Mock API contracts & endpoints"
+    },
+    {
+      "task": "Write unit and integration tests",
+      "dependsOn": "Implement core business logic"
+    },
+    {
+      "task": "Deploy to staging and run QA audits",
+      "dependsOn": "Write unit and integration tests"
+    },
+    {
+      "task": "Release production build to Cloud",
+      "dependsOn": "Deploy to staging and run QA audits"
+    }
+  ]
+}

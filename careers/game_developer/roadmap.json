@@ -1,0 +1,77 @@
+{
+  "career": "Game Developer",
+  "stages": [
+    {
+      "id": "stage-1",
+      "title": "Preproduction Phase",
+      "skills": [
+        {
+          "name": "Write game design document (GDD)",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Write game design document (GDD)."
+        },
+        {
+          "name": "Greybox blocking scene layouts",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Greybox blocking scene layouts."
+        }
+      ]
+    },
+    {
+      "id": "stage-2",
+      "title": "Mechanics Phase",
+      "skills": [
+        {
+          "name": "Code player movement & controllers",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Code player movement & controllers."
+        },
+        {
+          "name": "Program game state & HUD UI systems",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Program game state & HUD UI systems."
+        }
+      ]
+    },
+    {
+      "id": "stage-3",
+      "title": "Assets Phase",
+      "skills": [
+        {
+          "name": "Import 3D models & key textures",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Import 3D models & key textures."
+        },
+        {
+          "name": "Apply lighting and sound FX loops",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Apply lighting and sound FX loops."
+        }
+      ]
+    },
+    {
+      "id": "stage-4",
+      "title": "Polishing Phase",
+      "skills": [
+        {
+          "name": "Optimize build draw calls",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Optimize build draw calls."
+        },
+        {
+          "name": "Steam upload playtest packages",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Steam upload playtest packages."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "maxDailyHoursLimit": 6,
+  "defaultTaskBufferDays": 1,
+  "restDays": [
+    "Sunday"
+  ],
+  "dependenciesList": [
+    {
+      "task": "Review pharmacology interaction sheets",
+      "dependsOn": "Synthesize cardiology rotation guides"
+    },
+    {
+      "task": "Log clinical patient charts notes",
+      "dependsOn": "Review pharmacology interaction sheets"
+    },
+    {
+      "task": "Analyze diagnostic case studies profiles",
+      "dependsOn": "Log clinical patient charts notes"
+    },
+    {
+      "task": "Practice board exam mock questions",
+      "dependsOn": "Analyze diagnostic case studies profiles"
+    },
+    {
+      "task": "Review medical ethics clinical codes",
+      "dependsOn": "Practice board exam mock questions"
+    }
+  ]
+}

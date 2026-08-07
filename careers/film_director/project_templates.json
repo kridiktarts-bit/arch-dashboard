@@ -1,0 +1,83 @@
+{
+  "career": "Film Director",
+  "phases": [
+    {
+      "id": "phase-1",
+      "name": "Development Phase",
+      "tasks": [
+        {
+          "title": "Finalize screenplay script revisions",
+          "durationHours": 8,
+          "dependencies": []
+        },
+        {
+          "title": "Scout locations & secure permissions",
+          "durationHours": 6,
+          "dependencies": [
+            "Finalize screenplay script revisions"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-2",
+      "name": "Preproduction Phase",
+      "tasks": [
+        {
+          "title": "Draw visual storyboard scene layouts",
+          "durationHours": 8,
+          "dependencies": [
+            "Scout locations & secure permissions"
+          ]
+        },
+        {
+          "title": "Draft complete shooting schedule lists",
+          "durationHours": 5,
+          "dependencies": [
+            "Draw visual storyboard scene layouts"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-3",
+      "name": "Production Phase",
+      "tasks": [
+        {
+          "title": "Cast rehearsals & principal photography",
+          "durationHours": 18,
+          "dependencies": [
+            "Draft complete shooting schedule lists"
+          ]
+        },
+        {
+          "title": "Review daily rushes sequences footage",
+          "durationHours": 6,
+          "dependencies": [
+            "Cast rehearsals & principal photography"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase-4",
+      "name": "Postproduction Phase",
+      "tasks": [
+        {
+          "title": "Perform rough cut linear video edits",
+          "durationHours": 12,
+          "dependencies": [
+            "Review daily rushes sequences footage"
+          ]
+        },
+        {
+          "title": "Export final color-graded video cut",
+          "durationHours": 6,
+          "dependencies": [
+            "Perform rough cut linear video edits"
+          ]
+        }
+      ]
+    }
+  ]
+}

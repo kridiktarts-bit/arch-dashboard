@@ -1,0 +1,77 @@
+{
+  "career": "Software Engineer",
+  "stages": [
+    {
+      "id": "stage-1",
+      "title": "Requirement Phase",
+      "skills": [
+        {
+          "name": "Draft software specifications",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Draft software specifications."
+        },
+        {
+          "name": "Design database schema ERD",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Design database schema ERD."
+        }
+      ]
+    },
+    {
+      "id": "stage-2",
+      "title": "Architecture Phase",
+      "skills": [
+        {
+          "name": "Setup git repo & CI/CD workflow",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Setup git repo & CI/CD workflow."
+        },
+        {
+          "name": "Mock API contracts & endpoints",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Mock API contracts & endpoints."
+        }
+      ]
+    },
+    {
+      "id": "stage-3",
+      "title": "Development Phase",
+      "skills": [
+        {
+          "name": "Implement core business logic",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Implement core business logic."
+        },
+        {
+          "name": "Write unit and integration tests",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Write unit and integration tests."
+        }
+      ]
+    },
+    {
+      "id": "stage-4",
+      "title": "Deployment Phase",
+      "skills": [
+        {
+          "name": "Deploy to staging and run QA audits",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Deploy to staging and run QA audits."
+        },
+        {
+          "name": "Release production build to Cloud",
+          "progress": 0,
+          "lessons": 5,
+          "description": "Practice lessons on Release production build to Cloud."
+        }
+      ]
+    }
+  ]
+}
