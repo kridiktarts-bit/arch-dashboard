@@ -30,113 +30,131 @@ export default {
                     position: relative;
                     z-index: 2;
                 }
-
+                
                 .dashboard-grid-layout {
                     display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-                    gap: 24px;
-                    margin-top: 32px;
+                    grid-template-columns: 1fr;
+                    gap: 20px;
+                    margin-top: 24px;
                 }
-
+                
+                @media (min-width: 768px) {
+                    .dashboard-grid-layout {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+                }
+                
+                @media (min-width: 1200px) {
+                    .dashboard-grid-layout {
+                        grid-template-columns: repeat(3, 1fr);
+                    }
+                }
+                
                 .panel-card {
                     background: var(--glass-bg);
                     border: 1px solid var(--border);
-                    border-radius: 16px;
+                    border-radius: 12px;
                     padding: 24px;
                     display: flex;
                     flex-direction: column;
-                    transition: var(--transition);
+                    box-shadow: var(--shadow);
+                    backdrop-filter: blur(10px);
                 }
-                .panel-card:hover {
-                    border-color: var(--primary);
-                    transform: translateY(-2px);
-                }
+                
                 .panel-header {
                     font-size: 16px;
-                    font-weight: 600;
+                    font-weight: 700;
                     color: white;
-                    border-bottom: 1px solid var(--border);
-                    padding-bottom: 12px;
                     margin-bottom: 16px;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
+                    border-bottom: 1px solid rgba(255,255,255,0.05);
+                    padding-bottom: 8px;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
                 }
-
+                
+                .stat-value {
+                    font-size: 32px;
+                    font-weight: 800;
+                    color: white;
+                    margin: 8px 0;
+                    font-family: var(--font-heading);
+                    text-shadow: 0 2px 10px rgba(45, 212, 191, 0.2);
+                }
+                
+                .stat-label {
+                    font-size: 12px;
+                    color: var(--text-muted);
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    letter-spacing: 0.5px;
+                }
+                
                 .tasks-checklist {
                     display: flex;
                     flex-direction: column;
-                    gap: 10px;
+                    gap: 8px;
                 }
+                
                 .task-item-row {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    padding: 12px 16px;
                     background: rgba(0,0,0,0.2);
                     border: 1px solid var(--border);
-                    border-radius: 8px;
+                    padding: 10px 14px;
+                    border-radius: 6px;
                     cursor: pointer;
                     transition: var(--transition);
                 }
+                
                 .task-item-row:hover {
-                    border-color: var(--primary-glow);
+                    border-color: var(--primary);
+                    background: rgba(255,255,255,0.02);
                 }
+                
                 .task-item-row.checked {
+                    opacity: 0.6;
                     border-color: var(--success);
-                    background: rgba(16, 185, 129, 0.03);
                 }
+                
                 .task-item-row.checked span {
                     text-decoration: line-through;
                     color: var(--text-muted);
                 }
+                
                 .task-checkbox-bubble {
                     width: 18px;
                     height: 18px;
-                    border: 2px solid var(--primary);
+                    border: 2px solid var(--border);
                     border-radius: 50%;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    font-size: 11px;
+                    font-size: 10px;
+                    color: var(--success);
                     font-weight: bold;
-                    color: var(--primary);
+                    transition: var(--transition);
                 }
+                
                 .task-item-row.checked .task-checkbox-bubble {
-                    background: var(--success);
                     border-color: var(--success);
-                    color: black;
+                    background: rgba(45, 212, 191, 0.1);
                 }
-
-                .stat-value {
-                    font-size: 32px;
-                    font-weight: bold;
-                    color: white;
-                    font-family: var(--font-heading);
-                    margin: 8px 0;
-                }
-                .stat-label {
-                    font-size: 12px;
-                    color: var(--text-muted);
-                    font-weight: 600;
-                    text-transform: uppercase;
-                }
-
+                
                 .skill-badge {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    background: rgba(255,255,255,0.03);
-                    border: 1px solid var(--border);
                     padding: 8px 12px;
-                    border-radius: 8px;
+                    background: rgba(0,0,0,0.2);
+                    border-radius: 6px;
                     margin-bottom: 8px;
                     font-size: 13px;
                 }
-
+                
                 .progress-capsule {
                     height: 6px;
-                    background: var(--border);
+                    background: rgba(255,255,255,0.05);
                     border-radius: 3px;
                     overflow: hidden;
                     margin-top: 12px;
@@ -169,15 +187,56 @@ export default {
         const navKey = isProfessional ? 'professional' : 'beginner';
 
         const tasks = await getTasks();
+        const roadmap = await getRoadmap();
         const welcomeTitle = document.getElementById('welcome-title');
         const welcomeSubtitle = document.getElementById('welcome-subtitle');
+
+        const careerNames = {
+            comic_creator: 'Comic Creator',
+            architecture: 'Architect',
+            software_engineer: 'Software Engineer',
+            game_developer: 'Game Developer',
+            animator: 'Animator',
+            film_director: 'Film Director',
+            doctor: 'Doctor',
+            lawyer: 'Lawyer'
+        };
+        const cName = careerNames[career] || career;
 
         if (welcomeTitle) welcomeTitle.innerText = `OS Workspace: ${onboarding.firstName}`;
         if (welcomeSubtitle) {
             welcomeSubtitle.innerText = isProfessional
-                ? `Active Production: ${onboarding.specificGoal || 'Finish Chapter Roadmap'}`
-                : `Career Study Tracker: Foundations & Fundamentals`;
+                ? `Active Production: ${onboarding.specificGoal || 'Finish Project Roadmap'}`
+                : `${cName} Study Tracker: Foundations & Fundamentals`;
         }
+
+        const getCareerUnitLabel = (c) => {
+            const units = {
+                comic_creator: 'chapters',
+                architecture: 'sheets',
+                software_engineer: 'features',
+                game_developer: 'levels',
+                animator: 'scenes',
+                film_director: 'scenes',
+                doctor: 'rotations',
+                lawyer: 'briefs'
+            };
+            return units[c] || 'tasks';
+        };
+
+        const getCareerSubUnitLabel = (c) => {
+            const units = {
+                comic_creator: 'pages',
+                architecture: 'details',
+                software_engineer: 'tests',
+                game_developer: 'mechanics',
+                animator: 'frames',
+                film_director: 'shots',
+                doctor: 'exam study days',
+                lawyer: 'source documents'
+            };
+            return units[c] || 'units';
+        };
 
         // Get list of widgets from onboarding config
         const careerOnboardingConfig = await getCareerConfig(career, 'onboarding');
@@ -220,26 +279,46 @@ export default {
                     `;
                     break;
                 case "Skill Tree":
-                    card.innerHTML = `
-                        <div class="panel-header">🌳 Competency Badges</div>
-                        <div class="skill-badge">
-                            <span>Anatomy Foundations</span>
-                            <strong style="color: var(--primary);">40%</strong>
-                        </div>
-                        <div class="skill-badge">
-                            <span>Perspective Grids</span>
-                            <strong style="color: var(--secondary);">60%</strong>
-                        </div>
-                        <div class="skill-badge">
-                            <span>Story Scripting</span>
-                            <strong style="color: var(--success);">25%</strong>
-                        </div>
-                    `;
+                    {
+                        const skillBadgesList = [];
+                        if (roadmap && roadmap.stages) {
+                            roadmap.stages.forEach(st => {
+                                if (st.skills) {
+                                    st.skills.forEach(sk => {
+                                        if (skillBadgesList.length < 3) {
+                                            const progress = sk.progress || 0;
+                                            const percent = Math.round((progress / sk.lessons) * 100);
+                                            skillBadgesList.push({ name: sk.name, percent });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                        
+                        if (skillBadgesList.length === 0) {
+                            skillBadgesList.push({ name: "Core Knowledge", percent: 0 });
+                            skillBadgesList.push({ name: "Applied Practice", percent: 0 });
+                            skillBadgesList.push({ name: "Project Completion", percent: 0 });
+                        }
+
+                        const badgesColors = ["var(--primary)", "var(--secondary)", "var(--success)"];
+                        const badgesHtml = skillBadgesList.map((sk, idx) => `
+                            <div class="skill-badge">
+                                <span>${sk.name}</span>
+                                <strong style="color: ${badgesColors[idx % 3]};">${sk.percent}%</strong>
+                            </div>
+                        `).join('');
+
+                        card.innerHTML = `
+                            <div class="panel-header">🌳 Competency Badges</div>
+                            ${badgesHtml}
+                        `;
+                    }
                     break;
                 case "Practice Tracker":
                     card.innerHTML = `
                         <div class="panel-header">⚡ Daily Practice Log</div>
-                        <div class="stat-label">Drawing execution today</div>
+                        <div class="stat-label">Focus execution today</div>
                         <div class="stat-value">${onboarding.daily_hours || 3} Hours</div>
                         <div class="stat-label">Required weekly focus: ${onboarding.weeklyHours || 15} hours</div>
                     `;
@@ -258,41 +337,50 @@ export default {
                     `;
                     break;
                 case "Production Tracker":
-                    const chFinished = Math.round(completedTasks.length / 3);
-                    const chTotal = onboarding.chapters_count || 5;
-                    card.innerHTML = `
-                        <div class="panel-header">⚙️ Comic Production</div>
-                        <div class="stat-label">Active Chapters Completed</div>
-                        <div class="stat-value">${chFinished} / ${chTotal}</div>
-                        <div class="stat-label">Remaining target: ${Math.max(0, chTotal - chFinished)} chapters</div>
-                    `;
+                    {
+                        const chFinished = Math.round(completedTasks.length / 3);
+                        const chTotal = onboarding.chapters_count || 5;
+                        const unitLabel = getCareerUnitLabel(career);
+                        card.innerHTML = `
+                            <div class="panel-header">⚙️ Project Pipeline</div>
+                            <div class="stat-label">Active ${unitLabel} Completed</div>
+                            <div class="stat-value">${chFinished} / ${chTotal}</div>
+                            <div class="stat-label">Remaining target: ${Math.max(0, chTotal - chFinished)} ${unitLabel}</div>
+                        `;
+                    }
                     break;
                 case "Chapter Progress":
-                    card.innerHTML = `
-                        <div class="panel-header">📘 Chapter Status</div>
-                        <div class="skill-badge">
-                            <span>Chapter 1 (Coloring)</span>
-                            <strong style="color: var(--success);">90%</strong>
-                        </div>
-                        <div class="skill-badge">
-                            <span>Chapter 2 (Inking)</span>
-                            <strong style="color: var(--primary);">40%</strong>
-                        </div>
-                        <div class="skill-badge">
-                            <span>Chapter 3 (Dialogue)</span>
-                            <strong style="color: var(--warning);">10%</strong>
-                        </div>
-                    `;
+                    {
+                        const unitLabel = getCareerUnitLabel(career);
+                        card.innerHTML = `
+                            <div class="panel-header">📘 ${unitLabel} Status</div>
+                            <div class="skill-badge">
+                                <span>${unitLabel.substring(0, unitLabel.length - 1)} 1 (Execution)</span>
+                                <strong style="color: var(--success);">90%</strong>
+                            </div>
+                            <div class="skill-badge">
+                                <span>${unitLabel.substring(0, unitLabel.length - 1)} 2 (Review)</span>
+                                <strong style="color: var(--primary);">40%</strong>
+                            </div>
+                            <div class="skill-badge">
+                                <span>${unitLabel.substring(0, unitLabel.length - 1)} 3 (Delivery)</span>
+                                <strong style="color: var(--warning);">10%</strong>
+                            </div>
+                        `;
+                    }
                     break;
                 case "Remaining Pages":
-                    const pgTotal = (onboarding.chapters_count || 5) * (onboarding.pages_per_chapter || 10);
-                    const pgRemaining = Math.max(0, Math.round(pgTotal * (1 - progressPct / 100)));
-                    card.innerHTML = `
-                        <div class="panel-header">📄 Page Workflow</div>
-                        <div class="stat-label">Pages remaining to draw</div>
-                        <div class="stat-value">${pgRemaining} Pages</div>
-                        <div class="stat-label">Total scope: ${pgTotal} pages</div>
-                    `;
+                    {
+                        const pgTotal = (onboarding.chapters_count || 5) * (onboarding.pages_per_chapter || 10);
+                        const pgRemaining = Math.max(0, Math.round(pgTotal * (1 - progressPct / 100)));
+                        const subUnitLabel = getCareerSubUnitLabel(career);
+                        card.innerHTML = `
+                            <div class="panel-header">📄 ${subUnitLabel} Workflow</div>
+                            <div class="stat-label">${subUnitLabel} remaining to complete</div>
+                            <div class="stat-value">${pgRemaining} ${subUnitLabel}</div>
+                            <div class="stat-label">Total scope: ${pgTotal} ${subUnitLabel}</div>
+                        `;
+                    }
                     break;
                 case "Deadline Countdown":
                     card.innerHTML = `
@@ -322,10 +410,23 @@ export default {
                     `;
                     break;
                 case "AI Coach":
-                    card.innerHTML = `
-                        <div class="panel-header">🤖 Mentor Guidance</div>
-                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.4;">Based on your focus pacing of <strong>${onboarding.daily_hours || 3}h/day</strong>, you are currently on track to reach your goals. Try batching dialogue writing tasks on Mondays!</p>
-                    `;
+                    {
+                        const coachTips = {
+                            comic_creator: "Try batching panel thumbnail layout sketching on Mondays!",
+                            architecture: "Try reviewing local building zoning regulations on Mondays!",
+                            software_engineer: "Try writing automated unit mock tests early in your sprints!",
+                            game_developer: "Try greyboxing geometry levels layouts before coding physics!",
+                            animator: "Try pencil testing rough keys bounce motions before rigging details!",
+                            film_director: "Try blocking camera shot lists layouts before rehearsals!",
+                            doctor: "Try reviews of clinical pharmacology interaction lists on Mondays!",
+                            lawyer: "Try sorting key supreme court case precedents early in research!"
+                        };
+                        const tip = coachTips[career] || "Keep focus hours consistent across your tasks!";
+                        card.innerHTML = `
+                            <div class="panel-header">🤖 Mentor Guidance</div>
+                            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.4;">Based on your focus pacing of <strong>${onboarding.daily_hours || 3}h/day</strong>, you are currently on track to reach your goals. ${tip}</p>
+                        `;
+                    }
                     break;
                 case "AXP Tracker":
                     card.innerHTML = `
