@@ -24,7 +24,7 @@ export function saveUserOnboarding(data) {
 
 async function fetchCareerConfig(career, filename) {
     try {
-        const res = await fetch(`/careers/${career}/${filename}`);
+        const res = await fetch(`careers/${career}/${filename}`);
         if (!res.ok) {
             throw new Error(`Failed to load ${filename}`);
         }
