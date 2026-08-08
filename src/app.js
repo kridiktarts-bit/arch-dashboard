@@ -54,6 +54,18 @@ class App {
         } else {
             document.getElementById('onboarding-container').style.display = 'none';
             document.querySelector('.app-container').style.display = 'flex';
+            
+            // Auto-generate doctor workspace if missing to prevent blank pages on old caches
+            if (onboarding.career === 'doctor') {
+                if (!localStorage.getItem('career_roadmap_doctor') || !localStorage.getItem('career_tasks_doctor')) {
+                    await generateCalendarSchedule(onboarding);
+                }
+                const portfolioData = localStorage.getItem('career_portfolio_doctor');
+                if (portfolioData && portfolioData.includes("Character Sheet")) {
+                    localStorage.removeItem('career_portfolio_doctor');
+                }
+            }
+            
             await this.setupNavigation();
             this.renderView();
         }

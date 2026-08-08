@@ -6,9 +6,27 @@ export default {
         container.className = 'projects-view';
 
         const career = getActiveCareer();
-        const placeholderName = career === 'architecture' ? 'e.g. 110th St Plaza Memorial Design' : 'e.g. Character Sheet: Turnaround';
-        const placeholderTools = career === 'architecture' ? 'e.g. Sketching, Rhino, AutoCAD' : 'e.g. Clip Studio Paint, Photoshop, ink';
-        const pageSubtitle = career === 'architecture' ? 'Curate your studio designs. Support for up to 5 documentation images per project.' : 'Curate your pages, character turnaround sheets, and illustrations.';
+        let placeholderName = 'e.g. Project Title';
+        let placeholderTools = 'e.g. Tools, Software, Materials';
+        let pageSubtitle = 'Curate and manage your deliverables and project submissions.';
+
+        if (career === 'architecture') {
+            placeholderName = 'e.g. 110th St Plaza Memorial Design';
+            placeholderTools = 'e.g. Sketching, Rhino, AutoCAD';
+            pageSubtitle = 'Curate your studio designs. Support for up to 5 documentation images per project.';
+        } else if (career === 'comic_creator') {
+            placeholderName = 'e.g. Character Sheet: Turnaround';
+            placeholderTools = 'e.g. Clip Studio Paint, Photoshop, ink';
+            pageSubtitle = 'Curate your pages, character turnaround sheets, and illustrations.';
+        } else if (career === 'doctor') {
+            placeholderName = 'e.g. AMCAS Application Portfolio';
+            placeholderTools = 'e.g. ERAS Portal, Personal Statement, Recommendation Letters';
+            pageSubtitle = 'Curate your medical applications, personal statements, shadowing logs, and recommendation dossier.';
+        } else {
+            placeholderName = 'e.g. Professional Milestone Deliverable';
+            placeholderTools = 'e.g. Certification, Document PDF, Logs';
+            pageSubtitle = 'Curate and review your professional deliverables and milestones.';
+        }
 
         container.innerHTML = `
             <style>

@@ -244,13 +244,26 @@ export async function getProjects() {
     const key = `career_portfolio_${career}`;
     let data = localStorage.getItem(key);
     if (!data) {
-        // Initialize with default mock project
+        let defaultTitle = "Project Deliverable Portfolio";
+        let defaultSoftware = "Documentation, Reports";
+        
+        if (career === 'architecture') {
+            defaultTitle = "110th St Plaza Memorial Design";
+            defaultSoftware = "Sketching, Rhino, AutoCAD";
+        } else if (career === 'comic_creator') {
+            defaultTitle = "Character Sheet: The Wanderer";
+            defaultSoftware = "Clip Studio Paint, Photoshop";
+        } else if (career === 'doctor') {
+            defaultTitle = "AMCAS Medical School Application Binder";
+            defaultSoftware = "ERAS Portal, Personal Statement Drafts, Shadowing Logs";
+        }
+        
         const defaults = [
             {
                 id: "proj-1",
-                title: career === 'architecture' ? "110th St Plaza Memorial Design" : "Character Sheet: The Wanderer",
+                title: defaultTitle,
                 date: "Current Season",
-                software: career === 'architecture' ? "Sketching, Rhino, AutoCAD" : "Clip Studio Paint, Photoshop",
+                software: defaultSoftware,
                 status: "In Progress",
                 images: []
             }
