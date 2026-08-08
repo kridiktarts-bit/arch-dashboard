@@ -92,8 +92,9 @@ class App {
         // Assemble dynamic sidebar links from JSON configuration
         let linksList = [];
         if (career === 'doctor') {
-            const isCollege = !onboarding.doc_stage.includes("Medical School") && !onboarding.doc_stage.includes("Resident") && !onboarding.doc_stage.includes("Physician");
-            const isMed = onboarding.doc_stage.includes("Medical School");
+            const docStage = onboarding.doc_stage || 'College Junior';
+            const isCollege = !docStage.includes("Medical School") && !docStage.includes("Resident") && !docStage.includes("Physician");
+            const isMed = docStage.includes("Medical School");
             
             if (isCollege) {
                 linksList = [
