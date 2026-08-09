@@ -150,10 +150,54 @@ export default {
                 }
 
                 container.innerHTML = roadmap.stages.map((stage, idx) => {
+                    const isBiz = roadmap.career === 'entrepreneur';
                     const skillsHtml = stage.skills.map(skill => {
                         const progress = skill.progress || 0;
                         const percent = Math.round((progress / skill.lessons) * 100);
                         
+                        let detailsHtml = '';
+                        if (isBiz) {
+                            detailsHtml = `
+                                <div style="font-size: 13px; margin-bottom: 12px; color: var(--text-muted); line-height: 1.4;">
+                                    This task is part of your incubator roadmap. Completed items will reflect in your launch readiness checklist.
+                                </div>
+                            `;
+                        } else {
+                            detailsHtml = `
+                                <div class="skill-details-section">
+                                    <strong>Recommended Resources:</strong>
+                                    <ul class="skill-details-list">
+                                         ${(skill.resources || []).map(r => `<li>${r}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                
+                                <div class="skill-details-section">
+                                    <strong>Practice Exercises:</strong>
+                                    <ul class="skill-details-list">
+                                         ${(skill.exercises || []).map(e => `<li>${e}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            `;
+                        }
+
+                        let actionRowHtml = '';
+                        if (isBiz) {
+                            if (progress >= 100) {
+                                actionRowHtml = `
+                                    <button class="btn btn-secondary toggle-lesson-btn" data-delta="-100" style="padding: 6px 12px; font-size: 12px; border: 1px solid var(--border);">Mark Incomplete</button>
+                                `;
+                            } else {
+                                actionRowHtml = `
+                                    <button class="btn btn-primary toggle-lesson-btn" data-delta="100" style="padding: 6px 12px; font-size: 12px; background: var(--success); border-color: var(--success); color: black;">Mark Completed</button>
+                                `;
+                            }
+                        } else {
+                            actionRowHtml = `
+                                <button class="btn btn-primary add-lesson-btn" style="padding: 6px 12px; font-size: 12px;">+1 Unit</button>
+                                <button class="btn sub-lesson-btn" style="padding: 6px 12px; font-size: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border);" ${progress <= 0 ? 'disabled' : ''}>-1 Unit</button>
+                            `;
+                        }
+
                         return `
                             <div class="skill-box" data-stage="${stage.id}" data-skill="${skill.name}">
                                 <div class="skill-box-header">
@@ -161,51 +205,40 @@ export default {
                                 </div>
                                 <div class="progress-row">
                                     <span>Progress</span>
-                                    <strong>${progress} / ${skill.lessons} Units (${percent}%)</strong>
+                                    <strong>${isBiz ? (progress >= 100 ? 'Completed' : 'Pending') : `${progress} / ${skill.lessons} Units`} (${percent}%)</strong>
                                 </div>
                                 <div class="progress-bar-container">
-                                    <div class="progress-bar-fill" style="width: ${percent}%;"></div>
+                                    <div class="progress-bar-fill" style="width: ${percent}%; background: ${isBiz ? 'var(--success)' : 'linear-gradient(90deg, var(--primary), var(--secondary))'};"></div>
                                 </div>
                                 
                                 <div style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; margin-top: 10px; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 10px;">
-                                    <div><span style="color: var(--text-muted);">⏱️ Est. Duration:</span> <strong style="color: white;">${skill.estimatedHours || '40 Hours'}</strong></div>
-                                    <div><span style="color: var(--text-muted);">🏆 Milestone:</span> <strong style="color: var(--secondary);">${skill.relatedMilestone || 'Coursework Completion'}</strong></div>
+                                    <div><span style="color: var(--text-muted);">⏱️ Est. Duration:</span> <strong style="color: white;">${skill.estimatedHours || '10 Hours'}</strong></div>
+                                    <div><span style="color: var(--text-muted);">🏆 Milestone:</span> <strong style="color: var(--secondary);">${skill.relatedMilestone || 'Completion'}</strong></div>
                                 </div>
                                 
-                                <div class="skill-details-section">
-                                    <strong>Recommended Resources:</strong>
-                                    <ul class="skill-details-list">
-                                        ${(skill.resources || []).map(r => `<li>${r}</li>`).join('')}
-                                    </ul>
-                                </div>
+                                ${detailsHtml}
                                 
-                                <div class="skill-details-section">
-                                    <strong>Practice Exercises:</strong>
-                                    <ul class="skill-details-list">
-                                        ${(skill.exercises || []).map(e => `<li>${e}</li>`).join('')}
-                                    </ul>
-                                </div>
-
                                 <div class="skill-actions-row">
-                                    <button class="btn btn-primary add-lesson-btn" style="padding: 6px 12px; font-size: 12px;">+1 Unit</button>
-                                    <button class="btn sub-lesson-btn" style="padding: 6px 12px; font-size: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border);" ${progress <= 0 ? 'disabled' : ''}>-1 Unit</button>
+                                    ${actionRowHtml}
                                 </div>
                             </div>
                         `;
                     }).join('');
 
+                    const stageTitle = isBiz ? stage.name : `Stage ${idx + 1}: ${stage.name}`;
+
                     return `
                         <div class="stage-card">
                             <div class="stage-card-header">
                                 <div>
-                                    <h3 class="stage-title">Stage ${idx + 1}: ${stage.name}</h3>
+                                    <h3 class="stage-title">${stageTitle}</h3>
                                     <p class="text-muted" style="margin-top: 4px; font-size: 14px;">${stage.description}</p>
                                 </div>
                                 <div class="stage-timeframe">${stage.timeframe || ''}</div>
                             </div>
                             <div class="skills-grid">
                                 ${skillsHtml}
-                            </div>
+                             </div>
                         </div>
                     `;
                 }).join('');
@@ -215,16 +248,62 @@ export default {
                     const skillName = box.getAttribute('data-skill');
                     const addBtn = box.querySelector('.add-lesson-btn');
                     const subBtn = box.querySelector('.sub-lesson-btn');
+                    const toggleBtn = box.querySelector('.toggle-lesson-btn');
 
-                    addBtn.addEventListener('click', async () => {
-                        await updateSkillProgress(stageId, skillName, 1);
-                        await renderPath();
-                    });
+                    if (addBtn) {
+                        addBtn.addEventListener('click', async () => {
+                            await updateSkillProgress(stageId, skillName, 1);
+                            await renderPath();
+                        });
+                    }
 
-                    subBtn.addEventListener('click', async () => {
-                        await updateSkillProgress(stageId, skillName, -1);
-                        await renderPath();
-                    });
+                    if (subBtn) {
+                        subBtn.addEventListener('click', async () => {
+                            await updateSkillProgress(stageId, skillName, -1);
+                            await renderPath();
+                        });
+                    }
+
+                    if (toggleBtn) {
+                        toggleBtn.addEventListener('click', async () => {
+                            const delta = parseInt(toggleBtn.getAttribute('data-delta'));
+                            await updateSkillProgress(stageId, skillName, delta);
+                            
+                            const onboarding = getUserOnboarding();
+                            if (onboarding && onboarding.career === 'entrepreneur') {
+                                if (!onboarding.biz_progress) onboarding.biz_progress = [];
+                                
+                                const itemMap = {
+                                    "Business Name": "Business name",
+                                    "Logo": "Logo",
+                                    "Business Model": "Business plan",
+                                    "Brand Colors": "Brand colors",
+                                    "Market Research": "Market research",
+                                    "Website": "Website",
+                                    "Products": "Products",
+                                    "Pricing Strategy": "Pricing",
+                                    "Brand Strategy": "Marketing strategy",
+                                    "Hiring & Teams": "Employees"
+                                };
+                                
+                                const progItem = itemMap[skillName] || skillName;
+                                if (delta > 0) {
+                                    if (!onboarding.biz_progress.includes(progItem)) {
+                                        onboarding.biz_progress.push(progItem);
+                                    }
+                                } else {
+                                    onboarding.biz_progress = onboarding.biz_progress.filter(item => item !== progItem);
+                                }
+                                localStorage.setItem('user_onboarding', JSON.stringify(onboarding));
+                                
+                                const allProgressItems = ["Business name", "Logo", "Business plan", "Brand colors", "Website", "Products", "Pricing", "Marketing strategy", "Legal registration", "Business bank account", "Customers", "Employees"];
+                                const missingChecklist = allProgressItems.filter(item => !onboarding.biz_progress.includes(item));
+                                localStorage.setItem('career_launch_checklist_entrepreneur', JSON.stringify(missingChecklist));
+                            }
+                            
+                            await renderPath();
+                        });
+                    }
                 });
             }
         };

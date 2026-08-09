@@ -64,6 +64,14 @@ class App {
                 if (portfolioData && portfolioData.includes("Character Sheet")) {
                     localStorage.removeItem('career_portfolio_doctor');
                 }
+            } else if (onboarding.career === 'entrepreneur') {
+                if (!localStorage.getItem('career_roadmap_entrepreneur') || !localStorage.getItem('career_tasks_entrepreneur')) {
+                    await generateCalendarSchedule(onboarding);
+                }
+                const portfolioData = localStorage.getItem('career_portfolio_entrepreneur');
+                if (portfolioData && portfolioData.includes("Character Sheet")) {
+                    localStorage.removeItem('career_portfolio_entrepreneur');
+                }
             }
             
             await this.setupNavigation();
@@ -279,6 +287,16 @@ class App {
             doc_residency_year: 1,
             doc_board_completed: false,
             doc_exp: [],
+
+            // Entrepreneur Flow specific properties
+            biz_goal: 'start_first',
+            biz_specific: 'Launch my website',
+            biz_type: 'Clothing Brand',
+            biz_stage: 'Just an idea',
+            biz_progress: [],
+            biz_college: 'No',
+            biz_college_reason: 'Business Degree',
+            biz_accomplish: [],
             
             // Q1
             experience_status: '', 
@@ -420,7 +438,16 @@ class App {
                         <div class="onboarding-form">
                             <div class="autocomplete-container">
                                 <label class="input-label">Target Career</label>
-                                <input type="text" id="ob-career-search" class="text-input" placeholder="Search career (e.g. Comic Creator, Architecture...)" autocomplete="off" value="${wizardState.career ? (wizardState.career === 'architecture' ? 'Architecture' : 'Comic Creator') : ''}">
+                                <input type="text" id="ob-career-search" class="text-input" placeholder="Search career (e.g. Comic Creator, Architecture...)" autocomplete="off" value="${(() => {
+                                    const names = {
+                                        architecture: 'Architecture',
+                                        comic_creator: 'Comic Creator',
+                                        doctor: 'Doctor',
+                                        entrepreneur: 'Entrepreneur / Business Owner',
+                                        lawyer: 'Lawyer'
+                                    };
+                                    return names[wizardState.career] || '';
+                                })()}">
                                 <div class="autocomplete-dropdown" id="ob-career-dropdown"></div>
                                 <div class="validation-warning" id="ob-unsupported-warning" style="display: none;">
                                     ⚠️ This career is coming soon.
@@ -703,6 +730,256 @@ class App {
                                 <div class="loading-step-item" id="loading-step-4">
                                     <div style="width: 16px; height: 16px;"></div>
                                     <span>Applying residency procedure trackers...</span>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                );
+            } else if (wizardState.career === 'entrepreneur') {
+                // ENTREPRENEUR SPECIFIC FLOW
+                steps.push(
+                    // Entrepreneur Step 3: Business Goal
+                    () => `
+                        <div class="onboarding-card">
+                            <h2 class="onboarding-title" style="font-size: 28px; margin-bottom: 8px;">Step 3 — Business Goal</h2>
+                            <p class="onboarding-subtitle" style="margin-bottom: 16px;">What best describes your goal?</p>
+                            
+                            <div class="onboarding-form">
+                                <select id="ob-biz-goal" class="text-input" style="background-color: #0d1e36; margin-bottom: 16px;">
+                                    <option value="start_first" ${wizardState.biz_goal === 'start_first' ? 'selected' : ''}>Start my first business</option>
+                                    <option value="grow_existing" ${wizardState.biz_goal === 'grow_existing' ? 'selected' : ''}>Grow an existing business</option>
+                                    <option value="launch_product" ${wizardState.biz_goal === 'launch_product' ? 'selected' : ''}>Launch a product</option>
+                                    <option value="open_physical" ${wizardState.biz_goal === 'open_physical' ? 'selected' : ''}>Open a physical business</option>
+                                    <option value="start_online" ${wizardState.biz_goal === 'start_online' ? 'selected' : ''}>Start an online business</option>
+                                    <option value="build_brand" ${wizardState.biz_goal === 'build_brand' ? 'selected' : ''}>Build a personal brand</option>
+                                    <option value="one_project" ${wizardState.biz_goal === 'one_project' ? 'selected' : ''}>I only need help with one specific project</option>
+                                </select>
+
+                                <div id="ob-biz-specific-wrapper" style="display: ${wizardState.biz_goal === 'one_project' ? 'block' : 'none'};">
+                                    <label class="input-label">What would you like help with?</label>
+                                    <select id="ob-biz-specific" class="text-input" style="background-color: #0d1e36;">
+                                        ${["Launch my website", "Open my store", "Create a business plan", "Build my brand", "Find customers", "Design my product", "Prepare for investors", "Organize my business", "Marketing campaign", "Social media growth", "Other"].map(opt => `
+                                            <option value="${opt}" ${wizardState.biz_specific === opt ? 'selected' : ''}>${opt}</option>
+                                        `).join('')}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="onboarding-nav-btns" style="margin-top: 16px;">
+                                <button class="onboarding-btn onboarding-btn-secondary" id="btn-back">Back</button>
+                                <button class="onboarding-btn onboarding-btn-primary" id="btn-next">Next</button>
+                            </div>
+                        </div>
+                    `,
+                    // Entrepreneur Step 4: Business Type
+                    () => `
+                        <div class="onboarding-card">
+                            <h2 class="onboarding-title" style="font-size: 28px; margin-bottom: 8px;">Step 4 — Business Type</h2>
+                            <p class="onboarding-subtitle" style="margin-bottom: 16px;">What kind of business are you building?</p>
+                            
+                            <div class="onboarding-form">
+                                <select id="ob-biz-type" class="text-input" style="background-color: #0d1e36;">
+                                    ${["Clothing Brand", "Restaurant", "Coffee Shop", "Construction Company", "Real Estate Company", "Architecture Firm", "Graphic Design Studio", "Software Company", "AI Startup", "Mobile App", "Online Store", "YouTube Business", "Comic Publishing", "Photography", "Consulting", "Freelancing", "Other"].map(opt => `
+                                        <option value="${opt}" ${wizardState.biz_type === opt ? 'selected' : ''}>${opt}</option>
+                                    `).join('')}
+                                </select>
+                            </div>
+
+                            <div class="onboarding-nav-btns" style="margin-top: 16px;">
+                                <button class="onboarding-btn onboarding-btn-secondary" id="btn-back">Back</button>
+                                <button class="onboarding-btn onboarding-btn-primary" id="btn-next">Next</button>
+                            </div>
+                        </div>
+                    `,
+                    // Entrepreneur Step 5: Current Stage
+                    () => `
+                        <div class="onboarding-card">
+                            <h2 class="onboarding-title" style="font-size: 28px; margin-bottom: 8px;">Step 5 — Current Stage</h2>
+                            <p class="onboarding-subtitle" style="margin-bottom: 16px;">Where are you today?</p>
+                            
+                            <div class="onboarding-form">
+                                <select id="ob-biz-stage" class="text-input" style="background-color: #0d1e36;">
+                                    ${["Just an idea", "Researching", "Planning", "Building", "Ready to launch", "Already launched", "Already making sales", "Established business"].map(opt => `
+                                        <option value="${opt}" ${wizardState.biz_stage === opt ? 'selected' : ''}>${opt}</option>
+                                    `).join('')}
+                                </select>
+                            </div>
+
+                            <div class="onboarding-nav-btns" style="margin-top: 16px;">
+                                <button class="onboarding-btn onboarding-btn-secondary" id="btn-back">Back</button>
+                                <button class="onboarding-btn onboarding-btn-primary" id="btn-next">Next</button>
+                            </div>
+                        </div>
+                    `,
+                    // Entrepreneur Step 6: Current Progress Checklist
+                    () => {
+                        const stage = wizardState.biz_stage;
+                        let checklist = [];
+                        if (stage.includes("idea") || stage.includes("Researching") || stage.includes("Planning")) {
+                            checklist = ["Business name", "Logo", "Business plan", "Brand colors", "Market research"];
+                        } else if (stage.includes("Building") || stage.includes("Ready")) {
+                            checklist = ["Business name", "Logo", "Business plan", "Brand colors", "Website", "Products", "Pricing", "Marketing strategy", "Legal registration", "Business bank account"];
+                        } else {
+                            checklist = ["Business name", "Logo", "Business plan", "Brand colors", "Website", "Products", "Pricing", "Marketing strategy", "Legal registration", "Business bank account", "Customers", "Employees"];
+                        }
+                        
+                        return `
+                            <div class="onboarding-card">
+                                <h2 class="onboarding-title" style="font-size: 28px; margin-bottom: 8px;">Step 6 — Current Progress</h2>
+                                <p class="onboarding-subtitle" style="margin-bottom: 16px;">Do you already have:</p>
+                                
+                                <div class="onboarding-form" style="display: flex; flex-direction: column; gap: 10px; max-height: 280px; overflow-y: auto;">
+                                    ${checklist.map(item => `
+                                        <label style="display: flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer; color: white;">
+                                            <input type="checkbox" class="ob-biz-progress-check" value="${item}" ${wizardState.biz_progress.includes(item) ? 'checked' : ''} style="width: 18px; height: 18px; accent-color: var(--secondary);">
+                                            <span>${item}</span>
+                                        </label>
+                                    `).join('')}
+                                </div>
+
+                                <div class="onboarding-nav-btns" style="margin-top: 16px;">
+                                    <button class="onboarding-btn onboarding-btn-secondary" id="btn-back">Back</button>
+                                    <button class="onboarding-btn onboarding-btn-primary" id="btn-next">Next</button>
+                                </div>
+                            </div>
+                        `;
+                    },
+                    // Entrepreneur Step 7: College Intent Selector
+                    () => `
+                        <div class="onboarding-card">
+                            <h2 class="onboarding-title" style="font-size: 28px; margin-bottom: 8px;">Step 7 — College Plan</h2>
+                            <p class="onboarding-subtitle" style="margin-bottom: 16px;">Do you plan to attend college?</p>
+                            
+                            <div class="onboarding-form">
+                                <div class="choices-grid" style="grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px;">
+                                    ${["Yes", "No", "Maybe", "Already Graduated"].map(opt => `
+                                        <button class="choice-button ob-biz-college-btn ${wizardState.biz_college === opt ? 'selected' : ''}" data-val="${opt}">${opt}</button>
+                                    `).join('')}
+                                </div>
+
+                                <div id="ob-biz-college-reason-wrapper" style="display: ${wizardState.biz_college === 'Yes' ? 'block' : 'none'};">
+                                    <label class="input-label">Why are you attending college?</label>
+                                    <select id="ob-biz-college-reason" class="text-input" style="background-color: #0d1e36;">
+                                        ${["Business Degree", "Marketing", "Finance", "Computer Science", "Engineering", "Other"].map(opt => `
+                                            <option value="${opt}" ${wizardState.biz_college_reason === opt ? 'selected' : ''}>${opt}</option>
+                                        `).join('')}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="onboarding-nav-btns" style="margin-top: 16px;">
+                                <button class="onboarding-btn onboarding-btn-secondary" id="btn-back">Back</button>
+                                <button class="onboarding-btn onboarding-btn-primary" id="btn-next">Next</button>
+                            </div>
+                        </div>
+                    `,
+                    // Entrepreneur Step 8: Business Goals
+                    () => {
+                        const goals = ["Launch", "Get first customer", "Reach 100 customers", "Earn first $1,000", "Earn first $10,000", "Hire employees", "Open second location", "Build an online audience", "Scale nationwide", "Other"];
+                        return `
+                            <div class="onboarding-card">
+                                <h2 class="onboarding-title" style="font-size: 28px; margin-bottom: 8px;">Step 8 — Business Goals</h2>
+                                <p class="onboarding-subtitle" style="margin-bottom: 16px;">What would you like to accomplish?</p>
+                                
+                                <div class="onboarding-form" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-height: 280px; overflow-y: auto;">
+                                    ${goals.map(goal => `
+                                        <label style="display: flex; align-items: center; gap: 10px; font-size: 13px; cursor: pointer; color: white;">
+                                            <input type="checkbox" class="ob-biz-accomplish-check" value="${goal}" ${wizardState.biz_accomplish.includes(goal) ? 'checked' : ''} style="width: 18px; height: 18px; accent-color: var(--success);">
+                                            <span>${goal}</span>
+                                        </label>
+                                    `).join('')}
+                                </div>
+
+                                <div class="onboarding-nav-btns" style="margin-top: 16px;">
+                                    <button class="onboarding-btn onboarding-btn-secondary" id="btn-back">Back</button>
+                                    <button class="onboarding-btn onboarding-btn-primary" id="btn-next">Next</button>
+                                </div>
+                            </div>
+                        `;
+                    },
+                    // Entrepreneur Step 9: Timeline
+                    () => `
+                        <div class="onboarding-card">
+                            <h2 class="onboarding-title" style="font-size: 28px; margin-bottom: 8px;">Step 9 — Timeline</h2>
+                            <p class="onboarding-subtitle" style="margin-bottom: 24px;">Specify your launch details.</p>
+                            
+                            <div class="onboarding-form">
+                                <div style="margin-bottom: 16px;">
+                                    <label class="input-label">Desired Start Date</label>
+                                    <input type="date" id="ob-biz-start" class="text-input" value="${wizardState.start_date}">
+                                </div>
+                                <div>
+                                    <label class="input-label">Target Goal Deadline</label>
+                                    <input type="date" id="ob-biz-end" class="text-input" value="${wizardState.desired_deadline}">
+                                </div>
+                            </div>
+
+                            <div class="onboarding-nav-btns" style="margin-top: 24px;">
+                                <button class="onboarding-btn onboarding-btn-secondary" id="btn-back">Back</button>
+                                <button class="onboarding-btn onboarding-btn-primary" id="btn-next" ${wizardState.start_date && wizardState.desired_deadline ? '' : 'disabled'}>Next</button>
+                            </div>
+                        </div>
+                    `,
+                    // Entrepreneur Step 10: Weekly Hours & Planning Style
+                    () => `
+                        <div class="onboarding-card">
+                            <h2 class="onboarding-title" style="font-size: 28px; margin-bottom: 8px;">Step 10 — Commitment & Style</h2>
+                            <p class="onboarding-subtitle" style="margin-bottom: 16px;">Define work hours and planning style.</p>
+                            
+                            <div class="onboarding-form">
+                                <div style="margin-bottom: 12px;">
+                                    <label class="input-label">Hours Per Week</label>
+                                    <input type="number" id="ob-biz-hours" class="text-input" placeholder="e.g. 20" value="${wizardState.daily_hours || 20}">
+                                </div>
+
+                                <label class="input-label" style="margin-bottom: 4px;">Preferred Planning Style</label>
+                                <div class="choices-grid" style="grid-template-columns: 1fr; gap: 8px;">
+                                    ${[
+                                        { val: "1", title: "Roadmap", desc: "Validate core concept milestones." },
+                                        { val: "2", title: "Weekly Planner", desc: "Weekly project delivery modules." },
+                                        { val: "3", title: "Daily Planner", desc: "Daily action-item work checklists." },
+                                        { val: "4", title: "Business Manager (Recommended)", desc: "Full Chief Operating Officer (COO) task scheduling and revenue dashboard tracking." }
+                                    ].map(style => {
+                                        const isSelected = wizardState.planning_depth === style.val;
+                                        return `
+                                            <button class="choice-button ob-biz-style-btn ${isSelected ? 'selected' : ''}" data-val="${style.val}" style="text-align: left; padding: 8px 12px;">
+                                                <strong>${style.title}</strong>
+                                                <span style="display: block; font-size: 10px; color: var(--text-muted); margin-top: 2px;">${style.desc}</span>
+                                            </button>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+
+                            <div class="onboarding-nav-btns" style="margin-top: 16px;">
+                                <button class="onboarding-btn onboarding-btn-secondary" id="btn-back">Back</button>
+                                <button class="onboarding-btn onboarding-btn-primary" id="btn-next">Next</button>
+                            </div>
+                        </div>
+                    `,
+                    // Entrepreneur Step 11: Loading / AI Incubator Setup
+                    () => `
+                        <div class="onboarding-card" style="text-align: center; padding: 48px 32px;">
+                            <div style="font-size: 48px; margin-bottom: 24px; animation: spin 2s linear infinite; display: inline-block;">⚙️</div>
+                            <h2 class="onboarding-title" style="font-size: 26px;">Setting Up Business Incubator</h2>
+                            <p class="onboarding-subtitle" style="margin-bottom: 32px;">Generating custom operations dashboard and financial planner...</p>
+                            
+                            <div style="text-align: left; max-width: 400px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px;">
+                                <div class="loading-step-item active" id="loading-step-1">
+                                    <div class="loading-spinner-small"></div>
+                                    <span>Validating business model canvas...</span>
+                                </div>
+                                <div class="loading-step-item" id="loading-step-2">
+                                    <div style="width: 16px; height: 16px;"></div>
+                                    <span>Calculating launch readiness percentage...</span>
+                                </div>
+                                <div class="loading-step-item" id="loading-step-3">
+                                    <div style="width: 16px; height: 16px;"></div>
+                                    <span>Structuring launch timeline and calendar...</span>
+                                </div>
+                                <div class="loading-step-item" id="loading-step-4">
+                                    <div style="width: 16px; height: 16px;"></div>
+                                    <span>Seeding revenue dashboard metrics...</span>
                                 </div>
                             </div>
                         </div>
@@ -1278,6 +1555,59 @@ class App {
                         if (wizardState.step === 11) {
                             this.simulateAIGeneration(wizardState);
                         }
+                    } else if (wizardState.career === 'entrepreneur') {
+                        if (wizardState.step === 1) {
+                            wizardState.firstName = document.getElementById('ob-first-name').value.trim();
+                            wizardState.age = parseInt(document.getElementById('ob-age').value);
+                            wizardState.country = document.getElementById('ob-country').value.trim();
+                            wizardState.state = document.getElementById('ob-state').value.trim();
+                            wizardState.education = document.getElementById('ob-education').value;
+                            wizardState.step = 2;
+                        } else if (wizardState.step === 2) {
+                            rebuildSteps();
+                            wizardState.step = 3;
+                        } else if (wizardState.step === 3) {
+                            wizardState.biz_goal = document.getElementById('ob-biz-goal').value;
+                            if (wizardState.biz_goal === 'one_project') {
+                                wizardState.biz_specific = document.getElementById('ob-biz-specific').value;
+                            } else {
+                                wizardState.biz_specific = '';
+                            }
+                            wizardState.step = 4;
+                        } else if (wizardState.step === 4) {
+                            wizardState.biz_type = document.getElementById('ob-biz-type').value;
+                            wizardState.step = 5;
+                        } else if (wizardState.step === 5) {
+                            wizardState.biz_stage = document.getElementById('ob-biz-stage').value;
+                            wizardState.step = 6;
+                        } else if (wizardState.step === 6) {
+                            wizardState.biz_progress = [];
+                            document.querySelectorAll('.ob-biz-progress-check:checked').forEach(cb => {
+                                wizardState.biz_progress.push(cb.value);
+                            });
+                            wizardState.step = 7;
+                        } else if (wizardState.step === 7) {
+                            wizardState.step = 8;
+                        } else if (wizardState.step === 8) {
+                            wizardState.biz_accomplish = [];
+                            document.querySelectorAll('.ob-biz-accomplish-check:checked').forEach(cb => {
+                                wizardState.biz_accomplish.push(cb.value);
+                            });
+                            wizardState.step = 9;
+                        } else if (wizardState.step === 9) {
+                            wizardState.start_date = document.getElementById('ob-biz-start').value;
+                            wizardState.desired_deadline = document.getElementById('ob-biz-end').value;
+                            wizardState.step = 10;
+                        } else if (wizardState.step === 10) {
+                            wizardState.daily_hours = parseInt(document.getElementById('ob-biz-hours').value) || 20;
+                            wizardState.step = 11;
+                        }
+                        
+                        renderStep();
+                        
+                        if (wizardState.step === 11) {
+                            this.simulateAIGeneration(wizardState);
+                        }
                         return;
                     }
 
@@ -1374,7 +1704,7 @@ class App {
 
             if (backBtn) {
                 backBtn.addEventListener('click', () => {
-                    if (wizardState.career === 'doctor') {
+                    if (wizardState.career === 'doctor' || wizardState.career === 'entrepreneur') {
                         if (wizardState.step === 3) {
                             wizardState.step = 2;
                         } else {
@@ -1434,6 +1764,39 @@ class App {
                     }
                 });
             }
+
+            // Entrepreneur specific change listeners
+            const bizGoalSelect = document.getElementById('ob-biz-goal');
+            if (bizGoalSelect) {
+                bizGoalSelect.addEventListener('change', () => {
+                    wizardState.biz_goal = bizGoalSelect.value;
+                    const specWrapper = document.getElementById('ob-biz-specific-wrapper');
+                    if (specWrapper) {
+                        specWrapper.style.display = wizardState.biz_goal === 'one_project' ? 'block' : 'none';
+                    }
+                });
+            }
+
+            document.querySelectorAll('.ob-biz-college-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.ob-biz-college-btn').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    wizardState.biz_college = btn.getAttribute('data-val');
+                    const reasonWrapper = document.getElementById('ob-biz-college-reason-wrapper');
+                    if (reasonWrapper) {
+                        reasonWrapper.style.display = wizardState.biz_college === 'Yes' ? 'block' : 'none';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.ob-biz-style-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelectorAll('.ob-biz-style-btn').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    wizardState.planning_depth = btn.getAttribute('data-val');
+                });
+            });
 
             // Degree Check click listeners
             document.querySelectorAll('.ob-degree-btn').forEach(btn => {
@@ -1623,6 +1986,7 @@ class App {
                     { name: 'Architecture', id: 'architecture' },
                     { name: 'Comic Creator', id: 'comic_creator' },
                     { name: 'Doctor', id: 'doctor' },
+                    { name: 'Entrepreneur / Business Owner', id: 'entrepreneur' },
                     { name: 'Lawyer', id: 'lawyer' },
                     { name: 'Software Engineer', id: 'software_engineer' },
                     { name: 'Game Developer', id: 'game_developer' },

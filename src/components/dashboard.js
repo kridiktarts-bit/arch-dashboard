@@ -1,4 +1,4 @@
-import { getRoadmap, getMilestones, getTasks, getUserOnboarding, updateTaskStatus, getCareerConfig } from '../db.js';
+import { getRoadmap, getMilestones, getTasks, getUserOnboarding, updateTaskStatus, getCareerConfig, getDegreeProgress } from '../db.js';
 
 export default {
     render: () => {
@@ -206,6 +206,8 @@ export default {
         if (welcomeTitle) {
             if (career === 'doctor') {
                 welcomeTitle.innerText = `Medical OS: Dr. ${onboarding.firstName}`;
+            } else if (career === 'entrepreneur') {
+                welcomeTitle.innerText = `Incubator OS: ${onboarding.firstName}`;
             } else {
                 welcomeTitle.innerText = `OS Workspace: ${onboarding.firstName}`;
             }
@@ -213,6 +215,8 @@ export default {
         if (welcomeSubtitle) {
             if (career === 'doctor') {
                 welcomeSubtitle.innerHTML = `<strong>Stage:</strong> ${onboarding.doc_stage || 'College Junior'} | <strong>Specialty:</strong> ${onboarding.doc_specialty || 'General Practice'} | <strong>Goal:</strong> ${onboarding.doc_goal === 'specific_goal' ? onboarding.doc_specific : 'Become licensed MD'} | <strong>Target:</strong> ${onboarding.desired_deadline}`;
+            } else if (career === 'entrepreneur') {
+                welcomeSubtitle.innerHTML = `<strong>Stage:</strong> ${onboarding.biz_stage || 'Just an idea'} | <strong>Business:</strong> ${onboarding.biz_type || 'General'} | <strong>Goal:</strong> ${onboarding.biz_goal === 'one_project' ? onboarding.biz_specific : 'Start Business'} | <strong>Launch:</strong> ${onboarding.desired_deadline || 'Not Specified'}`;
             } else {
                 welcomeSubtitle.innerText = isProfessional
                     ? `Active Production: ${onboarding.specificGoal || 'Finish Project Roadmap'}`
@@ -258,6 +262,12 @@ export default {
             widgetList = ["Calendar", "Milestones", "AI Coach"];
         }
 
+        if (career === 'doctor' || career === 'architecture' || career === 'lawyer') {
+            if (!widgetList.includes("Degree Progress")) {
+                widgetList.unshift("Degree Progress");
+            }
+        }
+
         // Calculations
         const pipelineTasks = tasks.filter(t => t.title !== "Rest & Catch-up Day");
         const completedTasks = pipelineTasks.filter(t => t.status === 'completed');
@@ -278,6 +288,102 @@ export default {
             card.className = 'panel-card';
 
             switch (widgetName) {
+                case "Degree Progress":
+                    {
+                        const progressInfo = getDegreeProgress();
+                        if (progressInfo) {
+                            const metricsHtml = progressInfo.metrics.map(m => `
+                                <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 4px;">
+                                    <span style="color: var(--text-muted);">${m.label}</span>
+                                    <strong style="color: white;">${m.val}</strong>
+                                </div>
+                            `).join('');
+
+                            card.innerHTML = `
+                                <div class="panel-header">🎓 Degree Progress: ${progressInfo.title}</div>
+                                <div style="margin-bottom: 12px; font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: bold; letter-spacing: 0.05em;">Academic Milestones Checklist</div>
+                                <div style="display: flex; flex-direction: column;">
+                                    ${metricsHtml}
+                                </div>
+                                <div style="margin-top: 16px;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px;">
+                                        <span style="color: var(--text-muted);">Overall Readiness</span>
+                                        <strong style="color: var(--secondary);">${progressInfo.completionPct}%</strong>
+                                    </div>
+                                    <div class="progress-capsule" style="background: rgba(255,255,255,0.05); height: 6px; border-radius: 3px; overflow: hidden;">
+                                        <div class="progress-fill" style="width: ${progressInfo.completionPct}%; background: linear-gradient(90deg, var(--primary), var(--secondary)); height: 100%;"></div>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    }
+                    break;
+                case "Revenue Dashboard":
+                    {
+                        card.innerHTML = `
+                            <div class="panel-header">📈 Revenue & Operations</div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                                <div style="background: rgba(255,255,255,0.02); padding: 8px; border-radius: 6px; border: 1px solid var(--border);">
+                                    <div style="font-size: 11px; color: var(--text-muted);">Revenue</div>
+                                    <div style="font-size: 18px; font-weight: bold; color: var(--success);">$0.00</div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.02); padding: 8px; border-radius: 6px; border: 1px solid var(--border);">
+                                    <div style="font-size: 11px; color: var(--text-muted);">Expenses</div>
+                                    <div style="font-size: 18px; font-weight: bold; color: var(--warning);">$0.00</div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.02); padding: 8px; border-radius: 6px; border: 1px solid var(--border);">
+                                    <div style="font-size: 11px; color: var(--text-muted);">Conversion Rate</div>
+                                    <div style="font-size: 18px; font-weight: bold; color: white;">0.00%</div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.02); padding: 8px; border-radius: 6px; border: 1px solid var(--border);">
+                                    <div style="font-size: 11px; color: var(--text-muted);">AOV</div>
+                                    <div style="font-size: 18px; font-weight: bold; color: white;">$0.00</div>
+                                </div>
+                            </div>
+                            <div style="font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 10px;">
+                                <span>Monthly Target: <strong>$1,000.00</strong></span>
+                                <span style="color: var(--secondary);">0% Met</span>
+                            </div>
+                        `;
+                    }
+                    break;
+                case "Launch Checklist":
+                    {
+                        const checklistData = localStorage.getItem('career_launch_checklist_entrepreneur');
+                        const checklist = checklistData ? JSON.parse(checklistData) : [];
+                        const completedProgress = onboarding.biz_progress || [];
+
+                        const allProgressItems = ["Business name", "Logo", "Business plan", "Brand colors", "Website", "Products", "Pricing", "Marketing strategy", "Legal registration", "Business bank account", "Customers", "Employees"];
+                        
+                        const itemsHtml = allProgressItems.map(item => {
+                            const isDone = completedProgress.includes(item);
+                            return `
+                                <div style="display: flex; align-items: center; gap: 8px; font-size: 12px; margin-bottom: 6px; color: ${isDone ? 'var(--text-muted)' : 'white'};">
+                                    <span style="color: ${isDone ? 'var(--success)' : 'var(--warning)'};">${isDone ? '✓' : '☐'}</span>
+                                    <span style="${isDone ? 'text-decoration: line-through;' : ''}">${item}</span>
+                                </div>
+                            `;
+                        }).join('');
+
+                        const totalCount = allProgressItems.length;
+                        const doneCount = completedProgress.length;
+                        const pct = Math.round((doneCount / totalCount) * 100);
+
+                        card.innerHTML = `
+                            <div class="panel-header">🚀 Launch Readiness Checklist</div>
+                            <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px;">
+                                <span style="color: var(--text-muted); font-size: 11px;">Completed Tasks</span>
+                                <strong style="color: var(--secondary);">${pct}% Ready</strong>
+                            </div>
+                            <div class="progress-capsule" style="margin-bottom: 12px; height: 4px; background: rgba(255,255,255,0.05);">
+                                <div class="progress-fill" style="width: ${pct}%; background: var(--secondary); height: 100%;"></div>
+                            </div>
+                            <div style="max-height: 180px; overflow-y: auto; padding-right: 4px;">
+                                ${itemsHtml}
+                            </div>
+                        `;
+                    }
+                    break;
                 case "Learning Tracker":
                     card.innerHTML = `
                         <div class="panel-header">📚 Learning Tracker</div>

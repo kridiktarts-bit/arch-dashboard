@@ -22,6 +22,10 @@ export default {
             placeholderName = 'e.g. AMCAS Application Portfolio';
             placeholderTools = 'e.g. ERAS Portal, Personal Statement, Recommendation Letters';
             pageSubtitle = 'Curate your medical applications, personal statements, shadowing logs, and recommendation dossier.';
+        } else if (career === 'entrepreneur') {
+            placeholderName = 'e.g. Pitch Deck / Business Canvas';
+            placeholderTools = 'e.g. Pitch, Canva, Excel Financial Model';
+            pageSubtitle = 'Curate and upload your startup pitch decks, competitor analysis sheets, financial projection canvases, and business registration logs.';
         } else {
             placeholderName = 'e.g. Professional Milestone Deliverable';
             placeholderTools = 'e.g. Certification, Document PDF, Logs';

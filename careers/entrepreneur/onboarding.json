@@ -1,0 +1,26 @@
+{
+  "career": "entrepreneur",
+  "requiresDegree": false,
+  "sidebarTemplates": {
+    "beginner": [
+      { "id": "dashboard", "name": "Overview", "icon": "📊" },
+      { "id": "learning_path", "name": "Business Incubator", "icon": "🗺️" },
+      { "id": "donows", "name": "Daily Tasks", "icon": "⚡" },
+      { "id": "portfolio", "name": "Applications", "icon": "🏗️" },
+      { "id": "schedule", "name": "Shift Planner", "icon": "📅" },
+      { "id": "resources", "name": "Resources", "icon": "📚" }
+    ],
+    "professional": [
+      { "id": "dashboard", "name": "Overview", "icon": "📊" },
+      { "id": "learning_path", "name": "Business Incubator", "icon": "🗺️" },
+      { "id": "donows", "name": "Daily Tasks", "icon": "⚡" },
+      { "id": "portfolio", "name": "Applications", "icon": "🏗️" },
+      { "id": "schedule", "name": "Shift Planner", "icon": "📅" },
+      { "id": "resources", "name": "Resources", "icon": "📚" }
+    ]
+  },
+  "dashboardWidgets": {
+    "beginner": ["Revenue Dashboard", "Launch Checklist", "Calendar", "AI Coach"],
+    "professional": ["Revenue Dashboard", "Launch Checklist", "Calendar", "AI Coach"]
+  }
+}

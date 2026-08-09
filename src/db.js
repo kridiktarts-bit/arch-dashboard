@@ -936,6 +936,10 @@ export async function generateCalendarSchedule(onboarding) {
         await buildDoctorWorkspace(onboarding);
         return;
     }
+    if (career === 'entrepreneur') {
+        await buildEntrepreneurWorkspace(onboarding);
+        return;
+    }
 
     // Load config files
     const templates = await getCareerConfig(career, 'project_templates');
@@ -1342,5 +1346,355 @@ export async function rebalanceSchedule(changedTaskId, newStartDate) {
     }
 
     localStorage.setItem(`career_tasks_${career}`, JSON.stringify(tasks));
+    window.dispatchEvent(new Event('careerDataUpdated'));
+}
+
+export function getDegreeProgress() {
+    const onboarding = localStorage.getItem('user_onboarding');
+    if (!onboarding) return null;
+    const parsed = JSON.parse(onboarding);
+    const career = parsed.career;
+
+    if (career === 'doctor') {
+        const stage = parsed.doc_stage || 'College Junior';
+        const prereqsCount = parsed.doc_prereqs ? parsed.doc_prereqs.length : 0;
+        
+        let subDetails = {};
+        if (stage.includes("High School") || stage.includes("College")) {
+            subDetails = {
+                title: "Pre-Med Candidate",
+                metrics: [
+                    { label: "Premed Courses", val: `${prereqsCount} / 14` },
+                    { label: "MCAT Registration", val: stage.includes("Junior") || stage.includes("Senior") ? "Planning" : "Not Taken" },
+                    { label: "Medical School Apps", val: "Not Applied" },
+                    { label: "Shadowing Logs", val: `${stage.includes("Freshman") ? 10 : stage.includes("Sophomore") ? 35 : 62} / 150 Hours` },
+                    { label: "Research Projects", val: "1 Project" },
+                    { label: "Clinical Volunteering", val: "84 Hours" }
+                ],
+                completionPct: Math.round((prereqsCount / 14) * 100)
+            };
+        } else if (stage.includes("Medical School")) {
+            subDetails = {
+                title: "Medical School Student",
+                metrics: [
+                    { label: "USMLE Step 1", val: stage.includes("Year 1") ? "Preparing" : "Passed" },
+                    { label: "USMLE Step 2", val: stage.includes("Year 4") ? "Preparing" : "Not Started" },
+                    { label: "Clinical Rotations", val: stage.includes("Year 1") || stage.includes("Year 2") ? "0 / 8 Complete" : "4 / 8 Complete" },
+                    { label: "ERAS Residency Match", val: "Not Applied" },
+                    { label: "Shadowing Logs", val: "Complete" }
+                ],
+                completionPct: stage.includes("Year 1") ? 25 : stage.includes("Year 2") ? 50 : stage.includes("Year 3") ? 75 : 90
+            };
+        } else {
+            subDetails = {
+                title: "Resident Physician / MD",
+                metrics: [
+                    { label: "Residency Rotation Year", val: `Year ${parsed.doc_residency_year || 1}` },
+                    { label: "Procedure Logs", val: "142 / 200 Complete" },
+                    { label: "Board Certification", val: parsed.doc_board_completed ? "Certified" : "In Progress" },
+                    { label: "CME Credits", val: "24 Hours" }
+                ],
+                completionPct: parsed.doc_board_completed ? 100 : 70
+            };
+        }
+        return subDetails;
+    }
+
+    if (career === 'architecture') {
+        const hasDegree = parsed.has_degree || 'no';
+        const edu = parsed.education || 'College Freshman';
+        
+        let subDetails = {};
+        if (hasDegree === 'studying') {
+            const yr = edu.includes("Freshman") ? 1 : edu.includes("Sophomore") ? 2 : edu.includes("Junior") ? 3 : edu.includes("Senior") ? 4 : 5;
+            subDetails = {
+                title: "Architecture Degree Track",
+                metrics: [
+                    { label: "Year in College", val: `Year ${yr} / 5` },
+                    { label: "Studio Courses Complete", val: `${yr * 2 - 1} / 10` },
+                    { label: "General Education", val: yr > 3 ? "Complete" : "In Progress" },
+                    { label: "Academic Credits", val: `${yr * 26} / 160 Credits` },
+                    { label: "Summer Internship", val: yr > 2 ? "In Progress" : "Not Started" }
+                ],
+                completionPct: Math.round((yr / 5) * 100)
+            };
+        } else if (hasDegree === 'yes') {
+            subDetails = {
+                title: "AXP Licensure Track",
+                metrics: [
+                    { label: "Degree Status", val: "Graduated (B.Arch)" },
+                    { label: "AXP Hours Logged", val: "1,860 / 3,740 Hours" },
+                    { label: "ARE Exams Passed", val: "3 / 6 Exams" },
+                    { label: "NCARB Record", val: "Active" }
+                ],
+                completionPct: 55
+            };
+        } else {
+            subDetails = {
+                title: "Non-Degree Licensure Track",
+                metrics: [
+                    { label: "NCARB Evaluation", val: "Active" },
+                    { label: "Required Office Experience", val: "10 Years Required" },
+                    { label: "Verified Experience", val: "4 Years Completed" },
+                    { label: "ARE Exams Passed", val: "0 / 6 Exams" }
+                ],
+                completionPct: 40
+            };
+        }
+        return subDetails;
+    }
+
+    if (career === 'lawyer') {
+        const edu = parsed.education || 'College Junior';
+        
+        let subDetails = {};
+        if (edu.includes("College") || edu.includes("Graduate") || edu.includes("Graduated")) {
+            subDetails = {
+                title: "Pre-Law Track",
+                metrics: [
+                    { label: "Bachelor's Degree", val: edu.includes("Graduate") || edu.includes("Graduated") ? "Completed" : "In Progress" },
+                    { label: "Academic Credits", val: "104 / 120 Credits" },
+                    { label: "LSAT Exam Status", val: "Preparing" },
+                    { label: "Law School Apps", val: "Not Applied" }
+                ],
+                completionPct: edu.includes("Graduated") ? 100 : 75
+            };
+        } else {
+            subDetails = {
+                title: "J.D. Law Track",
+                metrics: [
+                    { label: "Law School Year", val: "Year 2 / 3" },
+                    { label: "Moot Court Selection", val: "Completed" },
+                    { label: "Summer Associate Position", val: "Secured" },
+                    { label: "State Bar Exam Prep", val: "Future" }
+                ],
+                completionPct: 60
+            };
+        }
+        return subDetails;
+    }
+
+    return null;
+}
+
+export async function buildEntrepreneurWorkspace(onboarding) {
+    const bizType = onboarding.biz_type || 'Clothing Brand';
+    const bizGoal = onboarding.biz_goal || 'start_first';
+    const bizStage = onboarding.biz_stage || 'Just an idea';
+    const completedProgress = onboarding.biz_progress || [];
+
+    // Stage 3 setup lessons based on business type
+    let setupLessons = [];
+    if (bizType === 'Clothing Brand' || bizType === 'Online Store') {
+        setupLessons = ["Register business", "Domain name", "Website", "Product catalog", "Payment processing", "Shipping setup", "Taxes"];
+    } else if (bizType === 'Restaurant' || bizType === 'Coffee Shop') {
+        setupLessons = ["Licenses", "Location", "Equipment", "Suppliers", "Menu", "POS System"];
+    } else if (bizType === 'Software Company' || bizType === 'AI Startup' || bizType === 'Mobile App') {
+        setupLessons = ["Product planning", "MVP", "Development roadmap", "Hosting", "Authentication", "Payments"];
+    } else {
+        setupLessons = ["Business license", "Domain name", "Client onboarding process", "Service catalog", "Contracts"];
+    }
+
+    // Stage 4 development lessons based on business type
+    let devLessons = [];
+    if (bizType === 'Clothing Brand') {
+        devLessons = ["Design first collection", "Materials", "Manufacturing", "Samples", "Product photography", "Inventory"];
+    } else if (bizType === 'Software Company' || bizType === 'AI Startup' || bizType === 'Mobile App') {
+        devLessons = ["MVP backend", "Frontend", "Testing", "Deployment"];
+    } else if (bizType === 'Restaurant' || bizType === 'Coffee Shop') {
+        devLessons = ["Menu tastings", "Interior layout", "Staff training", "Soft launch setup"];
+    } else {
+        devLessons = ["Service pricing sheets", "Proposal templates", "Professional liability insurance", "Client contracts"];
+    }
+
+    // Combine into 7 stages of Incubator
+    const stages = [
+        {
+            id: "stage-1",
+            name: "Stage 1 — Business Foundation",
+            description: "Validate the business idea and build a strong foundation.",
+            skills: [
+                { name: "Finding the Right Business Idea", progress: completedProgress.includes("Market research") ? 100 : 0, estimatedHours: "10 Hours", relatedMilestone: "Idea Validation" },
+                { name: "Market Research", progress: completedProgress.includes("Market research") ? 100 : 0, estimatedHours: "15 Hours", relatedMilestone: "Competitor Analysis" },
+                { name: "Business Model", progress: completedProgress.includes("Business plan") ? 100 : 0, estimatedHours: "20 Hours", relatedMilestone: "Financial Canvas" },
+                { name: "Business Goals", progress: 0, estimatedHours: "5 Hours", relatedMilestone: "OKR Target Setting" }
+            ]
+        },
+        {
+            id: "stage-2",
+            name: "Stage 2 — Business Identity",
+            description: "Create the public identity of the business.",
+            skills: [
+                { name: "Business Name", progress: completedProgress.includes("Business name") ? 100 : 0, estimatedHours: "4 Hours", relatedMilestone: "Name Registry" },
+                { name: "Logo", progress: completedProgress.includes("Logo") ? 100 : 0, estimatedHours: "8 Hours", relatedMilestone: "Visual Brand Kit" },
+                { name: "Brand Colors", progress: completedProgress.includes("Brand colors") ? 100 : 0, estimatedHours: "4 Hours", relatedMilestone: "Color Selection" },
+                { name: "Mission Statement", progress: 0, estimatedHours: "3 Hours", relatedMilestone: "Mission Statement Draft" }
+            ]
+        },
+        {
+            id: "stage-3",
+            name: "Stage 3 — Business Setup",
+            description: "Prepare the business for launch legally and technically.",
+            skills: setupLessons.map(les => ({
+                name: les,
+                progress: completedProgress.includes(les) ? 100 : 0,
+                estimatedHours: "12 Hours",
+                relatedMilestone: `${les} Finalised`
+            }))
+        },
+        {
+            id: "stage-4",
+            name: "Stage 4 — Product Development",
+            description: "Manufacture or develop your initial MVP or service offering.",
+            skills: devLessons.map(les => ({
+                name: les,
+                progress: completedProgress.includes(les) ? 100 : 0,
+                estimatedHours: "25 Hours",
+                relatedMilestone: `${les} Created`
+            }))
+        },
+        {
+            id: "stage-5",
+            name: "Stage 5 — Marketing",
+            description: "Prepare complete launch campaign and build social assets.",
+            skills: [
+                { name: "Brand Strategy", progress: completedProgress.includes("Marketing strategy") ? 100 : 0, estimatedHours: "12 Hours", relatedMilestone: "Strategy Proposal" },
+                { name: "Social Media Setup", progress: completedProgress.includes("Social media") ? 100 : 0, estimatedHours: "8 Hours", relatedMilestone: "Social Handles Active" },
+                { name: "SEO & Ads", progress: 0, estimatedHours: "15 Hours", relatedMilestone: "Ad Campaign Launched" }
+            ]
+        },
+        {
+            id: "stage-6",
+            name: "Stage 6 — Sales",
+            description: "Set prices, close early leads, and acquire your first customers.",
+            skills: [
+                { name: "Pricing Strategy", progress: completedProgress.includes("Pricing") ? 100 : 0, estimatedHours: "6 Hours", relatedMilestone: "Price List Approved" },
+                { name: "Sales Funnel", progress: 0, estimatedHours: "10 Hours", relatedMilestone: "First Lead Pipeline" },
+                { name: "Customer Acquisition", progress: completedProgress.includes("Customers") ? 100 : 0, estimatedHours: "20 Hours", relatedMilestone: "Acquire first customer" }
+            ]
+        },
+        {
+            id: "stage-7",
+            name: "Stage 7 — Business Growth",
+            description: "Hire helpers, automate routines, and scale up operations.",
+            skills: [
+                { name: "Hiring & Teams", progress: completedProgress.includes("Employees") ? 100 : 0, estimatedHours: "15 Hours", relatedMilestone: "First Hire Onboarding" },
+                { name: "Automation & Operations", progress: 0, estimatedHours: "12 Hours", relatedMilestone: "Ops Playbook Complete" },
+                { name: "Investment & Scaling", progress: 0, estimatedHours: "20 Hours", relatedMilestone: "Scaling Roadmap Finalized" }
+            ]
+        }
+    ];
+
+    // If they decided to go to college, insert college graduation requirements/milestones into Stage 1/2!
+    if (onboarding.biz_college === 'Yes') {
+        stages.unshift({
+            id: "stage-college",
+            name: "Stage 0 — Academic Foundation",
+            description: "Navigate university courses for business preparation.",
+            skills: [
+                { name: `${onboarding.biz_college_reason || 'Business'} Studies`, progress: 25, estimatedHours: "120 Hours", relatedMilestone: "Complete Semester courses" },
+                { name: "Academic Business Networking", progress: 0, estimatedHours: "30 Hours", relatedMilestone: "Join Campus Incubator" },
+                { name: "Graduation Milestones", progress: 0, estimatedHours: "40 Hours", relatedMilestone: "Degree Completion" }
+            ]
+        });
+    }
+
+    stages.forEach(st => {
+        st.skills.forEach(sk => {
+            sk.lessons = 100;
+        });
+    });
+
+    const roadmap = {
+        career: "entrepreneur",
+        title: "Entrepreneur",
+        stages: stages
+    };
+    localStorage.setItem('career_roadmap_entrepreneur', JSON.stringify(roadmap));
+
+    // Seed Milestones
+    const milestones = [
+        { id: "em1", title: "Business name chosen", completed: completedProgress.includes("Business name"), points: 100 },
+        { id: "em2", title: "Business plan drafted", completed: completedProgress.includes("Business plan"), points: 150 },
+        { id: "em3", title: "Logo designed", completed: completedProgress.includes("Logo"), points: 200 },
+        { id: "em4", title: "Website launched", completed: completedProgress.includes("Website"), points: 300 },
+        { id: "em5", title: "First product listed", completed: completedProgress.includes("Products"), points: 400 },
+        { id: "em6", title: "First customer acquired", completed: completedProgress.includes("Customers"), points: 500 }
+    ];
+    localStorage.setItem('career_milestones_entrepreneur', JSON.stringify(milestones));
+
+    // Generate Launch Checklist (only missing items)
+    const allProgressItems = ["Business name", "Logo", "Business plan", "Brand colors", "Website", "Products", "Pricing", "Marketing strategy", "Legal registration", "Business bank account", "Customers", "Employees"];
+    const missingChecklist = allProgressItems.filter(item => !completedProgress.includes(item));
+    localStorage.setItem('career_launch_checklist_entrepreneur', JSON.stringify(missingChecklist));
+
+    // Schedule remaining work in Calendar Tasks
+    const startD = onboarding.start_date ? new Date(onboarding.start_date) : new Date();
+    const days = onboarding.work_days || ["Monday", "Tuesday", "Wednesday", "Friday", "Saturday"];
+    
+    let currentTaskDate = new Date(startD);
+    const getNextWorkDay = (d) => {
+        let n = new Date(d);
+        while (true) {
+            n.setDate(n.getDate() + 1);
+            const dayName = n.toLocaleDateString('en-US', { weekday: 'long' });
+            if (days.includes(dayName)) return n;
+        }
+    };
+
+    let scheduledTasks = [];
+    let count = 1;
+
+    // Filter tasks to only generate things that are missing
+    const tasksToGenerate = [];
+    if (!completedProgress.includes("Business plan")) tasksToGenerate.push({ title: "Draft validated business plan", duration: 6 });
+    if (!completedProgress.includes("Logo")) tasksToGenerate.push({ title: "Design three logo variations", duration: 4 });
+    if (!completedProgress.includes("Brand colors")) tasksToGenerate.push({ title: "Define brand colors & guidelines", duration: 3 });
+    
+    // Add setup tasks if missing
+    setupLessons.forEach(les => {
+        if (!completedProgress.includes(les)) {
+            tasksToGenerate.push({ title: `Setup: ${les}`, duration: 8 });
+        }
+    });
+
+    // Add dev tasks if missing
+    devLessons.forEach(les => {
+        if (!completedProgress.includes(les)) {
+            tasksToGenerate.push({ title: `Development: ${les}`, duration: 12 });
+        }
+    });
+
+    if (!completedProgress.includes("Website")) tasksToGenerate.push({ title: "Register domain and publish website", duration: 10 });
+    if (!completedProgress.includes("Pricing")) tasksToGenerate.push({ title: "Finalize pricing and profit margins", duration: 4 });
+    if (!completedProgress.includes("Marketing strategy")) tasksToGenerate.push({ title: "Create product launch marketing campaign", duration: 8 });
+    if (!completedProgress.includes("Customers")) tasksToGenerate.push({ title: "Reach out to target customer list", duration: 12 });
+
+    tasksToGenerate.forEach(taskInfo => {
+        const startStr = currentTaskDate.toISOString().split('T')[0];
+        // estimate task end based on work days
+        let hoursLeft = taskInfo.duration;
+        let endCursor = new Date(currentTaskDate);
+        while (hoursLeft > onboarding.daily_hours) {
+            hoursLeft -= onboarding.daily_hours;
+            endCursor = getNextWorkDay(endCursor);
+        }
+        const endStr = endCursor.toISOString().split('T')[0];
+
+        scheduledTasks.push({
+            id: `et-${count++}`,
+            title: taskInfo.title,
+            status: "pending",
+            startDate: startStr,
+            endDate: endStr,
+            durationHours: `${taskInfo.duration} Hours`,
+            relatedMilestone: "Launch Readiness",
+            progress: 0
+        });
+
+        currentTaskDate = getNextWorkDay(endCursor);
+    });
+
+    localStorage.setItem('career_tasks_entrepreneur', JSON.stringify(scheduledTasks));
     window.dispatchEvent(new Event('careerDataUpdated'));
 }

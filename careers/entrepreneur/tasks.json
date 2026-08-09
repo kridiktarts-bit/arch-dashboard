@@ -1,0 +1,5 @@
+[
+  { "id": "et1", "title": "Conduct market research", "status": "pending", "duration": "3 Hours" },
+  { "id": "et2", "title": "Design typography and colors", "status": "pending", "duration": "2 Hours" },
+  { "id": "et3", "title": "Register domain name", "status": "pending", "duration": "1 Hour" }
+]

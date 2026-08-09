@@ -1,0 +1,19 @@
+{
+  "career": "entrepreneur",
+  "title": "Entrepreneur",
+  "requiresDegree": false,
+  "requiresLicense": false,
+  "supportsShortTerm": true,
+  "supportsLongTerm": true,
+  "defaultJourney": "long",
+  "shortTermExamples": [
+    "Launch Product",
+    "Find First Customers",
+    "Create Business Plan"
+  ],
+  "longTermExamples": [
+    "Start My First Business",
+    "Grow Existing Business"
+  ],
+  "stages": []
+}

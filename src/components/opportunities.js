@@ -108,6 +108,19 @@ export default {
                     { title: "SOM Foundation Robert L. Wesley Award", type: "Scholarship", org: "SOM", deadline: "November 1", notes: "Supports BIPOC undergraduate students enrolled in architecture.", status: "optional" },
                     { title: "AIA New York Mentorship Program", type: "Mentorship", org: "AIA NY", deadline: "Rolling", notes: "Local NYC - Connects student members to Manhattan mentors.", status: "optional" }
                 ];
+            } else if (career === 'doctor') {
+                return [
+                    { title: "AAMC Summer Health Professions Education Program", type: "Internship", org: "AAMC", deadline: "February 5", notes: "Free 6-week summer enrichment program for freshman/sophomore pre-meds.", status: "optional" },
+                    { title: "NIH Summer Internship Program (SIP)", type: "Research", org: "NIH", deadline: "March 1", notes: "Highly prestigious biomedical research program in Bethesda laboratories.", status: "optional" },
+                    { title: "AMA Medical Student Section Mentorship", type: "Mentorship", org: "AMA", deadline: "Rolling", notes: "Connects pre-med students to resident mentors.", status: "optional" }
+                ];
+            } else if (career === 'entrepreneur') {
+                return [
+                    { title: "Y Combinator Incubator Batch", type: "Accelerator", org: "Y Combinator", deadline: "March 24", notes: "Global startup funding, network access, and mentor program.", status: "optional" },
+                    { title: "Techstars Accelerator Cohorts", type: "Accelerator", org: "Techstars", deadline: "Rolling", notes: "Equity-backed mentoring and seed capital network cohorts.", status: "optional" },
+                    { title: "Global Student Entrepreneur Awards (GSEA)", type: "Competition", org: "EO", deadline: "November 30", notes: "Premier global competition for student founders active in college.", status: "optional" },
+                    { title: "FedEx Small Business Grant", type: "Grant", org: "FedEx", deadline: "April 1", notes: "Free equity-free small business growth grants.", status: "optional" }
+                ];
             } else {
                 return [
                     { title: "Image Comics Talent Search", type: "Competition", org: "Image Comics", deadline: "Rolling", notes: "Submit portfolio page layouts for publisher review search program.", status: "optional" },

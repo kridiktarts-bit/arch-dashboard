@@ -51,6 +51,8 @@ export default {
         if (career === 'doctor') {
             // Render tailored Doctor database
             hubContainer.style.display = 'block';
+            hubContainer.querySelector('h3').innerHTML = '🩺 Official Medical Reference Hub';
+            hubContainer.querySelector('p').innerText = 'Direct portal links to licensing bodies, diagnostic reference calculators, and publications matching your active stage.';
             
             let textbookResources = [];
             let toolsResources = [];
@@ -89,6 +91,63 @@ export default {
             grid.innerHTML = categories.map(cat => `
                 <div class="resource-card">
                     <div class="resource-category">Medical Database</div>
+                    <div class="resource-title">${cat.title}</div>
+                    <div style="display: flex; flex-direction: column;">
+                        ${cat.items.map(item => `
+                            <div class="resource-item">
+                                <span style="color: #cbd5e1;">${item}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            // Render hub links
+            hubLinks.innerHTML = careerResources.map(link => `
+                <div class="medical-link-card">
+                    <div>
+                        <strong style="color: white; font-size: 14px;">${link}</strong>
+                        <div class="text-muted" style="font-size: 12px; margin-top: 4px;">Verified stage-appropriate reference link.</div>
+                    </div>
+                    <a href="#" class="btn btn-primary" style="padding: 6px 16px; font-size: 12px; border-radius: 4px;">Access Portal</a>
+                </div>
+            `).join('');
+
+        } else if (career === 'entrepreneur') {
+            // Render tailored Business Incubator database
+            hubContainer.style.display = 'block';
+            hubContainer.querySelector('h3').innerHTML = '🚀 Official Founder Resource Hub';
+            hubContainer.querySelector('p').innerText = 'Direct portal links to state registration systems, trademark offices, and federal licensing systems matching your active stage.';
+            
+            const bizType = onboarding.biz_type || 'Clothing Brand';
+            
+            let textbookResources = ["The Lean Startup by Eric Ries", "Zero to One by Peter Thiel", "Business Model Generation (Osterwalder)", "Harvard Business Review (HBR) Case Studies"];
+            let toolsResources = ["Business Model Canvas template", "Financial Projection spreadsheets", "Competitor Analysis matrices"];
+            let orgsResources = ["Y Combinator Startup School", "Techstars Founder Playbook", "Chamber of Commerce Registry", "SCORE Free Mentorship Network"];
+            let videoResources = ["Y Combinator How to Start a Startup series", "Stanford Entrepreneurship lectures", "Slidebean Pitch Deck analysis"];
+            let careerResources = ["IRS Employer Identification Number (EIN) register portal", "State LLC and Business Filing directory", "U.S. Patent and Trademark Office database"];
+
+            if (bizType === 'Clothing Brand' || bizType === 'Online Store') {
+                toolsResources.push("Shopify Ecommerce Setup Checklist", "Printify Integration guidelines");
+                textbookResources.push("E-commerce Marketing Playbook", "Supply Chain logistics guide");
+            } else if (bizType === 'Software Company' || bizType === 'AI Startup' || bizType === 'Mobile App') {
+                toolsResources.push("Stripe Subscription Billing docs", "AWS Activate cloud credit program");
+                textbookResources.push("Designing SaaS Products (UI/UX)", "The DevOps Handbook");
+            } else if (bizType === 'Restaurant' || bizType === 'Coffee Shop') {
+                toolsResources.push("Toast POS hardware guide", "Restaurant kitchen layout planner");
+                textbookResources.push("FSR Magazine Menu Engineering guide", "Health Department Compliance handbook");
+            }
+
+            const categories = [
+                { title: "Curated Guides & Frameworks", items: textbookResources },
+                { title: "Incubator Toolkits", items: toolsResources },
+                { title: "Founder Networks", items: orgsResources },
+                { title: "Pitch & Strategy Videos", items: videoResources }
+            ];
+
+            grid.innerHTML = categories.map(cat => `
+                <div class="resource-card">
+                    <div class="resource-category">Incubator Database</div>
                     <div class="resource-title">${cat.title}</div>
                     <div style="display: flex; flex-direction: column;">
                         ${cat.items.map(item => `

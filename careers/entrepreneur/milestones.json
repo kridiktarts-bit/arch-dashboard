@@ -1,0 +1,8 @@
+[
+  { "id": "em1", "title": "Business name chosen", "completed": false, "points": 100 },
+  { "id": "em2", "title": "Business plan drafted", "completed": false, "points": 150 },
+  { "id": "em3", "title": "Logo designed", "completed": false, "points": 200 },
+  { "id": "em4", "title": "Website launched", "completed": false, "points": 300 },
+  { "id": "em5", "title": "First product listed", "completed": false, "points": 400 },
+  { "id": "em6", "title": "First customer acquired", "completed": false, "points": 500 }
+]
